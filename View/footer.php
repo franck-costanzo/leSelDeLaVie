@@ -1,0 +1,34 @@
+<section>
+    <h3>Liens Administratifs</h3>
+    <nav>    
+        <a href="https://www.caf.fr/" target="_blank"><img src="View/Media/admin-caf.svg" alt="CAF"></a>
+        <a href="https://www.impots.gouv.fr/accueil" target="_blank"><img src="View/Media/admin-impots.svg" alt="impôts"></a>
+        <a href="https://www.pole-emploi.fr/accueil/" target="_blank"><img src="View/Media/admin-poleemploi.svg" alt="pôle-emploi"></a>
+        <a href="https://www.ameli.fr/" target="_blank"><img src="View/Media/admin-assurancemaladie.svg" alt="assurance maladie"></a>
+        <a href="https://www.bouches-du-rhone.gouv.fr/" target="_blank"><img src="View/Media/admin-prefecture.svg" alt="préfecture bouche-du-rhône"></a>
+        <a href="https://www.departement13.fr/" target="_blank"><img src="View/Media/admin-bdr.svg" alt="conseil général bouche-du-rhône"></a>
+        <a href="https://www.maregionsud.fr/" target="_blank"><img src="View/Media/admin-paca.svg" alt="conseil régional PACA"></a>
+    </nav>
+</section>
+
+<section>
+    <h3>Education</h3>
+    <nav>
+        <a href="https://www.univ-amu.fr/" target="_blank"><img src="View/Media/educ-amu.svg" alt="Université Aix-Marseille"></a>
+        <a href="https://www.ac-aix-marseille.fr/" target="_blank"><img src="View/Media/educ-academieAixMarseille.svg" alt="Rectorat Académie Aix Marseille"></a>
+        <a href="https://agence.erasmusplus.fr/" target="_blank"><img src="View/Media/educ-erasmus.svg" alt="Erasmus"></a>
+    </nav>
+</section>
+
+<section>
+    <h3>Liens du site</h3>
+    <nav>
+        <a href="">Accueil</a>
+        <a href="">À propros de l’association</a>
+        <a href="">Activités</a>        
+        <a href="">Connexion</a>
+        <a href="">Inscription</a>
+        <a href="">Profil</a>
+    </nav>
+    <p>© Le Sel de la Vie - 2022</p>
+</section>
