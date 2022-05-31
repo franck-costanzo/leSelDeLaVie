@@ -12,7 +12,7 @@
 
 a, a:hover {
     color: inherit;
-    text-decoration: inherit; /* no underline */
+    text-decoration: none; /* no underline */
 }
 
 
@@ -37,17 +37,44 @@ a, a:hover {
     header {
         background-color: #18375F;
         height: 15%;
-        width: 100%;
-        color: white;
+        width: 100%;      
+    }    
+
+    header > nav {
+        display: none;
     }
 
     /* ------------- */
-    /*     MOBILE   */
+    /*     DESKTOP   */
     /* ------------- */
 
     @media screen and (min-width: 968px){
-        
-                  
+
+        header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header > a:nth-child(1) > img {
+            margin-left: 50px;
+            width: 300px;
+            height: 100px;
+        }
+
+        header > nav  {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            color:white;
+        }
+
+        header > nav > a {
+            padding: 0 10px;
+            background-color: var(--);
+        }
+
+
 
     }
 
