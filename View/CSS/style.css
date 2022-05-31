@@ -66,6 +66,7 @@ a, a:hover {
         }
 
         header > nav  {
+            margin-right: 50px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -74,8 +75,10 @@ a, a:hover {
         }
 
         header > nav > a {
-            padding: 0 10px;
-            background-color: var(--);
+            margin: 0 10px;
+            padding: 15px 15px;
+            border-radius: 30px;
+            background-color: var(--main-color-2);
         }
 
 
@@ -153,7 +156,7 @@ a, a:hover {
 
 
     /* ------------- */
-    /*     MOBILE   */
+    /*     DESKTOP   */
     /* ------------- */
 
     @media screen and (min-width: 968px){
