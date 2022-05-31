@@ -42,7 +42,12 @@ a, a:hover {
         background-color: var(--main-color-1);
         height: 15%;
         width: 100%;      
-    }    
+    }
+    
+    img {
+        height: 100%;
+        width: 100%;
+    }
 
     header > nav {
         display: none;
@@ -91,7 +96,11 @@ a, a:hover {
 /*      MAIN      */
 /* -------------- */
 
-    
+    main > section:nth-child(1) > a > img {
+        width: 200px;
+        height: 150px;
+    }
+
     /* ------------- */
     /*     DESKTOP   */
     /* ------------- */

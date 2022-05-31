@@ -11,7 +11,6 @@
     }
     else if( isset($_GET['url']) )
     {
-        //faire un try catch pour les url qui n'existe pas et faire une page 404
         $view = New Renderer($_GET['url']);
         $view->display();
     }
