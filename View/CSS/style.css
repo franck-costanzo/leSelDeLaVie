@@ -173,6 +173,10 @@ h1, h2 {
     /* PAGE ASSOCIATION */
     /*------------------*/
 
+    .mainAssociation {
+        display: block;
+    }
+
     .sectionAssociation {
         display: flex;
         flex-direction: column;
@@ -252,10 +256,6 @@ h1, h2 {
         /*----------*/
         /* CAROUSEL */
         /*----------*/
-
-        main > section:nth-child(1) {
-            justify-content: center;
-        }
         
         .slider {
             width: 40%;
@@ -292,38 +292,33 @@ h1, h2 {
             display: flex;
             flex-direction: row;
         }
-
-        .sectionAssociation {
-        }
     
         .contactAsso {
-            color : var(--main-color-1);
-            width: 50%;
+            display: none;
         }
-    
-        .contactAsso > legend {
-        }    
-    
-        .sectionAssociation > h1, 
-        .sectionAssociation > h2 {
+
+        .histoire {
+            display: block;
         }
-    
-        .divContact {
+
+        .histoire > h1 {
+            width: 100%;
+            text-align: center;
         }
-    
-        .divLogoContact {
+
+        .logo {
+            float: left;
+            width:25%
         }
-    
-        .divLogoContact > a {
-        }
-    
-        .logoContact {
-        }
-    
-        .sectionAssociation > iframe {
-        }
-    
+
         .image-styled {
+            /* --test:url('View/Media/carousel2.jpg'); */
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            height: 50vmin;
+            width: 50vmin;
+            transition: background 0.5s linear;
         }
                   
 
@@ -384,6 +379,10 @@ h1, h2 {
         margin-bottom: 5%;
     }
 
+    .contactFooter {
+        display: none;
+    }
+
 
 
     /* ------------- */
@@ -402,6 +401,15 @@ h1, h2 {
             justify-content: center;
             display: flex;
             flex-direction: row;        
+        }
+
+        footer > section:nth-child(3) > fieldset {
+            display: none;
+        }
+
+        .contactFooter {
+            display: block;
+            margin-bottom: 2%;
         }
                   
 

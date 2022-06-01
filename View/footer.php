@@ -29,7 +29,7 @@
         <a href="inscription">Inscription</a>
         <a href="profil">Profil</a>
     </nav>
-    
+
     <fieldset>
         <legend><h4>Nous Contacter</h2></legend>
         <div class="divContact">
@@ -54,6 +54,8 @@
                        
         </div>
     </fieldset>
+
+    <p class="contactFooter">Contact - téléphone : 0777777777 - email : leseldelavie1@gmail.com</p>
     
     <p>© Le Sel de la Vie - 2022</p>
 </section>

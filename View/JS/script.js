@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // matched or not
     var matched = window.matchMedia(media_query).matches;
-    console.log(matched);
 
     //----- Implémentation du carousel
 

@@ -3,5 +3,5 @@
     <a href="home">Accueil</a>
     <a href="association">Association</a>
     <a href="inscription">Inscription</a>
-    <a href="">Connexion</a>
+    <a href="connexion">Connexion</a>
 </nav>
