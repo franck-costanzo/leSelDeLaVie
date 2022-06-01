@@ -43,77 +43,61 @@ let carousel = document.createElement('section');
         {
             slider.appendChild(carouselTab[i]);
         }
-
-
-
     
 
     //---- création bouton gauche
-    let boutonGauche = document.createElement('button');    
-    boutonGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
+    let divGauche = document.createElement('div');    
+    divGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
+    divGauche.setAttribute('class', 'divSousLesFleches');
 
+    let divFlecheBtnGauche = document.createElement('div');
+    divFlecheBtnGauche.setAttribute('id', 'divflechegauche');
     let flecheBtnGauche = document.createElement('img');
-    flecheBtnGauche.setAttribute('id', 'flechegauche');
+    
     flecheBtnGauche.setAttribute('src', 'View/Media/flecheGauche.svg');
     flecheBtnGauche.setAttribute('alt', 'fleche carousel gauche');
 
-        //event listener quand on clique sur le bouton ou sur la fleche
-        boutonGauche.addEventListener('click', ()=> {
+        divFlecheBtnGauche.addEventListener('click', ()=> {
             let firstChildTemp = slider.firstChild;
             let lastChildTemp = slider.lastChild;
             firstChildTemp.before(lastChildTemp);
-            boutonGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
-            boutonDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
+            divGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
+            divDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
             divExtremeDroite.style.backgroundImage = "url('" + slider.children[2].src + "')";
             divExtremeGauche.style.backgroundImage = "url('" + slider.children[3].src + "')";
-        })
+        });
 
-        flecheBtnGauche.addEventListener('click', ()=> {
-            let firstChildTemp = slider.firstChild;
-            let lastChildTemp = slider.lastChild;
-            firstChildTemp.before(lastChildTemp);
-            boutonGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
-            boutonDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
-            divExtremeDroite.style.backgroundImage = "url('" + slider.children[2].src + "')";
-            divExtremeGauche.style.backgroundImage = "url('" + slider.children[3].src + "')";
-        })
+    divFlecheBtnGauche.appendChild(flecheBtnGauche);
 
     //---- création bouton droit
-    let boutonDroit = document.createElement('button');
-    boutonDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
+    let divDroit = document.createElement('div');
+    divDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
+    divDroit.setAttribute('class','divSousLesFleches');
 
+    let divFlecheBtnDroit = document.createElement('div');
+    divFlecheBtnDroit.setAttribute('id', 'divflechedroite');
     let flecheBtnDroit = document.createElement('img');
-    flecheBtnDroit.setAttribute('id', 'flechedroite');
+    
     flecheBtnDroit.setAttribute('src', 'View/Media/flechedroite.svg');
     flecheBtnDroit.setAttribute('alt', 'fleche carousel droite');
     
-    // boutonDroit.appendChild(flecheBtnDroit);
 
-        //event listener quand on clique sur le bouton ou sur la fleche
-        boutonDroit.addEventListener('click', ()=> {
+        divFlecheBtnDroit.addEventListener('click', ()=> {
             let firstChildTemp = slider.firstChild;
             let lastChildTemp = slider.lastChild;
             lastChildTemp.after(firstChildTemp);
-            boutonGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
-            boutonDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
+            divGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
+            divDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
             divExtremeDroite.style.backgroundImage = "url('" + slider.children[2].src + "')";
             divExtremeGauche.style.backgroundImage = "url('" + slider.children[3].src + "')";
             
         })
 
-        flecheBtnDroit.addEventListener('click', ()=> {
-            let firstChildTemp = slider.firstChild;
-            let lastChildTemp = slider.lastChild;
-            lastChildTemp.after(firstChildTemp);
-            boutonGauche.style.backgroundImage = "url('" + slider.lastChild.src + "')";
-            boutonDroit.style.backgroundImage = "url('" + slider.children[1].src + "')";
-            divExtremeDroite.style.backgroundImage = "url('" + slider.children[2].src + "')";
-            divExtremeGauche.style.backgroundImage = "url('" + slider.children[3].src + "')";
-            
-        })
+    divFlecheBtnDroit.appendChild(flecheBtnDroit);
 
     //---- création du bouton pour accéder au descriptif de l'activités
     let boutonActivite = document.createElement('a');
+    boutonActivite.setAttribute('id', 'boutonActivité')
     boutonActivite.href = "#";
     boutonActivite.innerHTML = 'Voir Activités';
     boutonActivite.addEventListener('click', () => {
@@ -133,13 +117,13 @@ let carousel = document.createElement('section');
 
 //ajout du slider à la section carousel
 carousel.appendChild(divExtremeGauche);
-carousel.appendChild(boutonGauche);
+carousel.appendChild(divGauche);
 carousel.appendChild(slider);
-carousel.appendChild(boutonDroit);
+carousel.appendChild(divDroit);
 carousel.appendChild(divExtremeDroite);
+carousel.appendChild(divFlecheBtnGauche);
+carousel.appendChild(divFlecheBtnDroit);
 carousel.appendChild(boutonActivite);
-carousel.appendChild(flecheBtnGauche);
-carousel.appendChild(flecheBtnDroit);
 
 
 //creation de la function pour exploiter dans un autre fichier Js
