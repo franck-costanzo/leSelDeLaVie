@@ -8,10 +8,12 @@
     --main-color-2 : #346E8C;
     --main-color-3 : #77B9C1;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 a, a:hover {
@@ -19,7 +21,9 @@ a, a:hover {
     text-decoration: none; /* no underline */
 }
 
-
+h1, h2 {
+    color : var(--main-color-1);
+}
 
 
     /* ------------- */
@@ -101,20 +105,11 @@ a, a:hover {
     /* CAROUSEL */
     /*----------*/
 
-    main > section:nth-child(1) {
+    #divCarousel {
         position:relative;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-    }
-    
-    main > section:nth-child(1) > img {
-        width: 40px;
-        height:40px;
-        border-radius: 50%;
-        background-color: white;
-        padding: 5px;
-        border: 1px solid black;
     }
 
     .slider {
@@ -174,6 +169,75 @@ a, a:hover {
         
     }
 
+    /*------------------*/
+    /* PAGE ASSOCIATION */
+    /*------------------*/
+
+    .sectionAssociation {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 5%;
+        text-align: justify;
+    }
+
+    .contactAsso {
+        color : var(--main-color-1);
+    }
+
+    .contactAsso > legend {
+        display: block;
+        width: 150px;
+        margin: auto;
+        text-align: center;
+        padding: 2%;
+    }    
+
+    .sectionAssociation > h1, 
+    .sectionAssociation > h2 {
+        margin-bottom: 5%;
+    }
+
+    .divContact {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: 5% 0;
+        padding: 0 5%;
+    }
+
+    .divLogoContact {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .divLogoContact > a {
+        margin-right: 20px;
+    }
+
+    .logoContact {
+        width: 30px;
+    }
+
+    .sectionAssociation > iframe {
+        width: 75vmin;
+        margin-bottom: 5%;
+    }
+
+    .image-styled {
+        /* --test:url('View/Media/carousel2.jpg'); */
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        height: 75vmin;
+        width: 75vmin;
+        transition: background 0.5s linear;
+    }
 
 
     
@@ -217,6 +281,49 @@ a, a:hover {
     
         #divflechedroite {
             right: 17%;
+        }
+
+
+        /*------------------*/
+        /* PAGE ASSOCIATION */
+        /*------------------*/
+
+        .mainAssociation {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .sectionAssociation {
+        }
+    
+        .contactAsso {
+            color : var(--main-color-1);
+            width: 50%;
+        }
+    
+        .contactAsso > legend {
+        }    
+    
+        .sectionAssociation > h1, 
+        .sectionAssociation > h2 {
+        }
+    
+        .divContact {
+        }
+    
+        .divLogoContact {
+        }
+    
+        .divLogoContact > a {
+        }
+    
+        .logoContact {
+        }
+    
+        .sectionAssociation > iframe {
+        }
+    
+        .image-styled {
         }
                   
 
@@ -271,6 +378,10 @@ a, a:hover {
         margin: 10px;
         width: 100px;
         height: 100px;
+    }
+
+    footer > section:nth-child(3) > fieldset {
+        margin-bottom: 5%;
     }
 
 

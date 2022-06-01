@@ -23,12 +23,38 @@
 <section>
     <h3>Liens du site</h3>
     <nav>
-        <a href="">Accueil</a>
-        <a href="">À propros de l’association</a>
-        <a href="">Activités</a>        
-        <a href="">Connexion</a>
-        <a href="">Inscription</a>
-        <a href="">Profil</a>
+        <a href="home">Accueil</a>
+        <a href="association">À propos de l’association</a>       
+        <a href="connexion">Connexion</a>
+        <a href="inscription">Inscription</a>
+        <a href="profil">Profil</a>
     </nav>
+    
+    <fieldset>
+        <legend><h4>Nous Contacter</h2></legend>
+        <div class="divContact">
+            <div class="divLogoContact">
+                <a href="tel:+33777777777" class="logoContact">    
+                    <img src="View/media/tel.svg" alt="phone">
+                </a>
+                <a href="tel:+33777777777" class="logoContact">    
+                    0777777777
+                </a>
+                
+            </div>
+            
+            <div class="divLogoContact">
+                <a href="mailto:leseldelavie1k@gmail.com" class="logoContact">
+                    <img src="View/media/email.svg" alt="e-mail"> 
+                </a>
+                <a href="mailto:leseldelavie1k@gmail.com" class="logoContact">
+                    email
+                </a> 
+            </div>
+                       
+        </div>
+    </fieldset>
+    
     <p>© Le Sel de la Vie - 2022</p>
 </section>
+

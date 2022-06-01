@@ -2,6 +2,7 @@ const main = document.querySelector('main');
 
 //----  création du carousel
 let carousel = document.createElement('section');
+carousel.setAttribute('id', 'divCarousel');
 
     //---- création du slider
     let slider = document.createElement('div');
