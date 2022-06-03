@@ -330,21 +330,21 @@ h1, h2 {
 /*     FOOTER    */
 /* ------------- */
 
-    footer > section:nth-child(1) {
+    .liensAdministratifs {
         color: black;
         padding: 5px;
         text-align: center;
         background-color: var(--main-color-3);
     }
 
-    footer > section:nth-child(2) {
+    .liensEducation {
         color: black;
         padding: 5px;
         text-align: center;
         background-color: var(--main-color-2);
     }
 
-    footer > section:nth-child(3){
+    .liensDuSite {
         padding: 5px;
         color: white;
         text-shadow: 1px 1px 1px black;
@@ -352,30 +352,32 @@ h1, h2 {
         background-color: var(--main-color-1);
     }
 
-    footer > section:nth-child(1) nav, footer > section:nth-child(2) nav {
+    .liensAdministratifs > nav, 
+    .liensEducation > nav {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    footer > section:nth-child(3) nav {
+    .liensDuSite > nav {
         text-shadow: none;
         margin: 20px;
         display: flex;
         flex-direction: column;        
     }
 
-    footer > section:nth-child(3) nav a {
+    .liensDuSite > nav > a {
         margin: 10px;
     }
 
-    footer nav a img {
+    .liensAdministratifs > nav > a > img, 
+    .liensEducation > nav > a > img  {
         margin: 10px;
         width: 100px;
         height: 100px;
     }
 
-    footer > section:nth-child(3) > fieldset {
+    .liensDuSite > fieldset {
         margin-bottom: 5%;
     }
 
@@ -391,11 +393,12 @@ h1, h2 {
 
     @media screen and (min-width: 968px){
 
-        footer > section:nth-child(1) nav, footer > section:nth-child(2) nav {
+        .liensAdministratifs > nav, 
+        .liensEducation > nav  {
             justify-content: space-evenly;
         }
         
-        footer > section:nth-child(3) nav {
+        .liensDuSite > nav {
             text-shadow: none;
             margin: 20px;
             justify-content: center;
@@ -403,7 +406,7 @@ h1, h2 {
             flex-direction: row;        
         }
 
-        footer > section:nth-child(3) > fieldset {
+        .liensDuSite > fieldset {
             display: none;
         }
 

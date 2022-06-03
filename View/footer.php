@@ -1,4 +1,4 @@
-<section>
+<section class="liensAdministratifs">
     <h3>Liens Administratifs</h3>
     <nav>    
         <a href="https://www.caf.fr/" target="_blank"><img src="View/Media/admin-caf.svg" alt="CAF"></a>
@@ -11,7 +11,7 @@
     </nav>
 </section>
 
-<section>
+<section class="liensEducation">
     <h3>Education</h3>
     <nav>
         <a href="https://www.univ-amu.fr/" target="_blank"><img src="View/Media/educ-amu.svg" alt="Université Aix-Marseille"></a>
@@ -20,7 +20,7 @@
     </nav>
 </section>
 
-<section>
+<section class="liensDuSite">
     <h3>Liens du site</h3>
     <nav>
         <a href="home">Accueil</a>
