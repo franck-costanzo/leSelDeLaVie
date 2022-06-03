@@ -311,6 +311,12 @@ h1, h2 {
             width:25%
         }
 
+        .sectionAssociation > iframe {
+            width: 40vmin;
+            height: 25vmin;
+        }
+
+
         .image-styled {
             /* --test:url('View/Media/carousel2.jpg'); */
             background-position: center;

@@ -63,7 +63,7 @@
             </section>
 
             <!-- films -->
-            <section class="sectionAssociation">
+            <section class="sectionAssociation films">
                 <h2>Films</h2>
 
                 <iframe src="https://www.youtube.com/embed/BcE-pNON2Ac" 
