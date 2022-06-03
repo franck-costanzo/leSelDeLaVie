@@ -1,3 +1,9 @@
+// TODO : EVOLUTIONS A VENIR :
+// rajout de fetch pour récupérer les informations relatives à l'activité prenant la place centrale
+// pour afficher le titre de l'activité ET
+// faire que le liens "voir l'activité" renvoie vers la page de cette activité
+
+//---- création d'une constante pour cibler le main
 const main = document.querySelector('main');
 
 //----  création du carousel
@@ -128,7 +134,7 @@ carousel.appendChild(boutonActivite);
 
 
 //creation de la function pour exploiter dans un autre fichier Js
-export function appendCarousel()
+export default function appendCarousel()
 {
     main.firstChild.before(carousel);
 }

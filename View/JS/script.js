@@ -1,12 +1,12 @@
-import {appendCarousel} from './carousel.js';
+import appendCarousel from './carousel.js';
 import changePicture from './ImageAssociation.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    // media query to check
+    //création d'une variable qui correspond à media query mode desktop
     var media_query = 'screen and (min-width: 968px)';
 
-    // matched or not
+    //création d'un booléen qui utilise la variable media_query pour vérifier qu'on est en mode desktop
     var matched = window.matchMedia(media_query).matches;
 
     //----- Implémentation du carousel
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             appendCarousel();
         }
     
+        //affichage du changeur d'image pour la rubrique histoire de l'association
         if (lastSegment == 'association')
         {
             changePicture();
