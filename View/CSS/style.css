@@ -100,6 +100,19 @@ h1, h2 {
 /*      MAIN      */
 /* -------------- */
 
+    .mainFormulaire {
+        margin: 10%;
+    }
+
+    .mainFormulaire > form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mainFormulaire > form > input {
+        width: 25%;
+        margin-bottom: 1%;
+    }
 
     /*----------*/
     /* CAROUSEL */

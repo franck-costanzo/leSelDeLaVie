@@ -12,7 +12,7 @@ abstract class Model {
         $servername = 'localhost';
         $username = 'root';
         $password = '';
-        $db = 'test';
+        $db = 'le_sel_de_la_vie_site';
 
         try
         {
@@ -25,6 +25,21 @@ abstract class Model {
             echo "Connection failed: " . $e->getMessage();
         }
         
+    }
+
+    // Exécute une requête SQL éventuellement paramétrée
+    protected static function requestExecute($sql, $params = null) 
+    {
+        if ($params == null) 
+        {
+            $result = self::getBdd()->query($sql);    // exécution directe
+        }
+        else 
+        {
+            $result = self::getBdd()->prepare($sql);  // requête préparée
+            $result->execute($params);
+        }
+        return $result;
     }
 
     

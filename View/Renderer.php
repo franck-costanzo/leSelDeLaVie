@@ -22,19 +22,7 @@ class Renderer
         {        
             ob_start();
 
-            session_start();
-
-            //autoload controllers
-            foreach (glob("Controller/*.php") as $filename)
-            {
-                include $filename;
-            }
-
-            //autoload models
-            foreach (glob("Model/*.php") as $classname)
-            {
-                include $classname;
-            }
+            session_start();            
 
             require $this->file;
             

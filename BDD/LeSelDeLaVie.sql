@@ -63,6 +63,43 @@ CREATE TABLE IF NOT EXISTS states (
     name_state VARCHAR(255), 
     PRIMARY KEY (id_state)) ENGINE=InnoDB;
 
+-- ------------------------------------
+--           table forms             --
+-- ------------------------------------ 
+
+CREATE TABLE IF NOT EXISTS forms (
+    id_form INT AUTO_INCREMENT NOT NULL, 
+    name_form VARCHAR(255), 
+    PRIMARY KEY (id_form)) ENGINE=InnoDB;
+
+-- ------------------------------------
+--           table modules           --
+-- ------------------------------------
+
+CREATE TABLE IF NOT EXISTS modules (
+    id_module INT AUTO_INCREMENT NOT NULL, 
+    name_module VARCHAR(255),
+    option_count INT,
+    option_names VARCHAR(255),
+    radio_count INT,
+    radio_names VARCHAR(255),
+    PRIMARY KEY (id_module)) ENGINE=InnoDB;
+
+-- ------------------------------------
+--        table forms_modules        --
+-- ------------------------------------
+
+CREATE TABLE IF NOT EXISTS forms_modules (
+    id_forms_modules INT AUTO_INCREMENT NOT NULL, 
+    forms_modules_type VARCHAR(255),
+    id_form INT NOT NULL,
+    id_module INT NOT NULL,
+    CONSTRAINT FK_forms_modules_id_form_forms
+    FOREIGN KEY (id_form) REFERENCES forms (id_form),
+    CONSTRAINT FK_forms_modules_id_module_modules 
+    FOREIGN KEY (id_module) REFERENCES modules (id_module),
+    PRIMARY KEY (id_forms_modules)) ENGINE=InnoDB;
+
 
 -- ------------------------------------
 --           table articles          --
@@ -75,8 +112,25 @@ CREATE TABLE IF NOT EXISTS articles (
     description_article TEXT,
     id_category INT NOT NULL,
     id_state INT NOT NULL,
+    id_form INT NOT NULL,
     CONSTRAINT FK_articles_id_category_categories
     FOREIGN KEY (id_category) REFERENCES categories (id_category),
     CONSTRAINT FK_articles_id_state_states 
     FOREIGN KEY (id_state) REFERENCES states (id_state),
-    PRIMARY KEY (id_article)) ENGINE=InnoDB; 
+    CONSTRAINT FK_articles_id_form_forms 
+    FOREIGN KEY (id_form) REFERENCES forms (id_form),
+    PRIMARY KEY (id_article)) ENGINE=InnoDB;
+
+-- ------------------------------------
+--        table users_articles        --
+-- ------------------------------------
+
+CREATE TABLE IF NOT EXISTS users_articles (
+    id_users_articles INT AUTO_INCREMENT NOT NULL,
+    id_user INT NOT NULL,
+    id_article INT NOT NULL,
+    CONSTRAINT FK_users_articles_id_user_users
+    FOREIGN KEY (id_user) REFERENCES users (id_user),
+    CONSTRAINT FK_users_articles_id_article_articles 
+    FOREIGN KEY (id_article) REFERENCES articles (id_article),
+    PRIMARY KEY (id_users_articles)) ENGINE=InnoDB;
