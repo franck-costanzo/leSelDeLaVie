@@ -110,13 +110,24 @@ h1, h2 {
     }
 
     .mainFormulaire > form > input,
-    .mainFormulaire > form > select {
+    .mainFormulaire > form > select,
+    .mainFormulaire > form > button {
         width: 25%;
         margin-bottom: 1%;
     }
 
-    .mainFormulaire > form > input[type=number]::-webkit-inner-spin-button, 
-    .mainFormulaire > form > input[type=number]::-webkit-outer-spin-button { 
+    .mainFormulaire > form > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mainFormulaire > form > div > * {
+        width: 25%;
+        margin-bottom: 1%;
+    }
+
+    .mainFormulaire > form > div > input[type=number]::-webkit-inner-spin-button, 
+    .mainFormulaire > form > div > input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none; 
