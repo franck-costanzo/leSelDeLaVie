@@ -1,5 +1,6 @@
 import appendCarousel from './carousel.js';
 import changePicture from './ImageAssociation.js';
+import appendForm from './formulaire.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -28,5 +29,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (lastSegment == 'association')
         {
             changePicture();
+        }
+
+        if (lastSegment == 'formulaire')
+        {
+            appendForm();
         }
 });
