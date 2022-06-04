@@ -89,21 +89,4 @@ abstract class Formulaire extends Model
         return $register;
     }
 
-    // public static function getModuleIdByFormNameRadioCountAndRadiosNames($formName, $radioCount, $radiosNames)
-    // {
-    //     $params = array($formName, $radioCount, $radiosNames);
-
-    //     $sql = 'SELECT id_module FROM modules 
-    //             WHERE name_module LIKE (?)
-    //             AND radio_count LIKE (?)
-    //             AND radio_names LIKE (?)';
-
-    //     $getquery = self::requestExecute($sql, $params);
-                
-    //     $infos = $getquery->fetch(PDO::FETCH_ASSOC);
-
-    //     return $infos;
-
-    // }
-
 }
