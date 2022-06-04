@@ -1,0 +1,7 @@
+{
+    "editor.tokenColorCustomizations": { 
+        "textMateRules": [ { 
+            "name": "PHP Purple Tags", 
+            "scope": [ "punctuation.section.embedded.begin.php", "punctuation.section.embedded.end.php" ], 
+            "settings": { "foreground": "#b678f3" } }, ] }
+}

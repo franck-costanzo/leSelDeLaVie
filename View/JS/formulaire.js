@@ -1,6 +1,7 @@
 export default function appendForm() {
     //const selectType = document.getElementById('select_type');
     const submitButton = document.getElementById('reg_form');
+
     const addSelectType = document.createElement('button');
     addSelectType.setAttribute('type', 'button');
     addSelectType.innerText = 'ajouter un champ';
@@ -8,6 +9,10 @@ export default function appendForm() {
     addSelectType.addEventListener('click', () => {
         selectTypeAppend();
     })
+
+    var selectCount = 0;
+    var checkboxCount = 0;
+    var radioCount = 0;
 
 
     function selectTypeAppend()
@@ -86,16 +91,25 @@ export default function appendForm() {
     
                 //choix parmis une liste
                 case "select":
+                    let selectDivName = document.createElement('input');
+                    selectDivName.setAttribute('type','text[]');
+                    selectDivName.setAttribute('name','select['+ selectCount +'][name]')
+                    selectDivName.setAttribute('id', 'selectDivName');
+                    let selectDivNameLabel = document.createElement('label');
+                    selectDivNameLabel.setAttribute('for', 'selectDivName');
+                    selectDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)"
                     let selectDiv = document.createElement('input');
                     selectDiv.setAttribute('type', 'number');
-                    selectDiv.setAttribute('name', 'select[]');
+                    selectDiv.setAttribute('name', 'select['+ selectCount +'][count]');
                     selectDiv.setAttribute('min', '3');
                     selectDiv.setAttribute('max', '9');
                     selectDiv.setAttribute('id', 'select');
                     let selectDivLabel = document.createElement('label');
                     selectDivLabel.setAttribute('for','select');
                     selectDivLabel.innerText = "Combien de choix dans la liste ? (min 3 - max 9)";
-                    choiceDiv.appendChild(selectDivLabel);
+                    choiceDiv.appendChild(selectDivNameLabel);
+                    selectDivNameLabel.after(selectDivName);
+                    selectDivName.after(selectDivLabel);
                     selectDivLabel.after(selectDiv);
                     selectType.disabled = true;
     
@@ -108,7 +122,7 @@ export default function appendForm() {
                             {
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'option'+(i+1));
+                                optionName.setAttribute('name', 'select['+ selectCount +'][]');
                                 optionName.setAttribute('id', 'option'+(i+1));
                                 let optionNameLabel = document.createElement('label');
                                 optionNameLabel.setAttribute('for', 'option'+(i+1))
@@ -116,6 +130,7 @@ export default function appendForm() {
                                 choiceDiv.appendChild(optionNameLabel);
                                 optionNameLabel.after(optionName)
                             }
+                            selectCount++
                         }
                         
                     })
@@ -126,16 +141,25 @@ export default function appendForm() {
     
                 //choix multiples
                 case "checkbox":
+                    let checkboxDivName = document.createElement('input');
+                    checkboxDivName.setAttribute('type','text[]');
+                    checkboxDivName.setAttribute('name','checkbox['+ checkboxCount +'][name]')
+                    checkboxDivName.setAttribute('id', 'checkboxDivName');
+                    let checkboxDivNameLabel = document.createElement('label');
+                    checkboxDivNameLabel.setAttribute('for', 'checkboxDivName');
+                    checkboxDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)"
                     let checkboxDiv = document.createElement('input');
                     checkboxDiv.setAttribute('type', 'number');
-                    checkboxDiv.setAttribute('name', 'checkbox[]');
+                    checkboxDiv.setAttribute('name', 'checkbox['+ checkboxCount +'][count]');
                     checkboxDiv.setAttribute('min', '3');
                     checkboxDiv.setAttribute('max', '9');
                     checkboxDiv.setAttribute('id', 'checkbox');
                     let checkboxDivLabel = document.createElement('label');
                     checkboxDivLabel.setAttribute('for','checkbox');
                     checkboxDivLabel.innerText = "Combien de choix voulez-vous ? (min 3 - max 9)";
-                    choiceDiv.appendChild(checkboxDivLabel);
+                    choiceDiv.appendChild(checkboxDivNameLabel);
+                    checkboxDivNameLabel.after(checkboxDivName);
+                    checkboxDivName.after(checkboxDivLabel);
                     checkboxDivLabel.after(checkboxDiv);
                     selectType.disabled = true;
                     
@@ -148,7 +172,7 @@ export default function appendForm() {
                             {
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'option'+(i+1));
+                                optionName.setAttribute('name', 'checkbox['+ checkboxCount +'][]');
                                 optionName.setAttribute('id', 'option'+(i+1));
                                 let optionNameLabel = document.createElement('label');
                                 optionNameLabel.setAttribute('for', 'option'+(i+1))
@@ -156,6 +180,7 @@ export default function appendForm() {
                                 choiceDiv.appendChild(optionNameLabel);
                                 optionNameLabel.after(optionName)
                             }
+                            checkboxCount++;
                         }
                         
                     })
@@ -164,16 +189,25 @@ export default function appendForm() {
     
                 //choix unique
                 case "radio":
+                    let radioDivName = document.createElement('input');
+                    radioDivName.setAttribute('type','text[]');
+                    radioDivName.setAttribute('name','radio['+ radioCount +'][name]')
+                    radioDivName.setAttribute('id', 'radioDivName');
+                    let radioDivNameLabel = document.createElement('label');
+                    radioDivNameLabel.setAttribute('for', 'radioDivName');
+                    radioDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)"
                     let radioDiv = document.createElement('input');
                     radioDiv.setAttribute('type', 'number');
-                    radioDiv.setAttribute('name', 'radio[]')
+                    radioDiv.setAttribute('name', 'radio['+ radioCount +'][count]')
                     radioDiv.setAttribute('min', '2');
                     radioDiv.setAttribute('max', '3');
                     radioDiv.setAttribute('id', 'radio');
                     let radioDivLabel = document.createElement('label');
                     radioDivLabel.setAttribute('for','radio');
                     radioDivLabel.innerText = "Combien de choix voulez-vous ? (min 2 - max 3)";
-                    choiceDiv.appendChild(radioDivLabel);
+                    choiceDiv.appendChild(radioDivNameLabel);
+                    radioDivNameLabel.after(radioDivName);
+                    radioDivName.after(radioDivLabel);
                     radioDivLabel.after(radioDiv);
                     selectType.disabled = true;
                     
@@ -186,7 +220,7 @@ export default function appendForm() {
                             {
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'option'+(i+1));
+                                optionName.setAttribute('name', 'radio['+ radioCount +'][]');
                                 optionName.setAttribute('id', 'option'+(i+1));
                                 let optionNameLabel = document.createElement('label');
                                 optionNameLabel.setAttribute('for', 'option'+(i+1))
@@ -194,6 +228,7 @@ export default function appendForm() {
                                 choiceDiv.appendChild(optionNameLabel);
                                 optionNameLabel.after(optionName)
                             }
+                            radioCount++;
                         }
                         
                     })

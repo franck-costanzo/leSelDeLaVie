@@ -78,9 +78,12 @@ CREATE TABLE IF NOT EXISTS forms (
 
 CREATE TABLE IF NOT EXISTS modules (
     id_module INT AUTO_INCREMENT NOT NULL, 
-    name_module VARCHAR(255),
+    text_label VARCHAR(255),
+    textarea_labal VARCHAR(255),
     option_count INT,
     option_names VARCHAR(255),
+    checkbox_count INT,
+    checkbox_names VARCHAR(255),
     radio_count INT,
     radio_names VARCHAR(255),
     PRIMARY KEY (id_module)) ENGINE=InnoDB;
