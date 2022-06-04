@@ -1,5 +1,7 @@
+//TODO : GESTION DES INPUTS VIDES OU EFFACEMENT !
+
 export default function appendForm() {
-    //const selectType = document.getElementById('select_type');
+    
     const submitButton = document.getElementById('reg_form');
 
     const addSelectType = document.createElement('button');
@@ -10,6 +12,8 @@ export default function appendForm() {
         selectTypeAppend();
     })
 
+    var textCount = 0;
+    var textAreaCount = 0;
     var selectCount = 0;
     var checkboxCount = 0;
     var radioCount = 0;
@@ -65,7 +69,7 @@ export default function appendForm() {
                 case "text":
                     let textDiv = document.createElement('input');
                     textDiv.setAttribute('type', 'text');
-                    textDiv.setAttribute('name', 'text[]');
+                    textDiv.setAttribute('name', 'text['+ textCount +']');
                     textDiv.setAttribute('id', 'text');
                     let textDivLabel = document.createElement('label');
                     textDivLabel.setAttribute('for','text');
@@ -73,13 +77,14 @@ export default function appendForm() {
                     choiceDiv.appendChild(textDivLabel);
                     textDivLabel.after(textDiv);
                     selectType.disabled = true;
+                    textCount++;
                     break;
     
                 //choix champ de commentaire
                 case "textarea":
                     let textareaDiv = document.createElement('input');
                     textareaDiv.setAttribute('type', 'textarea');
-                    textareaDiv.setAttribute('name', 'textarea[]');
+                    textareaDiv.setAttribute('name', 'textarea['+ textAreaCount +']');
                     textareaDiv.setAttribute('id', 'textarea');
                     let textareaDivLabel = document.createElement('label');
                     textareaDivLabel.setAttribute('for','textarea');
@@ -87,13 +92,14 @@ export default function appendForm() {
                     choiceDiv.appendChild(textareaDivLabel);
                     textareaDivLabel.after(textareaDiv);
                     selectType.disabled = true;
+                    textAreaCount++;
                     break;
     
                 //choix parmis une liste
                 case "select":
                     let selectDivName = document.createElement('input');
                     selectDivName.setAttribute('type','text[]');
-                    selectDivName.setAttribute('name','select['+ selectCount +'][name]')
+                    selectDivName.setAttribute('name','select['+ selectCount +'][description]')
                     selectDivName.setAttribute('id', 'selectDivName');
                     let selectDivNameLabel = document.createElement('label');
                     selectDivNameLabel.setAttribute('for', 'selectDivName');
@@ -116,7 +122,7 @@ export default function appendForm() {
                     selectDiv.addEventListener('keyup', () => {
                         if (selectDiv.value < 3 || selectDiv.value > 9)
                         { alert('veuillez choisir entre 3 et 9!')}
-                        else 
+                        else
                         {
                             for (let i=0; i<selectDiv.value; i++)
                             {
@@ -143,7 +149,7 @@ export default function appendForm() {
                 case "checkbox":
                     let checkboxDivName = document.createElement('input');
                     checkboxDivName.setAttribute('type','text[]');
-                    checkboxDivName.setAttribute('name','checkbox['+ checkboxCount +'][name]')
+                    checkboxDivName.setAttribute('name','checkbox['+ checkboxCount +'][description]')
                     checkboxDivName.setAttribute('id', 'checkboxDivName');
                     let checkboxDivNameLabel = document.createElement('label');
                     checkboxDivNameLabel.setAttribute('for', 'checkboxDivName');
@@ -191,7 +197,7 @@ export default function appendForm() {
                 case "radio":
                     let radioDivName = document.createElement('input');
                     radioDivName.setAttribute('type','text[]');
-                    radioDivName.setAttribute('name','radio['+ radioCount +'][name]')
+                    radioDivName.setAttribute('name','radio['+ radioCount +'][description]')
                     radioDivName.setAttribute('id', 'radioDivName');
                     let radioDivNameLabel = document.createElement('label');
                     radioDivNameLabel.setAttribute('for', 'radioDivName');

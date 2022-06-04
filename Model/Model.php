@@ -42,6 +42,11 @@ abstract class Model {
         return $result;
     }
 
+    public static function getLastInsertedId()
+    {
+        $id = self::$bdd->lastInsertId();
+        return $id;
+    }
     
 
 }

@@ -1,4 +1,7 @@
-<?php //TODO ENORME TODO DE LA MORT : GERER ABSOLUMENT LES DUPLICATIONS DE NOMS POUR CIBLER LE MODULE EXACT ET LE FORMULAIRE EXACT
+<?php 
+
+// query get all forms 
+// SELECT * FROM `forms` INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form INNER JOIN modules ON forms_modules.id_module = modules.id_module;
 
 /*-------------------------------
           REGISTER FORM 
@@ -17,25 +20,91 @@ if (isset($_POST['reg_form']))
     //TODO : if ( errors == 0) {}
     Formulaire::createForm($name_form);
 
-    //TODO ENORME TODO DE LA MORT : GERER ABSOLUMENT LES DUPLICATIONS DE NOMS POUR CIBLER LE MODULE EXACT ET LE FORMULAIRE EXACT
-    $idForm = Formulaire::getFormIdByformName($name_form);
+    
+    $idForm = Formulaire::getLastInsertedId();
 
-    //TODO : isset text/textArea/select/checkbox    
+    
+    if(isset($_POST['text']))
+    {
+        for ($i=0; $i<sizeof($_POST['text']); $i++)
+        {
+            if(isset($_POST['text'][$i]))
+            {
+                Formulaire::createModuleText($_POST['text'][$i]);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('text', $idForm, $idModule);
+            }            
+        }
+    }
+
+    if (isset($_POST['textarea']))
+    {
+        for ($i=0; $i<sizeof($_POST['textarea']); $i++)
+        {
+            if(isset($_POST['textarea'][$i]))
+            {
+                Formulaire::createModuleTextArea($_POST['textarea'][$i]);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('textArea', $idForm, $idModule);
+            }
+        }
+    }
+
+    if (isset($_POST['select']))
+    {
+        for ($i=0; $i<sizeof($_POST['select']); $i++)
+        {
+            if (isset($_POST['select'][$i]))
+            {
+                $tempString = '';
+                for ($y=0; $y<(sizeof($_POST['select'][$i]) - 2); $y++)
+                {
+                    $tempString .= $_POST['select'][$i][$y];
+                }
+                Formulaire::createModuleSelect($_POST['select'][$i]["description"], $_POST['select'][$i]["count"], $tempString);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('select', $idForm, $idModule);
+            }            
+        }
+    }
+
+    if (isset($_POST['checkbox']))
+    {
+        for ($i=0; $i<sizeof($_POST['checkbox']); $i++)
+        {
+            if (isset($_POST['checkbox'][$i]))
+            {
+                $tempString = '';
+                for ($y=0; $y<(sizeof($_POST['checkbox'][$i]) - 2); $y++)
+                {
+                    $tempString .= $_POST['checkbox'][$i][$y];
+                }
+                Formulaire::createModuleCheckbox($_POST['checkbox'][$i]["description"], $_POST['checkbox'][$i]["count"], $tempString);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('checkbox', $idForm, $idModule);
+            }
+        }
+    } 
+       
     if(isset($_POST['radio']))
     {
         for ($i=0; $i<sizeof($_POST['radio']); $i++)
         {
-            $tempRadioArray = '';
-            for ($y=0; $y<(sizeof($_POST['radio'][$i]) - 2); $y++)
+            if (isset($_POST['radio'][$i]))
             {
-                $tempRadioArray .= $_POST['radio'][$i][$y];
+                $tempString = '';
+                for ($y=0; $y<(sizeof($_POST['radio'][$i]) - 2); $y++)
+                {
+                    $tempString .= $_POST['radio'][$i][$y];
+                }
+                Formulaire::createModuleRadio($_POST['radio'][$i]["description"], $_POST['radio'][$i]["count"], $tempString);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('radio', $idForm, $idModule);
             }
-            Formulaire::createModuleRadio($_POST['radio'][$i]["name"], $_POST['radio'][$i]["count"], $tempRadioArray);
-            $idModule = Formulaire::getModuleIdByFormNameRadioCountAndRadiosNames($_POST['radio'][$i]["name"], $_POST['radio'][$i]["count"], $tempRadioArray);
-            Formulaire::createFormModuleLink('radio', $idForm["id_form"], $idModule["id_module"]);
         }
     }
 
+    
     echo '<pre>';
     echo var_dump($_POST);
     echo '</pre>';    
