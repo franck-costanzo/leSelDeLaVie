@@ -1,7 +1,8 @@
 <main class='mainFormulaire'>
-<?php   
-if (isset($_POST['sign_up'])){
-            signUp::signUpAction(
+<?php
+$message='';
+if(isset($_POST['sign_up'])){
+$message= UserController::signUpAction(
                 htmlentities($_POST['firstName'],ENT_QUOTES,"ISO-8859-1"),
                 htmlentities($_POST['lastName'],ENT_QUOTES,"ISO-8859-1"),
                 htmlentities($_POST['email'],ENT_QUOTES,"ISO-8859-1"),
@@ -9,17 +10,18 @@ if (isset($_POST['sign_up'])){
                 htmlentities($_POST['confpassword'],ENT_QUOTES,"ISO-8859-1"),         
                 htmlentities($_POST['adress'],ENT_QUOTES,"ISO-8859-1"),
                 htmlentities($_POST['zip_code'],ENT_QUOTES,"ISO-8859-1"),);
-           }     
+            }
         ?>
-<form  method="post">
+<form  method="post" >
 <div class='title'>
     <h2>Inscription</h2>
 
-    <input id="firstName" class="input" type="text" placeholder=" " name="firstName" required />
+    <p><?php echo $message ;?></p>
+    <input id="firstName" class="input" type="text" placeholder=" " name="firstName" value=''required />
     <label for="firstName" class="placeholder">Prenom</label>
 
     
-    <input id="lastName" class="input" type="text" placeholder=" " name="lastName" required />
+    <input id="lastName" class="input" type="text" placeholder=" " name="lastName" value=''required />
     <label for="lastName" class="placeholder">Nom</label>
 
     <input id="email" class="input" type="email" placeholder=" " name="email" required />

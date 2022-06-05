@@ -1,44 +1,43 @@
 <?php 
 
-abstract class User extends Model 
+class User extends Model 
 {
 
     public function __construct() {}
 
-    public static function youpi() {echo '<h1>YOUPIIIIII<h1>';}
 
-
-
-    public static function checkUser($email){
-        $sqlinsert = "SELECT * FROM users WHERE email=:email ";
-        $params=array(':email'=> $email);
-        Model::requestExecute($sqlinsert,$params);
+    public function checkUser($email){
+        $sql = "SELECT * FROM `users` WHERE users.email=:email";
+        $test=Model::getBdd()->prepare($sql);
+        $test->execute(array(':email'=>$email));
+        $test2=$test->rowCount();
+        return $test2;      
 }
 
     
     public static function setUser($firstName,$lastName,$email,$password,$adress,$zipCode)
-    {   $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code,id_right)
-        VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code,:id_right)";
-        $params=array(
-            ":firstname" => $firstName,
-            ":lastname" => $lastName,
-            ":email" => $email,
-            ":password" => $password,
-            ":adress" => $adress,
-            ":zip_code" => $zipCode,
-            ":id_rigth" => '1'        
-        );
-        Model::requestExecute($sqlinsert,$params);
+    {   
+        $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code)
+        VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code)";
+
+        Model::requestExecute($sqlinsert,$params=array(
+            ':firstname' => $firstName,
+            ':lastname' => $lastName,
+            ':email' => $email,
+            ':password' => $password,
+            ':adress' => $adress,
+            ':zip_code' => $zipCode
+    ));
     }
 
 
     //---------connexion--------------------------------
 
-    public function userConnexion($login){
-        $sqlinsert = "SELECT * FROM user WHERE login=:login ";
-        $signIn = $this->db->prepare($sqlinsert);
+    public function userConnexion($email){
+        $sqlinsert = "SELECT * FROM users WHERE email=:email ";
+        $signIn =Model::getBdd()->prepare($sqlinsert);
         $signIn->execute(array(
-            ':login' => $login,
+            ':email' => $email,
         ));
         $user=$signIn->fetch(PDO::FETCH_ASSOC);
         return ($user);

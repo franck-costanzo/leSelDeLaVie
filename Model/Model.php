@@ -6,7 +6,7 @@ abstract class Model {
     
     // Effectue la connexion à la BDD
     // Instancie et renvoie l'objet PDO associé 
-    private static function getBdd() 
+    public static function getBdd() 
     {
         //version locale
         $servername = 'localhost';
@@ -42,6 +42,20 @@ abstract class Model {
         return $result;
     }
 
+    protected static function requestExecute2($sql, $params = null) 
+    {
+        if ($params == null) 
+        {
+            $result = self::getBdd()->query($sql);    // exécution directe
+        }
+        else 
+        {
+            $result = self::getBdd()->prepare($sql);  // requête préparée
+            $result->execute($params);
+            $result2=$result->fetch(PDO::FETCH_ASSOC);
+        }
+        return $result2;
+    }
     
 
 }
