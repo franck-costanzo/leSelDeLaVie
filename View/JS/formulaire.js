@@ -1,5 +1,3 @@
-//TODO : GESTION DES INPUTS VIDES OU EFFACEMENT ! pour l'instant la div se désactive si on a déjà fait un choix,
-// c'est pas génial si l'utilisateur change d'avis en cours et veut enlever/rajouter il doit effacer l'élément et recommencer...
 //TODO : AJOUT DE L ELEMENT UPLOAD DE FICHIER !
 
 export default function appendForm() {
@@ -170,12 +168,27 @@ export default function appendForm() {
 
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
+
+                    //creation de la div pour les options
+                    let selectDivOptions = document.createElement('div');                 
+                    choiceDiv.appendChild(selectDivOptions);
     
-                    selectDiv.addEventListener('keyup', () => {
-                        if (selectDiv.value < 3 || selectDiv.value > 9)
-                        { alert('veuillez choisir entre 3 et 9!') }
-                        else 
-                        {
+                    selectDiv.addEventListener('keyup', (event) => {
+
+                        if ((selectDiv.value < 3 || selectDiv.value > 9) && event.key !== 'Backspace')
+                        { 
+                            alert('veuillez choisir entre 3 et 9!') 
+                        }
+                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes())
+                        { 
+                            while (selectDivOptions.firstChild)
+                            {
+                                selectDivOptions.removeChild(selectDivOptions.firstChild);
+                            }
+                        }
+                        else
+                        {                           
+
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
                             {
@@ -191,17 +204,15 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                choiceDiv.appendChild(optionNameLabel);
-                                optionNameLabel.after(optionName)
+                                selectDivOptions.appendChild(optionNameLabel);
+                                selectDivOptions.appendChild(optionName)
                             }
 
                             //incrementation du compte pour le type d'element
                             selectCount++
 
-                            //désactivation de l'input du nombre d'option
-                            selectDiv.disabled = true;
                         }
-                        
+                        parseInt
                     })
                     
                     
@@ -243,10 +254,24 @@ export default function appendForm() {
 
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
+
+                    //creation de la div pour les options
+                    let checkboxDivOptions = document.createElement('div');                 
+                    choiceDiv.appendChild(checkboxDivOptions);
                     
-                    checkboxDiv.addEventListener('keyup', () => {
-                        if (checkboxDiv.value < 3 || checkboxDiv.value > 9)
-                        { alert('veuillez choisir entre 3 et 9!') }
+                    checkboxDiv.addEventListener('keyup', (event) => {
+                        if ((checkboxDiv.value < 3 || checkboxDiv.value > 9) && event.key !== 'Backspace')
+                        { 
+                            alert('veuillez choisir entre 3 et 9!') 
+                        }
+                        else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes())
+                        { 
+                            console.log('youpi')
+                            while (checkboxDivOptions.firstChild)
+                            {
+                                checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
+                            }
+                        }
                         else 
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
@@ -264,15 +289,13 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                choiceDiv.appendChild(optionNameLabel);
-                                optionNameLabel.after(optionName)
+                                checkboxDivOptions.appendChild(optionNameLabel);
+                                checkboxDivOptions.appendChild(optionName)
                             }
 
                             //incrementation du compte pour le type d'element
                             checkboxCount++;
 
-                            //désactivation de l'input du nombre d'option
-                            checkboxDiv.disabled = true;
                         }
                         
                     })
@@ -314,10 +337,23 @@ export default function appendForm() {
 
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
+
+                    //creation de la div pour les options
+                    let radioDivOptions = document.createElement('div');                 
+                    choiceDiv.appendChild(radioDivOptions);
                     
-                    radioDiv.addEventListener('keyup', () => {
-                        if (radioDiv.value < 2 || radioDiv.value > 3)
-                        { alert('veuillez choisir entre 2 et 3!') }
+                    radioDiv.addEventListener('keyup', (event) => {
+                        if ((radioDiv.value < 2 || radioDiv.value > 3) && event.key !== 'Backspace')
+                        { 
+                            alert('veuillez choisir entre 2 et 3!') 
+                        }
+                        else if (event.key === 'Backspace' && radioDivOptions.hasChildNodes())
+                        { 
+                            while (radioDivOptions.firstChild)
+                            {
+                                radioDivOptions.removeChild(radioDivOptions.firstChild);
+                            }
+                        }
                         else 
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
@@ -335,15 +371,13 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                choiceDiv.appendChild(optionNameLabel);
-                                optionNameLabel.after(optionName)
+                                radioDivOptions.appendChild(optionNameLabel);
+                                radioDivOptions.appendChild(optionName)
                             }
 
                             //incrementation du compte pour le type d'element
                             radioCount++;
 
-                            //désactivation de l'input du nombre d'option
-                            radioDiv.disabled = true;
                         }
                         
                     })
