@@ -1,7 +1,11 @@
 <?php 
 
 // query get all forms 
-// SELECT * FROM `forms` INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form INNER JOIN modules ON forms_modules.id_module = modules.id_module;
+/* 
+SELECT * FROM `forms` 
+INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form 
+INNER JOIN modules ON forms_modules.id_module = modules.id_module; 
+*/
 
 /*-------------------------------
           REGISTER FORM 

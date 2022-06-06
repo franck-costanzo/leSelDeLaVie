@@ -4,6 +4,15 @@ export default function appendForm() {
     
     const submitButton = document.getElementById('reg_form');
 
+    //---- gestion de la preview
+    const previewFormDiv = document.getElementById('previewFormulaire');
+    const nameForm = document.getElementById('name_form');
+    let titreForm = document.createElement('H2');
+    previewFormDiv.appendChild(titreForm);
+    nameForm.addEventListener('keyup', () => { 
+        titreForm.innerHTML = nameForm.value;
+    })
+
     //---- création du bouton d'ajout de champ
     const addSelectType = document.createElement('button');
     addSelectType.setAttribute('type', 'button');
@@ -65,6 +74,8 @@ export default function appendForm() {
                 selectTypeLabel.remove();
                 choiceDiv.remove();
                 deleteSelectType.remove();
+                previewTextDivLabel.remove();
+                previewTextDiv.remove();
             })
 
         //---- creation de la div pour injecter le choix fait dans le select
@@ -101,8 +112,28 @@ export default function appendForm() {
                     choiceDiv.appendChild(textDivLabel);
                     textDivLabel.after(textDiv);
 
+                    //add input text Preview
+                    let previewTextDiv = document.createElement('input');
+                    previewTextDiv.setAttribute('type','text');
+                    previewTextDiv.setAttribute('id', 'previewTextDiv')
+                    let previewTextDivLabel = document.createElement('label');
+                    previewTextDivLabel.setAttribute('for','previewTextDiv');
+                    previewFormDiv.appendChild(previewTextDivLabel);
+                    previewTextDivLabel.after(previewTextDiv);
+                    textDiv.addEventListener('keyup', () => { 
+                        previewTextDivLabel.innerHTML = textDiv.value;
+                    })
+                    deleteSelectType.addEventListener('click', () => {                        
+                        previewTextDivLabel.remove();
+                        previewTextDiv.remove();
+                    })
+                    
+                    
+
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
+
+                    
 
                     //incrementation du compte pour le type d'element
                     textCount++;
@@ -125,6 +156,24 @@ export default function appendForm() {
                     //ajout au dom
                     choiceDiv.appendChild(textareaDivLabel);
                     textareaDivLabel.after(textareaDiv);
+
+                    //add input Textarea Preview
+                    let previewTextareaDiv = document.createElement('textarea');
+                    previewTextareaDiv.setAttribute('type','Textarea');
+                    previewTextareaDiv.setAttribute('id', 'previewTextareaDiv');
+                    previewTextareaDiv.setAttribute('rows','5');
+                    previewTextareaDiv.setAttribute('cols', '50')
+                    let previewTextareaDivLabel = document.createElement('label');
+                    previewTextareaDivLabel.setAttribute('for','previewTextareaDiv');
+                    previewFormDiv.appendChild(previewTextareaDivLabel);
+                    previewTextareaDivLabel.after(previewTextareaDiv);
+                    textareaDiv.addEventListener('keyup', () => { 
+                        previewTextareaDivLabel.innerHTML = textareaDiv.value;
+                    })
+                    deleteSelectType.addEventListener('click', () => {                        
+                        previewTextareaDivLabel.remove();
+                        previewTextareaDiv.remove();
+                    })
 
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;

@@ -100,38 +100,69 @@ h1, h2 {
 /*      MAIN      */
 /* -------------- */
 
+    /* -------------- */
+    /*   FORMULAIRE   */
+    /* -------------- */
+
     .mainFormulaire {
-        margin: 10%;
+        display: flex;
+        flex-direction: row;
     }
 
-    .mainFormulaire > form {
+    #FormulaireGen {
+        width: 40%;
+        margin: 5%;
+        background-color: coral;
+    }
+
+    #FormulaireGen > form {
         display: flex;
         flex-direction: column;
     }
 
-    .mainFormulaire > form > input,
-    .mainFormulaire > form > select,
-    .mainFormulaire > form > button {
+    #FormulaireGen > form > input,
+    #FormulaireGen > form > select,
+    #FormulaireGen > form > button {
         width: 25%;
         margin-bottom: 1%;
     }
 
-    .mainFormulaire > form > div {
+    #FormulaireGen > form > div {
         display: flex;
         flex-direction: column;
     }
 
-    .mainFormulaire > form > div > * {
+    #FormulaireGen > form > div > * {
         width: 25%;
         margin-bottom: 1%;
     }
 
-    .mainFormulaire > form > div > input[type=number]::-webkit-inner-spin-button, 
-    .mainFormulaire > form > div > input[type=number]::-webkit-outer-spin-button { 
+    #FormulaireGen > form > div > input[type=number]::-webkit-inner-spin-button, 
+    #FormulaireGen > form > div > input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none; 
     }
+
+    #previewFormulaire {
+        width: 40%;
+        margin: 5%;
+        background-color: lightskyblue;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #previewFormulaire > h2 {
+        margin-bottom: 2%;
+    }
+
+    #previewFormulaire > input {
+        width : 50%;
+        margin-bottom: 2%;
+    }
+
     /*----------*/
     /* CAROUSEL */
     /*----------*/

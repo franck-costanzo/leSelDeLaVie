@@ -1,9 +1,17 @@
 <main class="mainFormulaire">
-    <form action="" method="POST">
-        <label for="name_form">Nom du formulaire</label>
-        <input type="text" name="name_form" id="name_form">
-        <input type="submit" value="Enregistrer le formulaire" name="reg_form" id="reg_form">
-    </form>
+
+    <div id="FormulaireGen">
+        <form action="" method="POST">
+            <label for="name_form">Nom du formulaire</label>
+            <input type="text" name="name_form" id="name_form">
+            <input type="submit" value="Enregistrer le formulaire" name="reg_form" id="reg_form">
+        </form>
+    </div>
+
+    <div id="previewFormulaire">
+
+    </div>
+    
 </main>
 
 
