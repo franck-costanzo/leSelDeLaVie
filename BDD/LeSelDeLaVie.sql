@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(60),
     adress VARCHAR(255),
     zip_code INT(5),
-    id_right INT NOT NULL,
+    id_right INT NOT NULL DEFAULT 1,
     CONSTRAINT FK_users_id_droit_droits 
     FOREIGN KEY (id_right) REFERENCES rights (id_right),
     PRIMARY KEY (id_user)

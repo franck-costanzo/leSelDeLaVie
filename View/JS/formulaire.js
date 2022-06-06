@@ -23,7 +23,7 @@ export default function appendForm() {
 
     function selectTypeAppend()
     {
-
+            console.log('YOUPIX');
         //---- creation du select d'element à ajouter au formulaire
             //labal
             let selectTypeLabel = document.createElement('label');
@@ -186,9 +186,8 @@ export default function appendForm() {
                                 selectDivOptions.removeChild(selectDivOptions.firstChild);
                             }
                         }
-                        else
+                        else if ( (selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {                           
-
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
                             {
@@ -272,7 +271,7 @@ export default function appendForm() {
                                 checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
                             }
                         }
-                        else 
+                        else if ( (checkboxDiv.value >= 3 || checkboxDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
@@ -354,7 +353,7 @@ export default function appendForm() {
                                 radioDivOptions.removeChild(radioDivOptions.firstChild);
                             }
                         }
-                        else 
+                        else if ( (radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<radioDiv.value; i++)

@@ -57,9 +57,20 @@ if (isset($_POST['reg_form']))
             if (isset($_POST['select'][$i]))
             {
                 $tempString = '';
+                $tempArrayEnd = sizeof($_POST['select'][$i] ) - 3;
+                var_dump($tempArrayEnd);
                 for ($y=0; $y<(sizeof($_POST['select'][$i]) - 2); $y++)
-                {
-                    $tempString .= $_POST['select'][$i][$y];
+                {   
+                    var_dump($y);
+                    if ($y == $tempArrayEnd)
+                    {
+                        $tempString .= $_POST['select'][$i][$y];
+                    }
+                    else 
+                    {
+                        $tempString .= $_POST['select'][$i][$y].'/';
+                    }
+                    
                 }
                 Formulaire::createModuleSelect($_POST['select'][$i]["description"], $_POST['select'][$i]["count"], $tempString);
                 $idModule = Formulaire::getLastInsertedId();
