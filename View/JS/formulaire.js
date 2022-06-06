@@ -215,6 +215,32 @@ export default function appendForm() {
                     selectDivName.after(selectDivLabel);
                     selectDivLabel.after(selectDiv);
 
+                    //add input select Preview
+                    let previewselectDiv = document.createElement('select');
+                    previewselectDiv.setAttribute('id', 'previewselectDiv');
+
+                    let firstpreviewSelectOption = document.createElement('option');
+                    firstpreviewSelectOption.disabled = true;
+                    firstpreviewSelectOption.selected = true;
+                    firstpreviewSelectOption.innerText = "Veuillez choisir parmis la liste :";
+                    previewselectDiv.appendChild(firstpreviewSelectOption);
+
+                    let previewselectDivLabel = document.createElement('label');
+                    previewselectDivLabel.setAttribute('for','previewselectDiv');
+
+                    previewFormDiv.appendChild(previewselectDivLabel);
+                    previewselectDivLabel.after(previewselectDiv);
+
+                    selectDivName.addEventListener('keyup', () => { 
+                        previewselectDivLabel.innerHTML = selectDivName.value;
+                    })
+
+                    deleteSelectType.addEventListener('click', () => {                        
+                        previewselectDivLabel.remove();
+                        previewselectDiv.remove();
+                    })
+                    
+
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
 
@@ -224,18 +250,25 @@ export default function appendForm() {
     
                     selectDiv.addEventListener('keyup', (event) => {
 
+                        console.log(event.key);
                         if ((selectDiv.value < 3 || selectDiv.value > 9) && event.key !== 'Backspace')
                         { 
                             alert('veuillez choisir entre 3 et 9!') 
                         }
-                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes())
+                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes() && previewselectDiv.hasChildNodes())
                         { 
                             while (selectDivOptions.firstChild)
                             {
                                 selectDivOptions.removeChild(selectDivOptions.firstChild);
                             }
+
+                            while (previewselectDiv.firstChild && previewselectDiv.childElementCount >1)
+                            {
+                                console.log(previewselectDiv.childElementCount)
+                                previewselectDiv.removeChild(previewselectDiv.lastChild);
+                            }
                         }
-                        else
+                        else if ((selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {                           
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
@@ -247,6 +280,8 @@ export default function appendForm() {
                                 optionName.setAttribute('name', 'select['+ selectCount +'][]');
                                 optionName.setAttribute('id', 'option'+(i+1));
 
+                                
+
                                 //label
                                 let optionNameLabel = document.createElement('label');
                                 optionNameLabel.setAttribute('for', 'option'+(i+1))
@@ -255,13 +290,21 @@ export default function appendForm() {
                                 //ajout au dom
                                 selectDivOptions.appendChild(optionNameLabel);
                                 selectDivOptions.appendChild(optionName)
+
+                                //ajout d'option à la preview
+                                let optionPreview = document.createElement('option');
+                                previewselectDiv.appendChild(optionPreview);
+                                optionName.addEventListener('keyup', () => {
+                                    optionPreview.innerHTML = optionName.value;
+                                })
+
                             }
 
                             //incrementation du compte pour le type d'element
                             selectCount++
 
                         }
-                        parseInt
+                        
                     })
                     
                     
@@ -301,6 +344,23 @@ export default function appendForm() {
                     checkboxDivName.after(checkboxDivLabel);
                     checkboxDivLabel.after(checkboxDiv);
 
+                    //ajout de la preview du checkbox
+                    let checkboxPreviewFieldset = document.createElement('fieldset');
+                    let checkboxPreviewFieldsetLegend = document.createElement('legend');
+
+                    previewFormDiv.appendChild(checkboxPreviewFieldset);
+                    checkboxPreviewFieldset.appendChild(checkboxPreviewFieldsetLegend);
+
+                    checkboxDivName.addEventListener('keyup', () => { 
+                        checkboxPreviewFieldsetLegend.innerHTML = checkboxDivName.value;
+                    })                    
+
+                    deleteSelectType.addEventListener('click', () => {                        
+                        checkboxPreviewFieldsetLegend.remove();
+                        checkboxPreviewFieldset.remove();
+                    })
+                    
+
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
 
@@ -313,15 +373,20 @@ export default function appendForm() {
                         { 
                             alert('veuillez choisir entre 3 et 9!') 
                         }
-                        else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes())
+                        else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes() )
                         { 
                             console.log('youpi')
                             while (checkboxDivOptions.firstChild)
                             {
                                 checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
                             }
+
+                            while (checkboxPreviewFieldset.firstChild)
+                            {
+                                checkboxPreviewFieldset.removeChild(checkboxPreviewFieldset.firstChild);
+                            }
                         }
-                        else 
+                        else if ((checkboxDiv.value >= 3 || checkboxDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
@@ -340,6 +405,20 @@ export default function appendForm() {
                                 //ajout au dom
                                 checkboxDivOptions.appendChild(optionNameLabel);
                                 checkboxDivOptions.appendChild(optionName)
+
+                                //add input checkbox Preview
+                                let previewcheckboxIndividualDiv = document.createElement('div')
+                                let previewcheckboxTextDiv = document.createElement('input');
+                                previewcheckboxTextDiv.setAttribute('type','checkbox');
+                                previewcheckboxTextDiv.setAttribute('id', 'previewcheckboxTextDiv')
+                                let previewcheckboxTextDivLabel = document.createElement('label');
+                                previewcheckboxTextDivLabel.setAttribute('for','previewcheckboxTextDiv');
+                                checkboxPreviewFieldset.appendChild(previewcheckboxIndividualDiv);
+                                previewcheckboxIndividualDiv.appendChild(previewcheckboxTextDiv);
+                                previewcheckboxTextDiv.after(previewcheckboxTextDivLabel);
+                                optionName.addEventListener('keyup', () => { 
+                                    previewcheckboxTextDivLabel.innerHTML = optionName.value;
+                                })
                             }
 
                             //incrementation du compte pour le type d'element
@@ -384,6 +463,22 @@ export default function appendForm() {
                     radioDivName.after(radioDivLabel);
                     radioDivLabel.after(radioDiv);
 
+                    //ajout de la preview du radio
+                    let radioPreviewFieldset = document.createElement('fieldset');
+                    let radioPreviewFieldsetLegend = document.createElement('legend');
+
+                    previewFormDiv.appendChild(radioPreviewFieldset);
+                    radioPreviewFieldset.appendChild(radioPreviewFieldsetLegend);
+
+                    radioDivName.addEventListener('keyup', () => { 
+                        radioPreviewFieldsetLegend.innerHTML = radioDivName.value;
+                    })                    
+
+                    deleteSelectType.addEventListener('click', () => {                        
+                        radioPreviewFieldsetLegend.remove();
+                        radioPreviewFieldset.remove();
+                    })
+
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.disabled = true;
 
@@ -396,14 +491,19 @@ export default function appendForm() {
                         { 
                             alert('veuillez choisir entre 2 et 3!') 
                         }
-                        else if (event.key === 'Backspace' && radioDivOptions.hasChildNodes())
+                        else if (event.key === 'Backspace' && radioDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes())
                         { 
                             while (radioDivOptions.firstChild)
                             {
                                 radioDivOptions.removeChild(radioDivOptions.firstChild);
                             }
+
+                            while (checkboxPreviewFieldset.firstChild)
+                            {
+                                checkboxPreviewFieldset.removeChild(checkboxPreviewFieldset.firstChild);
+                            }
                         }
-                        else 
+                        else if ((radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9)) 
                         {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<radioDiv.value; i++)
@@ -422,6 +522,20 @@ export default function appendForm() {
                                 //ajout au dom
                                 radioDivOptions.appendChild(optionNameLabel);
                                 radioDivOptions.appendChild(optionName)
+
+                                //add input radio Preview
+                                let previewradioIndividualDiv = document.createElement('div')
+                                let previewradioTextDiv = document.createElement('input');
+                                previewradioTextDiv.setAttribute('type','radio');
+                                previewradioTextDiv.setAttribute('id', 'previewradioTextDiv')
+                                let previewradioTextDivLabel = document.createElement('label');
+                                previewradioTextDivLabel.setAttribute('for','previewradioTextDiv');
+                                radioPreviewFieldset.appendChild(previewradioIndividualDiv);
+                                previewradioIndividualDiv.appendChild(previewradioTextDiv);
+                                previewradioTextDiv.after(previewradioTextDivLabel);
+                                optionName.addEventListener('keyup', () => { 
+                                    previewradioTextDivLabel.innerHTML = optionName.value;
+                                })
                             }
 
                             //incrementation du compte pour le type d'element
