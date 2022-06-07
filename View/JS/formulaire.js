@@ -260,7 +260,8 @@ export default function appendForm() {
                         { 
                             alert('veuillez choisir entre 3 et 9!') 
                         }
-                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes() && previewselectDiv.hasChildNodes())
+                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes() 
+                                    && previewselectDiv.hasChildNodes())
                         { 
                             while (selectDivOptions.firstChild)
                             {
