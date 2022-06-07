@@ -104,8 +104,16 @@ h1, h2 {
     /*   FORMULAIRE   */
     /* -------------- */
 
+    .titreFormulaire {
+        text-align: center;
+        margin-top: 2%;
+        width: 100%;
+    }
+
     .mainFormulaire {
         display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
         flex-direction: row;
     }
 
@@ -152,16 +160,21 @@ h1, h2 {
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: sticky;
+        top : 40px;
+        padding: 2% 0;
     }
 
-    #previewFormulaire > h2 {
-        margin-bottom: 2%;
+    #previewFormulaire > * {
+        margin: 2% 0;
+    }
+    #previewFormulaire > label {
+        margin-bottom: 0;
     }
 
     #previewFormulaire > input,
     #previewFormulaire > fieldset {
         width : 75%;
-        margin-bottom: 2%;
     }
 
     #previewFormulaire > fieldset {

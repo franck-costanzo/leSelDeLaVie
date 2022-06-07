@@ -28,6 +28,7 @@ export default function appendForm() {
     var selectCount = 0;
     var checkboxCount = 0;
     var radioCount = 0;
+    var fileCount = 0;
 
 
     function selectTypeAppend()
@@ -62,6 +63,8 @@ export default function appendForm() {
             appendOption('select', false, false,'choix parmis une liste');
             appendOption('checkbox', false, false,'choix multiples');
             appendOption('radio', false, false,'choix unique (ex: oui/non)');
+            appendOption('file', false, false, 'ajout de fichier');
+
 
         //---- ajout du bouton d'effacement d'un champ
         let deleteSelectType = document.createElement('button');
@@ -120,9 +123,11 @@ export default function appendForm() {
                     previewTextDivLabel.setAttribute('for','previewTextDiv');
                     previewFormDiv.appendChild(previewTextDivLabel);
                     previewTextDivLabel.after(previewTextDiv);
+
                     textDiv.addEventListener('keyup', () => { 
                         previewTextDivLabel.innerHTML = textDiv.value;
                     })
+
                     deleteSelectType.addEventListener('click', () => {                        
                         previewTextDivLabel.remove();
                         previewTextDiv.remove();
@@ -316,7 +321,7 @@ export default function appendForm() {
 
                     //---- création de l'input text pour saisir le champ libellé
                     let checkboxDivName = document.createElement('input');
-                    checkboxDivName.setAttribute('type','text[]');
+                    checkboxDivName.setAttribute('type','text');
                     checkboxDivName.setAttribute('name','checkbox['+ checkboxCount +'][description]')
                     checkboxDivName.setAttribute('id', 'checkboxDivName');
 
@@ -546,6 +551,49 @@ export default function appendForm() {
                     })
                     break;
             
+                //choix file
+                case 'file':
+                
+                //---- création de l'input text pour saisir le champ libellé
+                let fileDivName = document.createElement('input');
+                fileDivName.setAttribute('type','text');
+                fileDivName.setAttribute('name','file['+ fileCount +']')
+                fileDivName.setAttribute('id', 'fileDivName');
+
+                //label
+                let fileDivNameLabel = document.createElement('label');
+                fileDivNameLabel.setAttribute('for', 'fileDivName');
+                fileDivNameLabel.innerText = "Choisir le champ de référence (Veuillez ajouter votre carte d'identité)";
+
+                //ajout au dom
+                choiceDiv.appendChild(fileDivNameLabel);
+                fileDivNameLabel.after(fileDivName);
+
+                //add input file Preview
+                let previewfileDiv = document.createElement('input');
+                previewfileDiv.setAttribute('type','file');
+                previewfileDiv.setAttribute('id', 'previewfileDiv')
+
+                let previewfileDivLabel = document.createElement('label');
+                previewfileDivLabel.setAttribute('for','previewfileDiv');
+
+                previewFormDiv.appendChild(previewfileDivLabel);
+                previewfileDivLabel.after(previewfileDiv);
+
+                fileDivName.addEventListener('keyup', () => { 
+                    previewfileDivLabel.innerHTML = fileDivName.value;
+                })
+
+                deleteSelectType.addEventListener('click', () => {                        
+                    previewfileDivLabel.remove();
+                    previewfileDiv.remove();
+                })
+
+                //désactivation de la possibilité de choisir le type d'element
+                selectType.disabled = true;
+
+
+                break;
             }
 
         })

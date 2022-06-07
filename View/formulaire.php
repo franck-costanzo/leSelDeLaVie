@@ -1,6 +1,6 @@
 <main class="mainFormulaire">
-
-    <div id="FormulaireGen">
+    <h2 class="titreFormulaire">Attention les formulaires ne sont plus modifiables une fois enregistrés !</h2>
+    <div id="FormulaireGen" enctype="multipart/form-data">
         <form action="" method="POST">
             <label for="name_form">Nom du formulaire</label>
             <input type="text" name="name_form" id="name_form">

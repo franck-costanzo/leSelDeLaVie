@@ -89,4 +89,16 @@ abstract class Formulaire extends Model
         return $register;
     }
 
+    public static function createModuleFile($fileLabel)
+    {
+        $params = array($fileLabel);
+
+        $sql = 'INSERT INTO modules (file_Label)
+                VALUES (?)';
+
+        $register = self::requestExecute($sql, $params);
+
+        return $register;
+    }
+
 }

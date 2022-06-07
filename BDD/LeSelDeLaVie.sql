@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS modules (
     id_module INT AUTO_INCREMENT NOT NULL, 
     text_label VARCHAR(255),
     textarea_label VARCHAR(255),
+    file_label VARCHAR(255),
     select_label VARCHAR(255),
     option_count INT,
     option_names VARCHAR(255),

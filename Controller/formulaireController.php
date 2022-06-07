@@ -61,9 +61,19 @@ if (isset($_POST['reg_form']))
             if (isset($_POST['select'][$i]))
             {
                 $tempString = '';
+                $tempCount = sizeof($_POST['select'][$i]) - 3;
                 for ($y=0; $y<(sizeof($_POST['select'][$i]) - 2); $y++)
                 {
-                    $tempString .= $_POST['select'][$i][$y];
+
+                    if ($y == $tempCount)
+                    {
+                        $tempString .= $_POST['select'][$i][$y];
+                    }
+                    else
+                    {
+                        $tempString .= $_POST['select'][$i][$y].'/';
+                    }
+
                 }
                 Formulaire::createModuleSelect($_POST['select'][$i]["description"], $_POST['select'][$i]["count"], $tempString);
                 $idModule = Formulaire::getLastInsertedId();
@@ -79,9 +89,17 @@ if (isset($_POST['reg_form']))
             if (isset($_POST['checkbox'][$i]))
             {
                 $tempString = '';
+                $tempCount = sizeof($_POST['checkbox'][$i]) - 3;
                 for ($y=0; $y<(sizeof($_POST['checkbox'][$i]) - 2); $y++)
                 {
-                    $tempString .= $_POST['checkbox'][$i][$y];
+                    if ($y == $tempCount)
+                    {
+                        $tempString .= $_POST['checkbox'][$i][$y];
+                    }
+                    else
+                    {
+                        $tempString .= $_POST['checkbox'][$i][$y].'/';
+                    }
                 }
                 Formulaire::createModuleCheckbox($_POST['checkbox'][$i]["description"], $_POST['checkbox'][$i]["count"], $tempString);
                 $idModule = Formulaire::getLastInsertedId();
@@ -97,9 +115,17 @@ if (isset($_POST['reg_form']))
             if (isset($_POST['radio'][$i]))
             {
                 $tempString = '';
+                $tempCount = sizeof($_POST['radio'][$i]) - 3;
                 for ($y=0; $y<(sizeof($_POST['radio'][$i]) - 2); $y++)
                 {
-                    $tempString .= $_POST['radio'][$i][$y];
+                    if ($y == $tempCount)
+                    {
+                        $tempString .= $_POST['radio'][$i][$y];
+                    }
+                    else
+                    {
+                        $tempString .= $_POST['radio'][$i][$y].'/';
+                    }
                 }
                 Formulaire::createModuleRadio($_POST['radio'][$i]["description"], $_POST['radio'][$i]["count"], $tempString);
                 $idModule = Formulaire::getLastInsertedId();
@@ -108,8 +134,21 @@ if (isset($_POST['reg_form']))
         }
     }
 
+    if(isset($_POST['file']))
+    {
+        for ($i=0; $i<sizeof($_POST['file']); $i++)
+        {
+            if(isset($_POST['file'][$i]))
+            {
+                Formulaire::createModuleFile($_POST['file'][$i]);
+                $idModule = Formulaire::getLastInsertedId();
+                Formulaire::createFormModuleLink('file', $idForm, $idModule);
+            }            
+        }
+    }
+
     
-    echo '<pre>';
-    echo var_dump($_POST);
-    echo '</pre>';    
+    // echo '<pre>';
+    // echo var_dump($_POST);
+    // echo '</pre>';    
 }
