@@ -166,7 +166,6 @@ export default function appendForm() {
                     
                     //event listener click sur add
                     addSelectTypeInsideFieldset.addEventListener('click', () => {
-                        console.log('youpi');
                         tempStoredDiv = previewTextDiv;
                         selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
                     })
@@ -325,8 +324,23 @@ export default function appendForm() {
                     let previewselectDivLabel = document.createElement('label');
                     previewselectDivLabel.setAttribute('for','previewselectDiv');
 
-                    previewFormDiv.appendChild(previewselectDivLabel);
-                    previewselectDivLabel.after(previewselectDiv);
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        tempStoredDiv = previewselectDiv;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
+
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(previewselectDivLabel);
+                        previewselectDivLabel.after(previewselectDiv);
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(previewselectDivLabel);
+                        previewselectDivLabel.after(previewselectDiv);
+                    }
 
                     selectDivName.addEventListener('keyup', () => { 
                         previewselectDivLabel.innerHTML = selectDivName.value;
@@ -341,9 +355,6 @@ export default function appendForm() {
                     //désactivation de la possibilité de choisir le type d'element
                     selectType.remove()
                     selectTypeLabel.remove();
-
-                    //incrementation du compte pour le type d'element
-                    selectCount++
 
                     //creation de la div pour les options
                     let selectDivOptions = document.createElement('div');                 
@@ -372,6 +383,7 @@ export default function appendForm() {
                         }
                         else if ((selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {                           
+                            let tempDivName = selectDivName.name.replace('[count]','');
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
@@ -379,10 +391,8 @@ export default function appendForm() {
                                 //---- creation de l'input pour le nom des options
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'select['+ selectCount +'][]');
-                                optionName.setAttribute('id', 'option'+(i+1));
-
-                                
+                                optionName.setAttribute('name', tempDivName+'[]');
+                                optionName.setAttribute('id', 'option'+(i+1));                                
 
                                 //label
                                 let optionNameLabel = document.createElement('label');
@@ -403,10 +413,13 @@ export default function appendForm() {
                             }
 
                         }
+
+                        
                         
                     })
                     
-                    
+                    //incrementation du compte pour le type d'element
+                    selectCount++
     
                     break;
     
@@ -453,8 +466,23 @@ export default function appendForm() {
                     let checkboxPreviewFieldset = document.createElement('fieldset');
                     let checkboxPreviewFieldsetLegend = document.createElement('legend');
 
-                    previewFormDiv.appendChild(checkboxPreviewFieldset);
-                    checkboxPreviewFieldset.appendChild(checkboxPreviewFieldsetLegend);
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        tempStoredDiv = checkboxPreviewFieldset;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
+
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(checkboxPreviewFieldset);
+                        checkboxPreviewFieldset.appendChild(checkboxPreviewFieldsetLegend);
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(checkboxPreviewFieldset);
+                        checkboxPreviewFieldset.appendChild(checkboxPreviewFieldsetLegend);
+                    }
 
                     checkboxDivName.addEventListener('keyup', () => { 
                         checkboxPreviewFieldsetLegend.innerHTML = checkboxDivName.value;
@@ -496,13 +524,15 @@ export default function appendForm() {
                         }
                         else if ((checkboxDiv.value >= 3 || checkboxDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {
+                            let tempDivName = checkboxDiv.name.replace('[count]','');
+
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
                             {
                                 //---- creation de l'input pour le nom des options
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'checkbox['+ checkboxCount +'][]');
+                                optionName.setAttribute('name', tempDivName+'[]');
                                 optionName.setAttribute('id', 'option'+(i+1));
 
                                 //label
@@ -579,8 +609,23 @@ export default function appendForm() {
                     let radioPreviewFieldset = document.createElement('fieldset');
                     let radioPreviewFieldsetLegend = document.createElement('legend');
 
-                    previewFormDiv.appendChild(radioPreviewFieldset);
-                    radioPreviewFieldset.appendChild(radioPreviewFieldsetLegend);
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        tempStoredDiv = radioPreviewFieldset;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
+
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(radioPreviewFieldset);
+                        radioPreviewFieldset.appendChild(radioPreviewFieldsetLegend);
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(radioPreviewFieldset);
+                        radioPreviewFieldset.appendChild(radioPreviewFieldsetLegend);
+                    }
 
                     radioDivName.addEventListener('keyup', () => { 
                         radioPreviewFieldsetLegend.innerHTML = radioDivName.value;
@@ -621,13 +666,15 @@ export default function appendForm() {
                         }
                         else if ((radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9)) 
                         {
+                            let tempDivName = radioDiv.name.replace('[count]','');
+
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<radioDiv.value; i++)
                             {
                                 //---- creation de l'input pour le nom des options
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', 'radio['+ radioCount +'][]');
+                                optionName.setAttribute('name', tempDivName+'[]');
                                 optionName.setAttribute('id', 'option'+(i+1));
 
                                 //label
@@ -680,7 +727,7 @@ export default function appendForm() {
                 //ajout au dom
                 deleteSelectType.before(fieldsetFileLegend);
                 deleteSelectType.before(fileDivNameLabel);
-                fileDivNameLabel.after(fileDivName);
+                fileDivNameLabel.after(fileDivName);                
 
                 //add input file Preview
                 let previewfileDiv = document.createElement('input');
@@ -690,8 +737,23 @@ export default function appendForm() {
                 let previewfileDivLabel = document.createElement('label');
                 previewfileDivLabel.setAttribute('for','previewfileDiv');
 
-                previewFormDiv.appendChild(previewfileDivLabel);
-                previewfileDivLabel.after(previewfileDiv);
+                //event listener click sur add
+                addSelectTypeInsideFieldset.addEventListener('click', () => {
+                    tempStoredDiv = previewfileDiv;
+                    selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                })
+
+                //append du preview
+                if (targetedDiv == null && beforeOrAfter == null)
+                {
+                    previewFormDiv.appendChild(previewfileDivLabel);
+                    previewfileDivLabel.after(previewfileDiv)
+                }
+                else if (targetedDiv != null && beforeOrAfter == 'after')
+                {                       
+                    tempStoredDiv.after(previewfileDivLabel);
+                    previewfileDivLabel.after(previewfileDiv);
+                }
 
                 fileDivName.addEventListener('keyup', () => { 
                     previewfileDivLabel.innerHTML = fileDivName.value;

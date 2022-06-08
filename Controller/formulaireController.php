@@ -148,7 +148,8 @@ if (isset($_POST['reg_form']))
     }
 
     
-    // echo '<pre>';
-    // echo var_dump($_POST);
-    // echo '</pre>';    
+    echo '<pre>';
+    echo $_POST['select'][0]["description"];
+    echo var_dump($_POST);
+    echo '</pre>';    
 }
