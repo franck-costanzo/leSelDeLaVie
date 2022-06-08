@@ -4,6 +4,7 @@
         <form action="" method="POST">
             <label for="name_form">Nom du formulaire</label>
             <input type="text" name="name_form" id="name_form">
+            <hr>
             <input type="submit" value="Enregistrer le formulaire" name="reg_form" id="reg_form">
         </form>
     </div>

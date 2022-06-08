@@ -1,6 +1,9 @@
 //TODO : AJOUT DE L ELEMENT UPLOAD DE FICHIER !
 
 export default function appendForm() {
+
+    //variable temporaire utilisée pour l'append dans la preview
+    var tempStoredDiv;
     
     const submitButton = document.getElementById('reg_form');
 
@@ -16,7 +19,11 @@ export default function appendForm() {
     //---- création du bouton d'ajout de champ
     const addSelectType = document.createElement('button');
     addSelectType.setAttribute('type', 'button');
-    addSelectType.innerText = 'ajouter un champ';
+    addSelectType.setAttribute('class', 'addSelectType');
+    let addSelectTypeImg = document.createElement('img');
+    addSelectTypeImg.setAttribute('src', './View/Media/plus.svg');
+    addSelectType.append(addSelectTypeImg);
+
     submitButton.before(addSelectType);
     addSelectType.addEventListener('click', () => {
         selectTypeAppend();
@@ -31,14 +38,13 @@ export default function appendForm() {
     var fileCount = 0;
 
 
-    function selectTypeAppend()
+    function selectTypeAppend(targetedDiv = null, beforeOrAfter = null)
     {
-
         //---- creation du select d'element à ajouter au formulaire
-            //labal
+            //label
             let selectTypeLabel = document.createElement('label');
             selectTypeLabel.setAttribute('for', 'select_type');
-            selectTypeLabel.innerText = 'choisir un type de champ à ajouter';
+            selectTypeLabel.innerText = 'Choisir un type de champ à ajouter';
 
             //select
             let selectType = document.createElement('select');
@@ -61,34 +67,64 @@ export default function appendForm() {
             appendOption('text', false, false, 'champ de texte');
             appendOption('textarea', false, false,'champ de commentaire');
             appendOption('select', false, false,'choix parmis une liste');
-            appendOption('checkbox', false, false,'choix multiples');
+            appendOption('checkbox', false, false,'choix multiples, case à cocher');
             appendOption('radio', false, false,'choix unique (ex: oui/non)');
             appendOption('file', false, false, 'ajout de fichier');
 
 
         //---- ajout du bouton d'effacement d'un champ
-        let deleteSelectType = document.createElement('button');
-        deleteSelectType.setAttribute('type', 'button');
-        deleteSelectType.innerText = 'Effacer le champ';
+            //creation du bouton
+            let deleteSelectType = document.createElement('button');
+            deleteSelectType.setAttribute('type', 'button');
+            deleteSelectType.setAttribute('class', 'deleteSelectType');
+            
+            //creation de l'image du bouton
+            let deleteSelectTypeImg = document.createElement('img');
+            deleteSelectTypeImg.setAttribute('src', './View/Media/poubelle.svg');
+            deleteSelectType.append(deleteSelectTypeImg);
 
             //event listener click sur delete
             deleteSelectType.addEventListener('click', () => {
-                selectType.remove();
-                selectTypeLabel.remove();
                 choiceDiv.remove();
-                deleteSelectType.remove();
                 previewTextDivLabel.remove();
                 previewTextDiv.remove();
             })
 
+        //---- ajout d'un bouton qui ajoute un nouveau selecteur de champ directement apres ce fieldset
+            //creation du bouton
+            let addSelectTypeInsideFieldset = document.createElement('button');
+            addSelectTypeInsideFieldset.setAttribute('type', 'button');
+            addSelectTypeInsideFieldset.setAttribute('class', 'addSelectTypeInsideFieldset');
+
+            //creation de l'image du bouton
+            let addSelectTypeInsideFieldsetImg = document.createElement('img');
+            addSelectTypeInsideFieldsetImg.setAttribute('src', './View/Media/plus.svg');
+            addSelectTypeInsideFieldset.append(addSelectTypeInsideFieldsetImg);
+
+            
+
         //---- creation de la div pour injecter le choix fait dans le select
-        let choiceDiv = document.createElement('div');
+        let choiceDiv = document.createElement('fieldset');
 
         //---- ajout au dom des différents éléments
-        addSelectType.before(selectTypeLabel);
-        selectTypeLabel.after(selectType);
-        selectType.after(choiceDiv);
-        choiceDiv.after(deleteSelectType);
+        if (targetedDiv == null && beforeOrAfter == null)
+        {
+            addSelectType.before(choiceDiv); //ICI DETERMINE LA POSITION DU SELECT DE TYPE D'ELEMENT DANS LE DOM
+            choiceDiv.appendChild(selectTypeLabel)
+            selectTypeLabel.after(selectType);
+            choiceDiv.appendChild(deleteSelectType);
+            choiceDiv.appendChild(addSelectTypeInsideFieldset);
+        }
+        else if (targetedDiv != null && beforeOrAfter == 'after')
+        {
+            targetedDiv.after(choiceDiv);
+            choiceDiv.appendChild(selectTypeLabel)
+            selectTypeLabel.after(selectType);
+            choiceDiv.appendChild(deleteSelectType);
+            choiceDiv.appendChild(addSelectTypeInsideFieldset)
+        }  
+        
+
 
         //---- ajout d'event listener sur le select qui permet de choisir le type d'élément
         selectType.addEventListener('change', () => {
@@ -100,6 +136,10 @@ export default function appendForm() {
                 //choix champ de texte
                 case "text":
 
+                    //---- creation de la légende du fieldset
+                    let fieldsetTextLegend = document.createElement('legend');
+                    fieldsetTextLegend.innerText = 'champ de texte';
+
                     //---- création de l'input text pour saisir le champ libellé
                     let textDiv = document.createElement('input');
                     textDiv.setAttribute('type', 'text');
@@ -109,20 +149,40 @@ export default function appendForm() {
                     //label
                     let textDivLabel = document.createElement('label');
                     textDivLabel.setAttribute('for','text');
-                    textDivLabel.innerText = "Choisir le champ de référence ( Ex :  Veuillez entrer votre nom )";
+                    textDivLabel.innerText = "Choisissez le label de votre champ"
+                                            +"\n ( Ex :  Veuillez entrer votre nom )";
 
                     //ajout au dom
-                    choiceDiv.appendChild(textDivLabel);
+                    deleteSelectType.before(fieldsetTextLegend);
+                    deleteSelectType.before(textDivLabel);
                     textDivLabel.after(textDiv);
 
                     //add input text Preview
                     let previewTextDiv = document.createElement('input');
                     previewTextDiv.setAttribute('type','text');
-                    previewTextDiv.setAttribute('id', 'previewTextDiv')
+                    previewTextDiv.setAttribute('id', 'previewTextDiv['+textCount+']')
                     let previewTextDivLabel = document.createElement('label');
                     previewTextDivLabel.setAttribute('for','previewTextDiv');
-                    previewFormDiv.appendChild(previewTextDivLabel);
-                    previewTextDivLabel.after(previewTextDiv);
+                    
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        console.log('youpi');
+                        tempStoredDiv = previewTextDiv;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
+
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(previewTextDivLabel);
+                        previewTextDivLabel.after(previewTextDiv);
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(previewTextDivLabel);
+                        previewTextDivLabel.after(previewTextDiv);
+                    }
+
 
                     textDiv.addEventListener('keyup', () => { 
                         previewTextDivLabel.innerHTML = textDiv.value;
@@ -136,7 +196,8 @@ export default function appendForm() {
                     
 
                     //désactivation de la possibilité de choisir le type d'element
-                    selectType.disabled = true;
+                    selectType.remove()
+                    selectTypeLabel.remove();
 
                     
 
@@ -147,6 +208,10 @@ export default function appendForm() {
                 //choix champ de commentaire
                 case "textarea":
 
+                    //---- creation de la légende du fieldset
+                    let fieldsetTextareaLegend = document.createElement('legend');
+                    fieldsetTextareaLegend.innerText = 'champ de commentaire';
+
                     //---- création de l'input text pour saisir le champ libellé
                     let textareaDiv = document.createElement('input');
                     textareaDiv.setAttribute('type', 'text');
@@ -156,10 +221,12 @@ export default function appendForm() {
                     //label
                     let textareaDivLabel = document.createElement('label');
                     textareaDivLabel.setAttribute('for','textarea');
-                    textareaDivLabel.innerText = "Choisir le champ de référence ( Ex :  Informations complémentaires )";
+                    textareaDivLabel.innerText = "Choisissez le label de votre champ"
+                                                +"\n(Ex :  Informations complémentaires à nous transmettre )";
 
                     //ajout au dom
-                    choiceDiv.appendChild(textareaDivLabel);
+                    deleteSelectType.before(fieldsetTextareaLegend);
+                    deleteSelectType.before(textareaDivLabel);
                     textareaDivLabel.after(textareaDiv);
 
                     //add input Textarea Preview
@@ -170,8 +237,26 @@ export default function appendForm() {
                     previewTextareaDiv.setAttribute('cols', '50')
                     let previewTextareaDivLabel = document.createElement('label');
                     previewTextareaDivLabel.setAttribute('for','previewTextareaDiv');
-                    previewFormDiv.appendChild(previewTextareaDivLabel);
-                    previewTextareaDivLabel.after(previewTextareaDiv);
+                    
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        console.log('youpla');
+                        tempStoredDiv = previewTextareaDiv;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
+
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(previewTextareaDivLabel);
+                        previewTextareaDivLabel.after(previewTextareaDiv);
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(previewTextareaDivLabel);
+                        previewTextareaDivLabel.after(previewTextareaDiv);
+                    }
+
                     textareaDiv.addEventListener('keyup', () => { 
                         previewTextareaDivLabel.innerHTML = textareaDiv.value;
                     })
@@ -181,7 +266,8 @@ export default function appendForm() {
                     })
 
                     //désactivation de la possibilité de choisir le type d'element
-                    selectType.disabled = true;
+                    selectType.remove()
+                    selectTypeLabel.remove();
 
                     //incrementation du compte pour le type d'element
                     textAreaCount++;
@@ -190,16 +276,21 @@ export default function appendForm() {
                 //choix parmis une liste
                 case "select":
 
+                    //---- creation de la légende du fieldset
+                    let fieldsetSelectLegend = document.createElement('legend');
+                    fieldsetSelectLegend.innerText = 'Liste déroulante';
+
                     //---- création de l'input text pour saisir le champ libellé
                     let selectDivName = document.createElement('input');
                     selectDivName.setAttribute('type','text');
-                    selectDivName.setAttribute('name','select['+ selectCount +'][description]')
+                    selectDivName.setAttribute('name','select['+ selectCount +'][description]');
                     selectDivName.setAttribute('id', 'selectDivName');
 
                     //label
                     let selectDivNameLabel = document.createElement('label');
                     selectDivNameLabel.setAttribute('for', 'selectDivName');
-                    selectDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)"
+                    selectDivNameLabel.innerText = "Choisir le label de votre champ"
+                                                + "\n(ex: En quelle classe est votre enfant ?)"
 
                     //creation de l'input number pour avoir le nombre d'option                   
                     let selectDiv = document.createElement('input');
@@ -212,10 +303,11 @@ export default function appendForm() {
                     //label de l'input number
                     let selectDivLabel = document.createElement('label');
                     selectDivLabel.setAttribute('for','select');
-                    selectDivLabel.innerText = "Combien de choix dans la liste ? (min 3 - max 9)";
+                    selectDivLabel.innerText = "Combien de choix dans la liste ? \n(min 3 - max 9)";
 
                     //ajout au dom
-                    choiceDiv.appendChild(selectDivNameLabel);
+                    deleteSelectType.before(fieldsetSelectLegend);
+                    deleteSelectType.before(selectDivNameLabel);
                     selectDivNameLabel.after(selectDivName);
                     selectDivName.after(selectDivLabel);
                     selectDivLabel.after(selectDiv);
@@ -247,7 +339,11 @@ export default function appendForm() {
                     
 
                     //désactivation de la possibilité de choisir le type d'element
-                    selectType.disabled = true;
+                    selectType.remove()
+                    selectTypeLabel.remove();
+
+                    //incrementation du compte pour le type d'element
+                    selectCount++
 
                     //creation de la div pour les options
                     let selectDivOptions = document.createElement('div');                 
@@ -306,9 +402,6 @@ export default function appendForm() {
 
                             }
 
-                            //incrementation du compte pour le type d'element
-                            selectCount++
-
                         }
                         
                     })
@@ -320,6 +413,10 @@ export default function appendForm() {
                 //choix multiples
                 case "checkbox":
 
+                    //---- creation de la légende du fieldset
+                    let fieldsetCheckboxLegend = document.createElement('legend');
+                    fieldsetCheckboxLegend.innerText = 'Choix multiples, cases à cocher';
+
                     //---- création de l'input text pour saisir le champ libellé
                     let checkboxDivName = document.createElement('input');
                     checkboxDivName.setAttribute('type','text');
@@ -329,7 +426,8 @@ export default function appendForm() {
                     //label
                     let checkboxDivNameLabel = document.createElement('label');
                     checkboxDivNameLabel.setAttribute('for', 'checkboxDivName');
-                    checkboxDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)"
+                    checkboxDivNameLabel.innerText = "Choisir le label de votre champ"
+                                                    +"\n(ex: Quel matériel avez-vous ?)"
 
                     //creation de l'input number pour avoir le nombre d'option 
                     let checkboxDiv = document.createElement('input');
@@ -342,10 +440,11 @@ export default function appendForm() {
                     //label de l'input number
                     let checkboxDivLabel = document.createElement('label');
                     checkboxDivLabel.setAttribute('for','checkbox');
-                    checkboxDivLabel.innerText = "Combien de choix voulez-vous ? (min 3 - max 9)";
+                    checkboxDivLabel.innerText = "Combien de cases voulez-vous ? \n(min 3 - max 9)";
 
                     //ajout au dom
-                    choiceDiv.appendChild(checkboxDivNameLabel);
+                    deleteSelectType.before(fieldsetCheckboxLegend);
+                    deleteSelectType.before(checkboxDivNameLabel);
                     checkboxDivNameLabel.after(checkboxDivName);
                     checkboxDivName.after(checkboxDivLabel);
                     checkboxDivLabel.after(checkboxDiv);
@@ -366,9 +465,12 @@ export default function appendForm() {
                         checkboxPreviewFieldset.remove();
                     })
                     
+                    //incrementation du compte pour le type d'element
+                    checkboxCount++;
 
                     //désactivation de la possibilité de choisir le type d'element
-                    selectType.disabled = true;
+                    selectType.remove()
+                    selectTypeLabel.remove();
 
                     //creation de la div pour les options
                     let checkboxDivOptions = document.createElement('div');                 
@@ -427,8 +529,6 @@ export default function appendForm() {
                                 })
                             }
 
-                            //incrementation du compte pour le type d'element
-                            checkboxCount++;
 
                         }
                         
@@ -439,6 +539,10 @@ export default function appendForm() {
                 //choix unique
                 case "radio":
 
+                    //---- creation de la légende du fieldset
+                    let fieldsetRadioLegend = document.createElement('legend');
+                    fieldsetRadioLegend.innerText = 'Choix unique';
+
                     //---- création de l'input text pour saisir le champ libellé
                     let radioDivName = document.createElement('input');
                     radioDivName.setAttribute('type','text[]');
@@ -448,7 +552,8 @@ export default function appendForm() {
                     //label
                     let radioDivNameLabel = document.createElement('label');
                     radioDivNameLabel.setAttribute('for', 'radioDivName');
-                    radioDivNameLabel.innerText = "Choisir le champ de référence (ex: De quel quartier êtes-vous ?)";
+                    radioDivNameLabel.innerText = "Choisir le label de votre champ"
+                                                + "\n(ex: Votre enfant sait-il nager ?)";
 
                     //creation de l'input number pour avoir le nombre d'option 
                     let radioDiv = document.createElement('input');
@@ -461,10 +566,11 @@ export default function appendForm() {
                     //label de l'input number
                     let radioDivLabel = document.createElement('label');
                     radioDivLabel.setAttribute('for','radio');
-                    radioDivLabel.innerText = "Combien de choix voulez-vous ? (min 2 - max 3)";
+                    radioDivLabel.innerText = "Combien de choix voulez-vous ? \n(min 2 - max 3)";
 
                     //ajout au dom
-                    choiceDiv.appendChild(radioDivNameLabel);
+                    deleteSelectType.before(fieldsetRadioLegend);
+                    deleteSelectType.before(radioDivNameLabel);
                     radioDivNameLabel.after(radioDivName);
                     radioDivName.after(radioDivLabel);
                     radioDivLabel.after(radioDiv);
@@ -485,8 +591,12 @@ export default function appendForm() {
                         radioPreviewFieldset.remove();
                     })
 
+                    //incrementation du compte pour le type d'element
+                    radioCount++;
+
                     //désactivation de la possibilité de choisir le type d'element
-                    selectType.disabled = true;
+                    selectType.remove()
+                    selectTypeLabel.remove();
 
                     //creation de la div pour les options
                     let radioDivOptions = document.createElement('div');                 
@@ -544,9 +654,6 @@ export default function appendForm() {
                                 })
                             }
 
-                            //incrementation du compte pour le type d'element
-                            radioCount++;
-
                         }
                         
                     })
@@ -554,6 +661,10 @@ export default function appendForm() {
             
                 //choix file
                 case 'file':
+
+                //---- creation de la légende du fieldset
+                let fieldsetFileLegend = document.createElement('legend');
+                fieldsetFileLegend.innerText = 'Fichier';
                 
                 //---- création de l'input text pour saisir le champ libellé
                 let fileDivName = document.createElement('input');
@@ -567,7 +678,8 @@ export default function appendForm() {
                 fileDivNameLabel.innerText = "Choisir le champ de référence (Veuillez ajouter votre carte d'identité)";
 
                 //ajout au dom
-                choiceDiv.appendChild(fileDivNameLabel);
+                deleteSelectType.before(fieldsetFileLegend);
+                deleteSelectType.before(fileDivNameLabel);
                 fileDivNameLabel.after(fileDivName);
 
                 //add input file Preview
@@ -591,7 +703,8 @@ export default function appendForm() {
                 })
 
                 //désactivation de la possibilité de choisir le type d'element
-                selectType.disabled = true;
+                selectType.remove()
+                selectTypeLabel.remove();
 
 
                 break;

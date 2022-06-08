@@ -9,6 +9,10 @@
     --main-color-3 : #77B9C1;
 }
 
+input{
+    padding: 1%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -115,12 +119,12 @@ h1, h2 {
         flex-wrap: wrap;
         align-items: flex-start;
         flex-direction: row;
+        justify-content: space-around;
     }
 
     #FormulaireGen {
         width: 40%;
         margin: 5%;
-        background-color: coral;
     }
 
     #FormulaireGen > form {
@@ -128,25 +132,83 @@ h1, h2 {
         flex-direction: column;
     }
 
-    #FormulaireGen > form > input,
-    #FormulaireGen > form > select,
-    #FormulaireGen > form > button {
-        width: 25%;
+    #FormulaireGen > form > input {
+        width: 40%;
         margin-bottom: 1%;
     }
 
-    #FormulaireGen > form > div {
+    #FormulaireGen > form > label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 1%;
+    }
+
+    #FormulaireGen > form > hr {
+        width: 100%;
+        margin: 1% 0;
+    }
+
+    #FormulaireGen > form > fieldset {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid var(--main-color-1);
+    }
+    #FormulaireGen > form > fieldset {
         display: flex;
+        position: relative;
         flex-direction: column;
+        padding:5%;
+        margin: 2% 0;
     }
 
-    #FormulaireGen > form > div > * {
-        width: 25%;
-        margin-bottom: 1%;
+    #FormulaireGen > form > fieldset > legend {
+        font-size: 1em;
+        font-weight: bold;
+        color: var(--main-color-1);
+        width: unset;
     }
 
-    #FormulaireGen > form > div > input[type=number]::-webkit-inner-spin-button, 
-    #FormulaireGen > form > div > input[type=number]::-webkit-outer-spin-button { 
+    #FormulaireGen > form > fieldset > input {
+        width: 50%;
+        margin-bottom: 5%;
+    }
+
+    
+    #FormulaireGen > form > fieldset > select {
+        width: 40%;
+        margin-bottom: 5%;
+    }
+
+    .deleteSelectType {
+        position: absolute;
+        z-index: 1;
+        bottom: -5px;
+        right: -5px;
+        border: none;
+        width: 40px;
+        height: auto;
+    }
+
+    .addSelectType {
+        width: 40px;
+        height: auto;
+        border: none;
+    }
+    
+    #FormulaireGen > form > fieldset > .addSelectTypeInsideFieldset {
+        position: absolute;
+        z-index: 1;
+        bottom: -5px;
+        left: -5px;
+        border: none;
+        width: 40px;
+        height: auto;
+
+    }    
+
+    #FormulaireGen > form > fieldset > input[type=number]::-webkit-inner-spin-button, 
+    #FormulaireGen > form > fieldset > input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none; 
@@ -168,6 +230,7 @@ h1, h2 {
     #previewFormulaire > * {
         margin: 2% 0;
     }
+
     #previewFormulaire > label {
         margin-bottom: 0;
     }
