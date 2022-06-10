@@ -2,6 +2,31 @@ export default function appendForm() {
     
     const submitButton = document.getElementById('reg_form');
 
+    submitButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        let errorArray = [];
+        let formGenDiv = document.getElementById('FormulaireGen');
+
+        let formInputs = formGenDiv.querySelectorAll('input');
+        formInputs.forEach( (input) => {
+            if (input.value === '') 
+            {
+                input.setAttribute('style', 'border: 2px dotted red');
+                errorArray.push(input);
+            }
+        });
+
+        if (errorArray.length > 0) 
+        {
+            alert('Veuillez remplir tous les champs');
+        }
+        else
+        {
+            e.submitButton.submit();
+        }
+
+    });
+
     //---- creation d'une fonction pour la gestion de l'ordre des divs en bdd
     function getFieldSetOrder()
     {
@@ -23,6 +48,7 @@ export default function appendForm() {
 
     nameForm.addEventListener('keyup', () => { 
         titreForm.innerHTML = nameForm.value;
+        nameForm.setAttribute('style', 'border: 1px solid black');
     });
 
     //---- création du bouton d'ajout de champ
@@ -204,6 +230,7 @@ export default function appendForm() {
 
                     textDiv.addEventListener('keyup', () => { 
                         previewTextDivLabel.innerHTML = textDiv.value;
+                        textDiv.setAttribute('style', 'border: 1px solid black');
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -285,6 +312,7 @@ export default function appendForm() {
 
                     textareaDiv.addEventListener('keyup', () => { 
                         previewTextareaDivLabel.innerHTML = textareaDiv.value;
+                        textareaDiv.setAttribute('style', 'border: 1px solid black');
                     })
                     deleteSelectType.addEventListener('click', () => {                        
                         previewTextareaDivLabel.remove();
@@ -379,6 +407,7 @@ export default function appendForm() {
 
                     selectDivName.addEventListener('keyup', () => { 
                         previewselectDivLabel.innerHTML = selectDivName.value;
+                        selectDivName.setAttribute('style', 'border: 1px solid black');
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -397,7 +426,7 @@ export default function appendForm() {
     
                     selectDiv.addEventListener('keyup', (event) => {
 
-                        console.log(event.key);
+                        
                         if ((selectDiv.value < 3 || selectDiv.value > 9) && event.key !== 'Backspace')
                         { 
                             alert('veuillez choisir entre 3 et 9!') 
@@ -419,6 +448,7 @@ export default function appendForm() {
                         else if ((selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {                           
                             let tempDivName = selectDivName.name.replace('[description]','');
+                            selectDiv.setAttribute('style', 'border: 1px solid black');
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
@@ -443,6 +473,7 @@ export default function appendForm() {
                                 previewselectDiv.appendChild(optionPreview);
                                 optionName.addEventListener('keyup', () => {
                                     optionPreview.innerHTML = optionName.value;
+                                    optionName.setAttribute('style', 'border: 1px solid black');
                                 })
 
                             }
@@ -528,6 +559,7 @@ export default function appendForm() {
 
                     checkboxDivName.addEventListener('keyup', () => { 
                         checkboxPreviewFieldsetLegend.innerHTML = checkboxDivName.value;
+                        checkboxDivName.setAttribute('style', 'border: 1px solid black');
                     })                    
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -568,6 +600,8 @@ export default function appendForm() {
                         {
                             let tempDivName = checkboxDiv.name.replace('[count]','');
 
+                            checkboxDiv.setAttribute('style', 'border: 1px solid black');
+
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
                             {
@@ -598,6 +632,7 @@ export default function appendForm() {
                                 previewcheckboxTextDiv.after(previewcheckboxTextDivLabel);
                                 optionName.addEventListener('keyup', () => { 
                                     previewcheckboxTextDivLabel.innerHTML = optionName.value;
+                                    optionName.setAttribute('style', 'border: 1px solid black');
                                 })
                             }
 
@@ -678,6 +713,7 @@ export default function appendForm() {
 
                     radioDivName.addEventListener('keyup', () => { 
                         radioPreviewFieldsetLegend.innerHTML = radioDivName.value;
+                        radioDivName.setAttribute('style', 'border: 1px solid black');
                     })                    
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -715,6 +751,7 @@ export default function appendForm() {
                         }
                         else if ((radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9)) 
                         {
+                            radioDiv.setAttribute('style', 'border: 1px solid black');
                             let tempDivName = radioDiv.name.replace('[count]','');
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
@@ -747,6 +784,7 @@ export default function appendForm() {
                                 previewradioTextDiv.after(previewradioTextDivLabel);
                                 optionName.addEventListener('keyup', () => { 
                                     previewradioTextDivLabel.innerHTML = optionName.value;
+                                    optionName.setAttribute('style', 'border: 1px solid black');
                                 })
                             }
 
@@ -814,6 +852,7 @@ export default function appendForm() {
 
                     fileDivName.addEventListener('keyup', () => { 
                         previewfileDivLabel.innerHTML = fileDivName.value;
+                        fileDivName.setAttribute('style', 'border: 1px solid black');
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        

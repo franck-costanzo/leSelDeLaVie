@@ -17,12 +17,6 @@ if (isset($_POST['reg_form']))
     // receive all input values from the form
     $name_form = htmlspecialchars($_POST['name_form']);
 
-    // form validation
-    // by adding (array_push()) corresponding error unto $errors array
-    if (empty($name_form)) { /*TODO*/ }
-
-    // Finally, register user if there are no errors in the form
-    //TODO : if ( errors == 0) {}
     Formulaire::createForm($name_form);
 
     
@@ -31,24 +25,24 @@ if (isset($_POST['reg_form']))
     
     if(isset($_POST['text']))
     {
-        for ($i=0; $i<sizeof($_POST['text']); $i++)
+        foreach($_POST['text'] as $key => $value)
         {
-            if(isset($_POST['text'][$i]))
+            if(isset($value['description']))
             {
-                Formulaire::createModuleText($_POST['text'][$i]['description'], $_POST['text'][$i]['order']);
+                Formulaire::createModuleText($value['description'], $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('text', $idForm, $idModule);
-            }            
+            }
         }
     }
 
     if (isset($_POST['textarea']))
     {
-        for ($i=0; $i<sizeof($_POST['textarea']); $i++)
+        foreach($_POST['textarea'] as $key => $value)
         {
-            if(isset($_POST['textarea'][$i]))
+            if(isset($value['description']))
             {
-                Formulaire::createModuleTextArea($_POST['textarea'][$i]['description'],$_POST['textarea'][$i]['order']);
+                Formulaire::createModuleTextArea($value['description'], $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('textArea', $idForm, $idModule);
             }
@@ -57,40 +51,46 @@ if (isset($_POST['reg_form']))
 
     if (isset($_POST['select']))
     {
-        for ($i=0; $i<sizeof($_POST['select']); $i++)
+
+        foreach($_POST['select'] as $key => $value)
         {
-            if (isset($_POST['select'][$i]))
+            if(isset($value['description']))
             {
                 $tempString = '';
 
-                foreach($_POST['select'][$i] as $key => $element)
+                foreach($value as $key2 => $element)
                 {
-                    if (is_int($key) && $key === array_key_last($_POST['select'][$i])) {
+                    if (is_int($key2) && $key2 === array_key_last($value)) 
+                    {
                         $tempString .= $element;
                     }
-                    else if (is_int($key))
+                    else if (is_int($key2))
                     {
                         $tempString .= $element.'/';
                     }                    
                 }
 
-                Formulaire::createModuleSelect($_POST['select'][$i]["description"], $_POST['select'][$i]["count"], $tempString, $_POST['select'][$i]["order"]);
+                Formulaire::createModuleSelect($value['description'], $value['count'], $tempString, $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('select', $idForm, $idModule);
-            }            
+            }
         }
+
+        
     }
 
     if (isset($_POST['checkbox']))
     {
-        for ($i=0; $i<sizeof($_POST['checkbox']); $i++)
+
+        foreach($_POST['checkbox'] as $key => $value)
         {
-            if (isset($_POST['checkbox'][$i]))
+            if(isset($value['description']))
             {
                 $tempString = '';
-                foreach($_POST['checkbox'][$i] as $key => $element)
+                foreach($value as $key2 => $element)
                 {
-                    if (is_int($key) && $key === array_key_last($_POST['checkbox'][$i])) {
+                    if (is_int($key2) && $key2 === array_key_last($value)) 
+                    {
                         $tempString .= $element;
                     }
                     else if (is_int($key))
@@ -98,7 +98,7 @@ if (isset($_POST['reg_form']))
                         $tempString .= $element.'/';
                     }                    
                 }
-                Formulaire::createModuleCheckbox($_POST['checkbox'][$i]["description"], $_POST['checkbox'][$i]["count"], $tempString, $_POST['checkbox'][$i]["order"]);
+                Formulaire::createModuleCheckbox($value['description'], $value['count'], $tempString, $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('checkbox', $idForm, $idModule);
             }
@@ -107,14 +107,16 @@ if (isset($_POST['reg_form']))
        
     if(isset($_POST['radio']))
     {
-        for ($i=0; $i<sizeof($_POST['radio']); $i++)
+
+        foreach($_POST['radio'] as $key => $value)
         {
-            if (isset($_POST['radio'][$i]))
+            if(isset($value['description']))
             {
                 $tempString = '';
-                foreach($_POST['radio'][$i] as $key => $element)
+                foreach($key as $key2 => $element)
                 {
-                    if (is_int($key) && $key === array_key_last($_POST['radio'][$i])) {
+                    if (is_int($key2) && $key2 === array_key_last($value)) 
+                    {
                         $tempString .= $element;
                     }
                     else if (is_int($key))
@@ -122,7 +124,7 @@ if (isset($_POST['reg_form']))
                         $tempString .= $element.'/';
                     }                    
                 }
-                Formulaire::createModuleRadio($_POST['radio'][$i]["description"], $_POST['radio'][$i]["count"], $tempString, $_POST['radio'][$i]["order"]);
+                Formulaire::createModuleRadio($value['description'], $value['count'], $tempString, $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('radio', $idForm, $idModule);
             }
@@ -131,19 +133,20 @@ if (isset($_POST['reg_form']))
 
     if(isset($_POST['file']))
     {
-        for ($i=0; $i<sizeof($_POST['file']); $i++)
+
+        foreach($_POST['file'] as $key => $value)
         {
-            if(isset($_POST['file'][$i]))
+            if(isset($value['description']))
             {
-                Formulaire::createModuleFile($_POST['file'][$i]['description'], $_POST['file'][$i]['order']);
+                Formulaire::createModuleFile($value['description'], $value['order']);
                 $idModule = Formulaire::getLastInsertedId();
                 Formulaire::createFormModuleLink('file', $idForm, $idModule);
-            }            
+            }
         }
     }
 
     
-    echo '<pre>';
-    echo var_dump($_POST);
-    echo '</pre>';    
+    // echo '<pre>';
+    // echo var_dump($_POST);
+    // echo '</pre>';    
 }
