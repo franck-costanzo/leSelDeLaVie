@@ -31,9 +31,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
             changePicture();
         }
 
-        if (lastSegment == 'formulaire')
+        //affichage du générateur de formulaire si l'utilisateur est sur ordinateur
+        if (lastSegment == 'formulaire' && matched)
         {
             appendForm();
+        }
+        else if (lastSegment == 'formulaire' && !matched)
+        { 
+            document.querySelector('h2').innerHTML = 'Veuillez vous connecter sur un ordinateur pour fabriquer votre formulaire';
+            document.querySelectorAll('main div').forEach(e =>{ e.remove()});
+            let noMobileImg = document.createElement('img');
+            noMobileImg.setAttribute('src','./View/Media/nomobile.svg');
+            noMobileImg.setAttribute('class', 'nomobile');
+            document.querySelector('h2').after(noMobileImg);
+
         }
         
 });

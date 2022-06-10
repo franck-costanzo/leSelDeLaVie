@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS forms (
 
 CREATE TABLE IF NOT EXISTS modules (
     id_module INT AUTO_INCREMENT NOT NULL, 
+    module_order INT,
     text_label VARCHAR(255),
     textarea_label VARCHAR(255),
     file_label VARCHAR(255),

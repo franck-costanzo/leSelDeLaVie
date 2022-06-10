@@ -1,20 +1,31 @@
 //TODO : AJOUT DE L ELEMENT UPLOAD DE FICHIER !
 
 export default function appendForm() {
-
-    //variable temporaire utilisée pour l'append dans la preview
-    var tempStoredDiv;
     
     const submitButton = document.getElementById('reg_form');
+
+    function getFieldSetOrder()
+    {
+        let divFormFormulaireGenerator = document.querySelector('div form')
+        let fieldsetsInside = divFormFormulaireGenerator.querySelectorAll('fieldset');
+        fieldsetsInside.forEach( (element, index) => {
+            let hiddenInput = element.querySelector('input[type=hidden]');
+            let mainType = element.querySelector('input[type=text]');
+            hiddenInput.setAttribute('name', mainType.name.replace('[description]','') + '[order]');
+            hiddenInput.setAttribute('value', index);            
+            console.log(hiddenInput); 
+        })
+    }
 
     //---- gestion de la preview
     const previewFormDiv = document.getElementById('previewFormulaire');
     const nameForm = document.getElementById('name_form');
     let titreForm = document.createElement('H2');
     previewFormDiv.appendChild(titreForm);
+
     nameForm.addEventListener('keyup', () => { 
         titreForm.innerHTML = nameForm.value;
-    })
+    });
 
     //---- création du bouton d'ajout de champ
     const addSelectType = document.createElement('button');
@@ -25,9 +36,10 @@ export default function appendForm() {
     addSelectType.append(addSelectTypeImg);
 
     submitButton.before(addSelectType);
+
     addSelectType.addEventListener('click', () => {
         selectTypeAppend();
-    })
+    });
 
     //---- counter pour dénombrer les elements du meme type rajouté
     var textCount = 0;
@@ -36,7 +48,10 @@ export default function appendForm() {
     var checkboxCount = 0;
     var radioCount = 0;
     var fileCount = 0;
+    var orderCount = 0;
 
+    //variable temporaire utilisée pour l'append dans la preview
+    var tempStoredDiv;
 
     function selectTypeAppend(targetedDiv = null, beforeOrAfter = null)
     {
@@ -88,6 +103,7 @@ export default function appendForm() {
                 choiceDiv.remove();
                 previewTextDivLabel.remove();
                 previewTextDiv.remove();
+                getFieldSetOrder();
             })
 
         //---- ajout d'un bouton qui ajoute un nouveau selecteur de champ directement apres ce fieldset
@@ -143,8 +159,12 @@ export default function appendForm() {
                     //---- création de l'input text pour saisir le champ libellé
                     let textDiv = document.createElement('input');
                     textDiv.setAttribute('type', 'text');
-                    textDiv.setAttribute('name', 'text['+ textCount +']');
+                    textDiv.setAttribute('name', 'text['+ textCount +'][description]');
                     textDiv.setAttribute('id', 'text');
+
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
 
                     //label
                     let textDivLabel = document.createElement('label');
@@ -156,6 +176,7 @@ export default function appendForm() {
                     deleteSelectType.before(fieldsetTextLegend);
                     deleteSelectType.before(textDivLabel);
                     textDivLabel.after(textDiv);
+                    textDiv.after(hiddenInput);
 
                     //add input text Preview
                     let previewTextDiv = document.createElement('input');
@@ -202,6 +223,9 @@ export default function appendForm() {
 
                     //incrementation du compte pour le type d'element
                     textCount++;
+
+                    getFieldSetOrder();
+
                     break;
     
                 //choix champ de commentaire
@@ -214,7 +238,7 @@ export default function appendForm() {
                     //---- création de l'input text pour saisir le champ libellé
                     let textareaDiv = document.createElement('input');
                     textareaDiv.setAttribute('type', 'text');
-                    textareaDiv.setAttribute('name', 'textarea['+ textAreaCount +']');
+                    textareaDiv.setAttribute('name', 'textarea['+ textAreaCount +'][description]');
                     textareaDiv.setAttribute('id', 'textarea');
 
                     //label
@@ -223,10 +247,15 @@ export default function appendForm() {
                     textareaDivLabel.innerText = "Choisissez le label de votre champ"
                                                 +"\n(Ex :  Informations complémentaires à nous transmettre )";
 
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenTextAreaInput = document.createElement('input');
+                    hiddenTextAreaInput.setAttribute('type', 'hidden');
+
                     //ajout au dom
                     deleteSelectType.before(fieldsetTextareaLegend);
                     deleteSelectType.before(textareaDivLabel);
                     textareaDivLabel.after(textareaDiv);
+                    textareaDiv.after(hiddenTextAreaInput);
 
                     //add input Textarea Preview
                     let previewTextareaDiv = document.createElement('textarea');
@@ -270,6 +299,9 @@ export default function appendForm() {
 
                     //incrementation du compte pour le type d'element
                     textAreaCount++;
+
+                    getFieldSetOrder();
+
                     break;
     
                 //choix parmis une liste
@@ -304,12 +336,17 @@ export default function appendForm() {
                     selectDivLabel.setAttribute('for','select');
                     selectDivLabel.innerText = "Combien de choix dans la liste ? \n(min 3 - max 9)";
 
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenSelectInput = document.createElement('input');
+                    hiddenSelectInput.setAttribute('type', 'hidden');
+
                     //ajout au dom
                     deleteSelectType.before(fieldsetSelectLegend);
                     deleteSelectType.before(selectDivNameLabel);
                     selectDivNameLabel.after(selectDivName);
                     selectDivName.after(selectDivLabel);
                     selectDivLabel.after(selectDiv);
+                    selectDiv.after(hiddenSelectInput);
 
                     //add input select Preview
                     let previewselectDiv = document.createElement('select');
@@ -383,7 +420,7 @@ export default function appendForm() {
                         }
                         else if ((selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
                         {                           
-                            let tempDivName = selectDivName.name.replace('[count]','');
+                            let tempDivName = selectDivName.name.replace('[description]','');
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
@@ -421,6 +458,8 @@ export default function appendForm() {
                     //incrementation du compte pour le type d'element
                     selectCount++
     
+                    getFieldSetOrder();
+
                     break;
     
                 //choix multiples
@@ -455,12 +494,17 @@ export default function appendForm() {
                     checkboxDivLabel.setAttribute('for','checkbox');
                     checkboxDivLabel.innerText = "Combien de cases voulez-vous ? \n(min 3 - max 9)";
 
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenCheckboxInput = document.createElement('input');
+                    hiddenCheckboxInput.setAttribute('type', 'hidden');
+
                     //ajout au dom
                     deleteSelectType.before(fieldsetCheckboxLegend);
                     deleteSelectType.before(checkboxDivNameLabel);
                     checkboxDivNameLabel.after(checkboxDivName);
                     checkboxDivName.after(checkboxDivLabel);
                     checkboxDivLabel.after(checkboxDiv);
+                    checkboxDiv.after(hiddenCheckboxInput);
 
                     //ajout de la preview du checkbox
                     let checkboxPreviewFieldset = document.createElement('fieldset');
@@ -564,6 +608,8 @@ export default function appendForm() {
                         
                     })
     
+                    getFieldSetOrder();
+
                     break;
     
                 //choix unique
@@ -575,7 +621,7 @@ export default function appendForm() {
 
                     //---- création de l'input text pour saisir le champ libellé
                     let radioDivName = document.createElement('input');
-                    radioDivName.setAttribute('type','text[]');
+                    radioDivName.setAttribute('type','text');
                     radioDivName.setAttribute('name','radio['+ radioCount +'][description]')
                     radioDivName.setAttribute('id', 'radioDivName');
 
@@ -598,12 +644,17 @@ export default function appendForm() {
                     radioDivLabel.setAttribute('for','radio');
                     radioDivLabel.innerText = "Combien de choix voulez-vous ? \n(min 2 - max 3)";
 
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenRadioInput = document.createElement('input');
+                    hiddenRadioInput.setAttribute('type', 'hidden');
+
                     //ajout au dom
                     deleteSelectType.before(fieldsetRadioLegend);
                     deleteSelectType.before(radioDivNameLabel);
                     radioDivNameLabel.after(radioDivName);
                     radioDivName.after(radioDivLabel);
                     radioDivLabel.after(radioDiv);
+                    radioDiv.after(hiddenRadioInput);
 
                     //ajout de la preview du radio
                     let radioPreviewFieldset = document.createElement('fieldset');
@@ -704,72 +755,80 @@ export default function appendForm() {
                         }
                         
                     })
+
+                    getFieldSetOrder();
+
                     break;
             
                 //choix file
                 case 'file':
 
-                //---- creation de la légende du fieldset
-                let fieldsetFileLegend = document.createElement('legend');
-                fieldsetFileLegend.innerText = 'Fichier';
-                
-                //---- création de l'input text pour saisir le champ libellé
-                let fileDivName = document.createElement('input');
-                fileDivName.setAttribute('type','text');
-                fileDivName.setAttribute('name','file['+ fileCount +']')
-                fileDivName.setAttribute('id', 'fileDivName');
+                    //---- creation de la légende du fieldset
+                    let fieldsetFileLegend = document.createElement('legend');
+                    fieldsetFileLegend.innerText = 'Fichier';
+                    
+                    //---- création de l'input text pour saisir le champ libellé
+                    let fileDivName = document.createElement('input');
+                    fileDivName.setAttribute('type','text');
+                    fileDivName.setAttribute('name','file['+ fileCount +'][description]')
+                    fileDivName.setAttribute('id', 'fileDivName');
 
-                //label
-                let fileDivNameLabel = document.createElement('label');
-                fileDivNameLabel.setAttribute('for', 'fileDivName');
-                fileDivNameLabel.innerText = "Choisir le champ de référence (Veuillez ajouter votre carte d'identité)";
+                    //label
+                    let fileDivNameLabel = document.createElement('label');
+                    fileDivNameLabel.setAttribute('for', 'fileDivName');
+                    fileDivNameLabel.innerText = "Choisir le champ de référence (Veuillez ajouter votre carte d'identité)";
 
-                //ajout au dom
-                deleteSelectType.before(fieldsetFileLegend);
-                deleteSelectType.before(fileDivNameLabel);
-                fileDivNameLabel.after(fileDivName);                
+                    //---- création de l'input hidden pour sauvegarder l'order de la div
+                    let hiddenFileInput = document.createElement('input');
+                    hiddenFileInput.setAttribute('type', 'hidden');
 
-                //add input file Preview
-                let previewfileDiv = document.createElement('input');
-                previewfileDiv.setAttribute('type','file');
-                previewfileDiv.setAttribute('id', 'previewfileDiv')
+                    //ajout au dom
+                    deleteSelectType.before(fieldsetFileLegend);
+                    deleteSelectType.before(fileDivNameLabel);
+                    fileDivNameLabel.after(fileDivName);
+                    fileDivName.after(hiddenFileInput);               
 
-                let previewfileDivLabel = document.createElement('label');
-                previewfileDivLabel.setAttribute('for','previewfileDiv');
+                    //add input file Preview
+                    let previewfileDiv = document.createElement('input');
+                    previewfileDiv.setAttribute('type','file');
+                    previewfileDiv.setAttribute('id', 'previewfileDiv')
 
-                //event listener click sur add
-                addSelectTypeInsideFieldset.addEventListener('click', () => {
-                    tempStoredDiv = previewfileDiv;
-                    selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
-                })
+                    let previewfileDivLabel = document.createElement('label');
+                    previewfileDivLabel.setAttribute('for','previewfileDiv');
 
-                //append du preview
-                if (targetedDiv == null && beforeOrAfter == null)
-                {
-                    previewFormDiv.appendChild(previewfileDivLabel);
-                    previewfileDivLabel.after(previewfileDiv)
-                }
-                else if (targetedDiv != null && beforeOrAfter == 'after')
-                {                       
-                    tempStoredDiv.after(previewfileDivLabel);
-                    previewfileDivLabel.after(previewfileDiv);
-                }
+                    //event listener click sur add
+                    addSelectTypeInsideFieldset.addEventListener('click', () => {
+                        tempStoredDiv = previewfileDiv;
+                        selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
+                    })
 
-                fileDivName.addEventListener('keyup', () => { 
-                    previewfileDivLabel.innerHTML = fileDivName.value;
-                })
+                    //append du preview
+                    if (targetedDiv == null && beforeOrAfter == null)
+                    {
+                        previewFormDiv.appendChild(previewfileDivLabel);
+                        previewfileDivLabel.after(previewfileDiv)
+                    }
+                    else if (targetedDiv != null && beforeOrAfter == 'after')
+                    {                       
+                        tempStoredDiv.after(previewfileDivLabel);
+                        previewfileDivLabel.after(previewfileDiv);
+                    }
 
-                deleteSelectType.addEventListener('click', () => {                        
-                    previewfileDivLabel.remove();
-                    previewfileDiv.remove();
-                })
+                    fileDivName.addEventListener('keyup', () => { 
+                        previewfileDivLabel.innerHTML = fileDivName.value;
+                    })
 
-                //désactivation de la possibilité de choisir le type d'element
-                selectType.remove()
-                selectTypeLabel.remove();
+                    deleteSelectType.addEventListener('click', () => {                        
+                        previewfileDivLabel.remove();
+                        previewfileDiv.remove();
+                    })
 
+                    //désactivation de la possibilité de choisir le type d'element
+                    selectType.remove()
+                    selectTypeLabel.remove();
 
-                break;
+                    getFieldSetOrder()
+                    break;
             }
 
         })
