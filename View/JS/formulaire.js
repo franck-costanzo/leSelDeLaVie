@@ -3,7 +3,7 @@ export default function appendForm() {
     const submitButton = document.getElementById('reg_form');
 
     submitButton.addEventListener('click', (e) => {
-        e.preventDefault();
+       
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
@@ -18,11 +18,8 @@ export default function appendForm() {
 
         if (errorArray.length > 0) 
         {
+            e.preventDefault();
             alert('Veuillez remplir tous les champs');
-        }
-        else
-        {
-            e.submitButton.submit();
         }
 
     });
@@ -32,12 +29,15 @@ export default function appendForm() {
     {
         let divFormFormulaireGenerator = document.querySelector('div form')
         let fieldsetsInside = divFormFormulaireGenerator.querySelectorAll('fieldset');
-        fieldsetsInside.forEach( (element, index) => {
-            let hiddenInput = element.querySelector('input[type=hidden]');
-            let mainType = element.querySelector('input[type=text]');
-            hiddenInput.setAttribute('name', mainType.name.replace('[description]','') + '[order]');
-            hiddenInput.setAttribute('value', index);
-        })
+        if (fieldsetsInside.length > 0)
+        {
+            fieldsetsInside.forEach( (element, index) => {
+                let hiddenInput = element.querySelector('input[type=hidden]');
+                let mainType = element.querySelector('input[type=text]');
+                hiddenInput.setAttribute('name', mainType.name.replace('[description]','') + '[order]');
+                hiddenInput.setAttribute('value', index);
+            })
+        }        
     }
 
     //---- gestion de la preview
@@ -125,8 +125,14 @@ export default function appendForm() {
             //event listener click sur delete
             deleteSelectType.addEventListener('click', () => {
                 choiceDiv.remove();
-                previewTextDivLabel.remove();
-                previewTextDiv.remove();
+                if (typeof previewTextDivLabel !== 'undefined')
+                {
+                    previewTextDivLabel.remove();
+                }
+                if (typeof previewTextDiv !== 'undefined')
+                {
+                    previewTextDiv.remove();
+                }
                 getFieldSetOrder();
             })
 
