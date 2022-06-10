@@ -1,9 +1,8 @@
-//TODO : AJOUT DE L ELEMENT UPLOAD DE FICHIER !
-
 export default function appendForm() {
     
     const submitButton = document.getElementById('reg_form');
 
+    //---- creation d'une fonction pour la gestion de l'ordre des divs en bdd
     function getFieldSetOrder()
     {
         let divFormFormulaireGenerator = document.querySelector('div form')
