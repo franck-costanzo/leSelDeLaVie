@@ -9,9 +9,10 @@
         </form>
     </div>
 
-    <div id="previewFormulaire">
+    <fieldset id="previewFormulaire">
+        <legend>Prévisualisation</legend>
 
-    </div>
+    </fieldset>
     
 </main>
 

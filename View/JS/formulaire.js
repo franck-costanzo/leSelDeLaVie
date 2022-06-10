@@ -831,38 +831,47 @@ export default function appendForm() {
                     fileDivName.after(hiddenFileInput);               
 
                     //add input file Preview
-                    let previewfileDiv = document.createElement('input');
-                    previewfileDiv.setAttribute('type','file');
-                    previewfileDiv.setAttribute('id', 'previewfileDiv')
+                    let previewfileInput = document.createElement('input');
+                    previewfileInput.setAttribute('type','file');
+                    previewfileInput.setAttribute('id', 'previewfileInput')
 
-                    let previewfileDivLabel = document.createElement('label');
-                    previewfileDivLabel.setAttribute('for','previewfileDiv');
+                    let previewfileInputLabel = document.createElement('label');
+                    previewfileInputLabel.setAttribute('for','previewfileInput');
+
+                    let previewfileInputLabelImg = document.createElement('img');
+                    previewfileInputLabelImg.setAttribute('src', './View/Media/upload.svg');
+
+                    let previewfileInputLabelImgTxt = document.createElement('p');
+
+                    let previewfileDiv = document.createElement('div');
+                    previewfileDiv.setAttribute('class', 'previewfileDiv');
+                    previewfileDiv.appendChild(previewfileInputLabel);                    
+                    previewfileInputLabel.appendChild(previewfileInputLabelImg);
+                    previewfileInputLabel.after(previewfileInputLabelImgTxt);                  
+                    previewfileInputLabel.after(previewfileInput);
 
                     //event listener click sur add
                     addSelectTypeInsideFieldset.addEventListener('click', () => {
-                        tempStoredDiv = previewfileDiv;
+                        tempStoredDiv = previewfileInput;
                         selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
                     })
 
                     //append du preview
                     if (targetedDiv == null && beforeOrAfter == null)
                     {
-                        previewFormDiv.appendChild(previewfileDivLabel);
-                        previewfileDivLabel.after(previewfileDiv)
+                        previewFormDiv.appendChild(previewfileDiv);
                     }
                     else if (targetedDiv != null && beforeOrAfter == 'after')
                     {                       
-                        tempStoredDiv.after(previewfileDivLabel);
-                        previewfileDivLabel.after(previewfileDiv);
+                        tempStoredDiv.after(previewfileDiv);
                     }
 
                     fileDivName.addEventListener('keyup', () => { 
-                        previewfileDivLabel.innerHTML = fileDivName.value;
+                        previewfileInputLabelImgTxt.innerText = fileDivName.value;
                         fileDivName.setAttribute('style', 'border: 1px solid black');
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        
-                        previewfileDivLabel.remove();
                         previewfileDiv.remove();
                     })
 
