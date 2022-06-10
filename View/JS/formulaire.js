@@ -12,8 +12,7 @@ export default function appendForm() {
             let hiddenInput = element.querySelector('input[type=hidden]');
             let mainType = element.querySelector('input[type=text]');
             hiddenInput.setAttribute('name', mainType.name.replace('[description]','') + '[order]');
-            hiddenInput.setAttribute('value', index);            
-            console.log(hiddenInput); 
+            hiddenInput.setAttribute('value', index);
         })
     }
 
