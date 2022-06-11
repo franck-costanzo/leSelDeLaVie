@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         else if (lastSegment == 'formulaire' && !matched)
         { 
             document.querySelector('h2').innerHTML = 'Veuillez vous connecter sur un ordinateur pour fabriquer votre formulaire';
-            document.querySelectorAll('main div').forEach(e =>{ e.remove()});
+            document.querySelector('main div').remove();
+            document.querySelector('main fieldset').remove();
+
             let noMobileImg = document.createElement('img');
             noMobileImg.setAttribute('src','./View/Media/nomobile.svg');
             noMobileImg.setAttribute('class', 'nomobile');
