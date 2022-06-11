@@ -2,14 +2,37 @@ export default function appendForm() {
     
     const submitButton = document.getElementById('reg_form');
 
-    //event listener pour l'enregistrement du formulaire
-    submitButton.addEventListener('click', await (async function (e) {
+    //---- création d'un tableau pour stocker le nom de tous les formulaires créés
+    let formNames = [];
 
+        //fonction qui va remplir le tableau
+        async function getFormName ()
+        {
+            await fetch('/leSelDeLaVie/View/JS/names.php')
+            .then(response =>{
+                return response.json();
+            })
+            .then(response => {           
+                response.forEach(element => {
+                    formNames.push(element.name_form);
+                })
+            })
+        }
+        
+        getFormName();
+    
+
+    //event listener pour l'enregistrement du formulaire
+    submitButton.addEventListener('click', (e) => {    
+
+        let errorType;
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
-        
+        //array pour vérifier si le formulaire a des champs
         let formGenFieldsets = formGenDiv.querySelectorAll('fieldset');
+
+        //vérification si les champs sont vides et remplissage de l'array errorArray
         let formInputs = formGenDiv.querySelectorAll('input');
         formInputs.forEach( (input) => {
             if (input.value === '') 
@@ -17,44 +40,37 @@ export default function appendForm() {
                 input.setAttribute('style', 'border: 2px dotted red');
                 errorArray.push(input);
             }
-        });        
+        });
+        
+        //vérification si le nom du formulaire existe déjà et remplissage de l'array errorArray
+        formNames.forEach( element => {
+            if (element === nameForm.value)
+            {
+                errorArray.push(nameForm);
+                errorType = 'Le nom du formulaire existe déjà !';
+            }
+        });
 
-        await fetch('/leSelDeLaVie/View/JS/names.php')
-            .then(response =>{
-                return response.json();
-            })
-            .then(response => {           
-                response.forEach(element => {
-                    if (element.name_form === nameForm.value) 
-                    {
-                        console.log(element.name_form);
-                        errorArray.push(nameForm);
-                        nameForm.setAttribute('style', 'border: 2px dotted red');
-                        alert('Un formulaire portant ce nom existe déjà');
-                    }
-                })
-            })
-            .then( () => {
-
-                if (errorArray.length > 0) 
-                {
-                    e.preventDefault();
-
-                }
-                else if (errorArray.length === 0 && formGenFieldsets.length === 0)
-                {
-                    e.preventDefault();
-                    alert('Veuillez choisir des éléments à votre formulaire !');
-                }
-                else if (errorArray.length === 0 && formGenFieldsets.length > 0) 
-                {
-                    submitButton.click();
-                    alert('Le formulaire '+ nameForm.value +' a bien été envoyé');                    
-                }
-
-            })            
-
-    }));
+        //vérification finale et si il y a des erreurs, affichage des erreurs
+        if (errorArray.length > 0) 
+        {
+            e.preventDefault();
+            if(errorType === 'Le nom du formulaire existe déjà !')
+            {                
+                alert(errorType);
+            }
+        }
+        else if (errorArray.length === 0 && formGenFieldsets.length === 0)
+        {
+            e.preventDefault();
+            alert('Veuillez choisir des éléments à votre formulaire !');
+        }
+        else if (errorArray.length === 0 && formGenFieldsets.length > 0) 
+        {
+            alert('Le formulaire '+ nameForm.value +' a bien été envoyé');                 
+        }
+        
+});
 
 
     //---- creation d'une fonction pour la gestion de l'ordre des divs en bdd
