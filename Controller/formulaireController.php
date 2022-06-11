@@ -145,8 +145,8 @@ if (isset($_POST['reg_form']))
         }
     }
 
-    
-    // echo '<pre>';
-    // echo var_dump($_POST);
-    // echo '</pre>';    
+    if(isset($_POST['getFormName']))
+    {
+        echo json_encode(Formulaire::getAllFormsNames());
+    }   
 }

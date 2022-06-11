@@ -101,4 +101,14 @@ abstract class Formulaire extends Model
         return $register;
     }
 
+    public static function getAllFormsNames()
+    {
+        $sql = 'SELECT name_form FROM forms';
+
+        $forms = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $forms;
+
+    }   
+
 }

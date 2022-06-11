@@ -5,3 +5,5 @@
     <a href="inscription">Inscription</a>
     <a href="connexion">Connexion</a>
 </nav>
+
+<pre><?= var_dump($_POST)?></pre>

@@ -2,11 +2,14 @@ export default function appendForm() {
     
     const submitButton = document.getElementById('reg_form');
 
-    submitButton.addEventListener('click', (e) => {
-       
+    //event listener pour l'enregistrement du formulaire
+    submitButton.addEventListener('click', await (async function (e) {
+
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
+        
+        let formGenFieldsets = formGenDiv.querySelectorAll('fieldset');
         let formInputs = formGenDiv.querySelectorAll('input');
         formInputs.forEach( (input) => {
             if (input.value === '') 
@@ -14,15 +17,45 @@ export default function appendForm() {
                 input.setAttribute('style', 'border: 2px dotted red');
                 errorArray.push(input);
             }
-        });
+        });        
 
-        if (errorArray.length > 0) 
-        {
-            e.preventDefault();
-            alert('Veuillez remplir tous les champs');
-        }
+        await fetch('/leSelDeLaVie/View/JS/names.php')
+            .then(response =>{
+                return response.json();
+            })
+            .then(response => {           
+                response.forEach(element => {
+                    if (element.name_form === nameForm.value) 
+                    {
+                        console.log(element.name_form);
+                        errorArray.push(nameForm);
+                        nameForm.setAttribute('style', 'border: 2px dotted red');
+                        alert('Un formulaire portant ce nom existe déjà');
+                    }
+                })
+            })
+            .then( () => {
 
-    });
+                if (errorArray.length > 0) 
+                {
+                    e.preventDefault();
+
+                }
+                else if (errorArray.length === 0 && formGenFieldsets.length === 0)
+                {
+                    e.preventDefault();
+                    alert('Veuillez choisir des éléments à votre formulaire !');
+                }
+                else if (errorArray.length === 0 && formGenFieldsets.length > 0) 
+                {
+                    submitButton.click();
+                    alert('Le formulaire '+ nameForm.value +' a bien été envoyé');                    
+                }
+
+            })            
+
+    }));
+
 
     //---- creation d'une fonction pour la gestion de l'ordre des divs en bdd
     function getFieldSetOrder()
@@ -435,7 +468,8 @@ export default function appendForm() {
                         
                         if ((selectDiv.value < 3 || selectDiv.value > 9) && event.key !== 'Backspace')
                         { 
-                            alert('veuillez choisir entre 3 et 9!') 
+                            //alert('veuillez choisir entre 3 et 9!')
+                            selectDiv.setAttribute('style', 'border: 2px dotted red'); 
                         }
                         else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes() 
                                     && previewselectDiv.hasChildNodes())
@@ -587,7 +621,8 @@ export default function appendForm() {
                     checkboxDiv.addEventListener('keyup', (event) => {
                         if ((checkboxDiv.value < 3 || checkboxDiv.value > 9) && event.key !== 'Backspace')
                         { 
-                            alert('veuillez choisir entre 3 et 9!') 
+                            //alert('veuillez choisir entre 3 et 9!')
+                            checkboxDiv.setAttribute('style', 'border: 2px dotted red'); 
                         }
                         else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes() )
                         { 
@@ -741,7 +776,8 @@ export default function appendForm() {
                     radioDiv.addEventListener('keyup', (event) => {
                         if ((radioDiv.value < 2 || radioDiv.value > 3) && event.key !== 'Backspace')
                         { 
-                            alert('veuillez choisir entre 2 et 3!') 
+                            //alert('veuillez choisir entre 2 et 3!');
+                            checkboxDiv.setAttribute('style', 'border: 2px dotted red');
                         }
                         else if (event.key === 'Backspace' && radioDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes())
                         { 
