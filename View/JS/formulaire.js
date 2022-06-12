@@ -1,5 +1,6 @@
 export default function appendForm() {
     
+    //---- creation d'une variable relative au bouton submit du formulaire
     const submitButton = document.getElementById('reg_form');
 
     //---- création d'un tableau pour stocker le nom de tous les formulaires créés
@@ -19,13 +20,47 @@ export default function appendForm() {
             })
         }
         
+        //remplissage du tableau
         getFormName();
-    
 
-    //event listener pour l'enregistrement du formulaire
+    //---- création d'une fonction pour ajouter des inscriptions relatives aux erreurs
+    function appendErrorP(targetDiv, errorType) {
+        let errorP = document.createElement('p');
+        errorP.innerHTML = errorType;
+        errorP.setAttribute('style', 'color: red');
+        errorP.setAttribute('class', 'errorP');
+        targetDiv.after(errorP);
+    }
+
+        //creation d'une fonction pour la suppression des p d'erreurs
+        function removeErrorP(targetDiv) {
+            
+            if (targetDiv === nameForm)
+            {
+                let errorP = targetDiv.parentNode.querySelectorAll('form > .errorP');
+                errorP.forEach(element => {
+                    console.log(element);
+                    element.remove();
+                })
+            }
+            else  
+            {
+                let errorP = targetDiv.parentNode.querySelectorAll('.errorP');
+                if (errorP.length > 0) 
+                {
+                    errorP.forEach(element => {
+                        console.log(element);
+                        element.remove();
+                    })
+                }
+            }
+            
+        }
+
+    //event listener pour vérifications avant enregistrement du formulaire
     submitButton.addEventListener('click', (e) => {    
 
-        let errorType;
+        e.preventDefault();
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
@@ -35,11 +70,25 @@ export default function appendForm() {
         //vérification si les champs sont vides et remplissage de l'array errorArray
         let formInputs = formGenDiv.querySelectorAll('input');
         formInputs.forEach( (input) => {
-            if (input.value === '') 
+            if (input.value === '' && input !== nameForm) 
             {
                 input.setAttribute('style', 'border: 2px dotted red');
-                errorArray.push(input);
+                console.log(input.parentNode.querySelector('fieldset > label > span'));
+                
+                if (input.parentNode.querySelector('fieldset > label > span') && input.parentNode.querySelector('fieldset > label > span').id)
+                {
+                    input.parentNode.querySelector('label > span').setAttribute('style', 'color: red');
+                }
+                errorArray.push(input.name);
+                appendErrorP(input, 'Veuillez remplir ce champ');
             }
+            else if (input.value !== '' && input == nameForm)
+            {
+                nameForm.setAttribute('style', 'border: 2px dotted red');
+                errorArray.push(input.name);
+                appendErrorP(nameForm, 'Veuillez remplir ce champ');
+            }
+
         });
         
         //vérification si le nom du formulaire existe déjà et remplissage de l'array errorArray
@@ -47,7 +96,7 @@ export default function appendForm() {
             if (element === nameForm.value)
             {
                 errorArray.push(nameForm);
-                errorType = 'Le nom du formulaire existe déjà !';
+                appendErrorP(nameForm, 'Le nom du formulaire existe déjà !');
             }
         });
 
@@ -55,22 +104,18 @@ export default function appendForm() {
         if (errorArray.length > 0) 
         {
             e.preventDefault();
-            if(errorType === 'Le nom du formulaire existe déjà !')
-            {                
-                alert(errorType);
-            }
         }
         else if (errorArray.length === 0 && formGenFieldsets.length === 0)
         {
             e.preventDefault();
-            alert('Veuillez choisir des éléments à votre formulaire !');
+            appendErrorP(nameForm, 'Veuillez créer un champ');
         }
         else if (errorArray.length === 0 && formGenFieldsets.length > 0) 
         {
-            alert('Le formulaire '+ nameForm.value +' a bien été envoyé');                 
+            alert('Le formulaire '+ nameForm.value +' a bien été enregistré !');                 
         }
         
-});
+    });
 
 
     //---- creation d'une fonction pour la gestion de l'ordre des divs en bdd
@@ -89,30 +134,47 @@ export default function appendForm() {
         }        
     }
 
-    //---- gestion de la preview
-    const previewFormDiv = document.getElementById('previewFormulaire');
-    const nameForm = document.getElementById('name_form');
-    let titreForm = document.createElement('H2');
-    previewFormDiv.appendChild(titreForm);
 
-    nameForm.addEventListener('keyup', () => { 
-        titreForm.innerHTML = nameForm.value;
-        nameForm.setAttribute('style', 'border: 1px solid black');
-    });
+    //---- gestion de la preview
+        //variable relative à la div globale de la preview
+        const previewFormDiv = document.getElementById('previewFormulaire');
+
+        //variable relative à div du nom du formulaire
+        const nameForm = document.getElementById('name_form');
+
+        //creation et append du titre de la preview
+        let titreForm = document.createElement('H2');
+        previewFormDiv.appendChild(titreForm);
+
+        //ajout d'un event listener pour le changement du nom du formulaire dans la preview
+        nameForm.addEventListener('keyup', () => { 
+            removeErrorP(nameForm);
+            titreForm.innerHTML = nameForm.value;
+            nameForm.setAttribute('style', 'border: 1px solid black');        
+        });
+
+        //variable temporaire utilisée pour l'append dans la preview
+        var tempStoredDiv;
+
 
     //---- création du bouton d'ajout de champ
     const addSelectType = document.createElement('button');
     addSelectType.setAttribute('type', 'button');
     addSelectType.setAttribute('class', 'addSelectType');
-    let addSelectTypeImg = document.createElement('img');
-    addSelectTypeImg.setAttribute('src', './View/Media/plus.svg');
-    addSelectType.append(addSelectTypeImg);
 
-    submitButton.before(addSelectType);
+        //append de l'image qui sera utilisée pour le bouton
+        let addSelectTypeImg = document.createElement('img');
+        addSelectTypeImg.setAttribute('src', './View/Media/plus.svg');
+        addSelectType.append(addSelectTypeImg);
 
-    addSelectType.addEventListener('click', () => {
-        selectTypeAppend();
-    });
+        //ajout au DOM
+        submitButton.before(addSelectType);
+
+        //ajout de l'event listener pour le bouton d'ajout de champ
+        addSelectType.addEventListener('click', () => {
+            selectTypeAppend();
+        });
+
 
     //---- counter pour dénombrer les elements du meme type rajouté
     var textCount = 0;
@@ -121,11 +183,8 @@ export default function appendForm() {
     var checkboxCount = 0;
     var radioCount = 0;
     var fileCount = 0;
-    var orderCount = 0;
 
-    //variable temporaire utilisée pour l'append dans la preview
-    var tempStoredDiv;
-
+    //---- creation d'une fonction pour ajouter les champs
     function selectTypeAppend(targetedDiv = null, beforeOrAfter = null)
     {
         //---- creation du select d'element à ajouter au formulaire
@@ -286,6 +345,7 @@ export default function appendForm() {
                     textDiv.addEventListener('keyup', () => { 
                         previewTextDivLabel.innerHTML = textDiv.value;
                         textDiv.setAttribute('style', 'border: 1px solid black');
+                        removeErrorP(textDiv);
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -368,6 +428,7 @@ export default function appendForm() {
                     textareaDiv.addEventListener('keyup', () => { 
                         previewTextareaDivLabel.innerHTML = textareaDiv.value;
                         textareaDiv.setAttribute('style', 'border: 1px solid black');
+                        removeErrorP(textareaDiv);
                     })
                     deleteSelectType.addEventListener('click', () => {                        
                         previewTextareaDivLabel.remove();
@@ -401,8 +462,8 @@ export default function appendForm() {
                     //label
                     let selectDivNameLabel = document.createElement('label');
                     selectDivNameLabel.setAttribute('for', 'selectDivName');
-                    selectDivNameLabel.innerText = "Choisir le label de votre champ"
-                                                + "\n(ex: En quelle classe est votre enfant ?)"
+                    selectDivNameLabel.innerHTML = "Choisir le label de votre champ \n(ex: En quelle classe est votre enfant ?)";
+                    
 
                     //creation de l'input number pour avoir le nombre d'option                   
                     let selectDiv = document.createElement('input');
@@ -415,7 +476,13 @@ export default function appendForm() {
                     //label de l'input number
                     let selectDivLabel = document.createElement('label');
                     selectDivLabel.setAttribute('for','select');
-                    selectDivLabel.innerText = "Combien de choix dans la liste ? \n(min 3 - max 9)";
+                    selectDivLabel.innerText = "Combien de choix dans la liste ? \n";
+
+                        //span à l'intérieur du label
+                        let spanSelectDivNameLabel = document.createElement('span');
+                        spanSelectDivNameLabel.setAttribute('id', 'spanDivNameLabel');
+                        spanSelectDivNameLabel.innerHTML = "(min 3 - max 9)"
+                        selectDivLabel.appendChild(spanSelectDivNameLabel); 
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenSelectInput = document.createElement('input');
@@ -462,7 +529,8 @@ export default function appendForm() {
 
                     selectDivName.addEventListener('keyup', () => { 
                         previewselectDivLabel.innerHTML = selectDivName.value;
-                        selectDivName.setAttribute('style', 'border: 1px solid black');
+                        selectDivName.setAttribute('style', 'border: 1px solid black');                        
+                        removeErrorP(selectDivName);
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -505,6 +573,8 @@ export default function appendForm() {
                         {                           
                             let tempDivName = selectDivName.name.replace('[description]','');
                             selectDiv.setAttribute('style', 'border: 1px solid black');
+                            spanSelectDivNameLabel.setAttribute('style', 'color: black');
+                            removeErrorP(selectDiv);
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
@@ -530,6 +600,7 @@ export default function appendForm() {
                                 optionName.addEventListener('keyup', () => {
                                     optionPreview.innerHTML = optionName.value;
                                     optionName.setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(optionName);
                                 })
 
                             }
@@ -577,7 +648,12 @@ export default function appendForm() {
                     //label de l'input number
                     let checkboxDivLabel = document.createElement('label');
                     checkboxDivLabel.setAttribute('for','checkbox');
-                    checkboxDivLabel.innerText = "Combien de cases voulez-vous ? \n(min 3 - max 9)";
+                    checkboxDivLabel.innerText = "Combien de cases voulez-vous ? \n";
+                        //span à l'intérieur du label
+                        let spanCheckboxtDivNameLabel = document.createElement('span');
+                        spanCheckboxtDivNameLabel.setAttribute('id', 'spanDivNameLabel');
+                        spanCheckboxtDivNameLabel.innerHTML = "(min 3 - max 9)"
+                        checkboxDivLabel.appendChild(spanCheckboxtDivNameLabel); 
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenCheckboxInput = document.createElement('input');
@@ -616,6 +692,7 @@ export default function appendForm() {
                     checkboxDivName.addEventListener('keyup', () => { 
                         checkboxPreviewFieldsetLegend.innerHTML = checkboxDivName.value;
                         checkboxDivName.setAttribute('style', 'border: 1px solid black');
+                        removeErrorP(checkboxDivName);
                     })                    
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -658,6 +735,8 @@ export default function appendForm() {
                             let tempDivName = checkboxDiv.name.replace('[count]','');
 
                             checkboxDiv.setAttribute('style', 'border: 1px solid black');
+                            spanCheckboxtDivNameLabel.setAttribute('style', 'color: black');
+                            removeErrorP(checkboxDiv);
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
@@ -690,6 +769,7 @@ export default function appendForm() {
                                 optionName.addEventListener('keyup', () => { 
                                     previewcheckboxTextDivLabel.innerHTML = optionName.value;
                                     optionName.setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(optionName);
                                 })
                             }
 
@@ -718,7 +798,7 @@ export default function appendForm() {
                     //label
                     let radioDivNameLabel = document.createElement('label');
                     radioDivNameLabel.setAttribute('for', 'radioDivName');
-                    radioDivNameLabel.innerText = "Choisir le label de votre champ"
+                    radioDivNameLabel.innerText = "Choisir le nom de votre champ"
                                                 + "\n(ex: Votre enfant sait-il nager ?)";
 
                     //creation de l'input number pour avoir le nombre d'option 
@@ -732,7 +812,13 @@ export default function appendForm() {
                     //label de l'input number
                     let radioDivLabel = document.createElement('label');
                     radioDivLabel.setAttribute('for','radio');
-                    radioDivLabel.innerText = "Combien de choix voulez-vous ? \n(min 2 - max 3)";
+                    radioDivLabel.innerText = "Combien de choix voulez-vous ? \n";
+
+                        //span à l'intérieur du label
+                        let spanRadiotDivNameLabel = document.createElement('span');
+                        spanRadiotDivNameLabel.setAttribute('id', 'spanDivNameLabel');
+                        spanRadiotDivNameLabel.innerHTML = "(minimum 2 - maximum 3)"
+                        radioDivLabel.appendChild(spanRadiotDivNameLabel);
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenRadioInput = document.createElement('input');
@@ -771,6 +857,7 @@ export default function appendForm() {
                     radioDivName.addEventListener('keyup', () => { 
                         radioPreviewFieldsetLegend.innerHTML = radioDivName.value;
                         radioDivName.setAttribute('style', 'border: 1px solid black');
+                        removeErrorP(radioDivName);
                     })                    
 
                     deleteSelectType.addEventListener('click', () => {                        
@@ -810,6 +897,8 @@ export default function appendForm() {
                         else if ((radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9)) 
                         {
                             radioDiv.setAttribute('style', 'border: 1px solid black');
+                            spanRadiotDivNameLabel.setAttribute('style', 'color: black');
+                            removeErrorP(radioDiv);
                             let tempDivName = radioDiv.name.replace('[count]','');
 
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
@@ -843,6 +932,7 @@ export default function appendForm() {
                                 optionName.addEventListener('keyup', () => { 
                                     previewradioTextDivLabel.innerHTML = optionName.value;
                                     optionName.setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(optionName);
                                 })
                             }
 
@@ -921,6 +1011,7 @@ export default function appendForm() {
                     fileDivName.addEventListener('keyup', () => { 
                         previewfileInputLabelImgTxt.innerText = fileDivName.value;
                         fileDivName.setAttribute('style', 'border: 1px solid black');
+                        removeErrorP(fileDivName);
                     })
 
                     deleteSelectType.addEventListener('click', () => {                        

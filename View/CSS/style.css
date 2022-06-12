@@ -103,7 +103,11 @@ h1, h2 {
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
-
+    .messageErreur {
+        margin-top: 1%;
+        color: green;
+        font-weight: bold;
+    }
     /* -------------- */
     /*   FORMULAIRE   */
     /* -------------- */
@@ -235,6 +239,11 @@ h1, h2 {
             height: auto;
 
         }    
+
+        #FormulaireGen > form > fieldset > p {
+            margin-top: -5%;
+            margin-bottom: 5%;
+        }
 
         #FormulaireGen > form > fieldset > input[type=number]::-webkit-inner-spin-button, 
         #FormulaireGen > form > fieldset > input[type=number]::-webkit-outer-spin-button { 

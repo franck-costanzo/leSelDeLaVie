@@ -14,139 +14,171 @@ ORDER BY modules.module_order;
 
 if (isset($_POST['reg_form'])) 
 {
+    // counter for modules
+    $module_count = 0;
+
     // receive all input values from the form
     $name_form = htmlspecialchars($_POST['name_form']);
 
-    Formulaire::createForm($name_form);
-
-    
-    $idForm = Formulaire::getLastInsertedId();
-
-    
-    if(isset($_POST['text']))
+    // check if form already exists
+    $names = Formulaire::getAllFormsNames();
+    $form_exists = false;
+    foreach ($names as $name) 
     {
-        foreach($_POST['text'] as $key => $value)
+        if ($name['name_form'] == $name_form) 
         {
-            if(isset($value['description']))
-            {
-                Formulaire::createModuleText($value['description'], $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('text', $idForm, $idModule);
-            }
+            $form_exists = true;
         }
     }
 
-    if (isset($_POST['textarea']))
+    // if form doesn't exist, create it
+    if (!$form_exists) 
     {
-        foreach($_POST['textarea'] as $key => $value)
-        {
-            if(isset($value['description']))
-            {
-                Formulaire::createModuleTextArea($value['description'], $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('textArea', $idForm, $idModule);
-            }
-        }
-    }
-
-    if (isset($_POST['select']))
-    {
-
-        foreach($_POST['select'] as $key => $value)
-        {
-            if(isset($value['description']))
-            {
-                $tempString = '';
-
-                foreach($value as $key2 => $element)
-                {
-                    if (is_int($key2) && $key2 === array_key_last($value)) 
-                    {
-                        $tempString .= $element;
-                    }
-                    else if (is_int($key2))
-                    {
-                        $tempString .= $element.'/';
-                    }                    
-                }
-
-                Formulaire::createModuleSelect($value['description'], $value['count'], $tempString, $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('select', $idForm, $idModule);
-            }
-        }
+        Formulaire::createForm($name_form);
+         
+        $idForm = Formulaire::getLastInsertedId();
 
         
-    }
-
-    if (isset($_POST['checkbox']))
-    {
-
-        foreach($_POST['checkbox'] as $key => $value)
+        if(isset($_POST['text']))
         {
-            if(isset($value['description']))
+            foreach($_POST['text'] as $key => $value)
             {
-                $tempString = '';
-                foreach($value as $key2 => $element)
+                if(isset($value['description']))
                 {
-                    if (is_int($key2) && $key2 === array_key_last($value)) 
-                    {
-                        $tempString .= $element;
-                    }
-                    else if (is_int($key))
-                    {
-                        $tempString .= $element.'/';
-                    }                    
+                    Formulaire::createModuleText($value['description'], $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('text', $idForm, $idModule);
+                    $module_count++;
                 }
-                Formulaire::createModuleCheckbox($value['description'], $value['count'], $tempString, $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('checkbox', $idForm, $idModule);
             }
         }
-    } 
-       
-    if(isset($_POST['radio']))
-    {
 
-        foreach($_POST['radio'] as $key => $value)
+        if (isset($_POST['textarea']))
         {
-            if(isset($value['description']))
+            foreach($_POST['textarea'] as $key => $value)
             {
-                $tempString = '';
-                foreach($key as $key2 => $element)
+                if(isset($value['description']))
                 {
-                    if (is_int($key2) && $key2 === array_key_last($value)) 
-                    {
-                        $tempString .= $element;
-                    }
-                    else if (is_int($key))
-                    {
-                        $tempString .= $element.'/';
-                    }                    
+                    Formulaire::createModuleTextArea($value['description'], $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('textArea', $idForm, $idModule);
+                    $module_count++;
                 }
-                Formulaire::createModuleRadio($value['description'], $value['count'], $tempString, $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('radio', $idForm, $idModule);
             }
         }
-    }
 
-    if(isset($_POST['file']))
-    {
-
-        foreach($_POST['file'] as $key => $value)
+        if (isset($_POST['select']))
         {
-            if(isset($value['description']))
+
+            foreach($_POST['select'] as $key => $value)
             {
-                Formulaire::createModuleFile($value['description'], $value['order']);
-                $idModule = Formulaire::getLastInsertedId();
-                Formulaire::createFormModuleLink('file', $idForm, $idModule);
+                if(isset($value['description']))
+                {
+                    $tempString = '';
+
+                    foreach($value as $key2 => $element)
+                    {
+                        if (is_int($key2) && $key2 === array_key_last($value)) 
+                        {
+                            $tempString .= $element;
+                        }
+                        else if (is_int($key2))
+                        {
+                            $tempString .= $element.'/';
+                        }                    
+                    }
+
+                    Formulaire::createModuleSelect($value['description'], $value['count'], $tempString, $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('select', $idForm, $idModule);
+                    $module_count++;
+                }
+            }
+
+            
+        }
+
+        if (isset($_POST['checkbox']))
+        {
+
+            foreach($_POST['checkbox'] as $key => $value)
+            {
+                if(isset($value['description']))
+                {
+                    $tempString = '';
+                    foreach($value as $key2 => $element)
+                    {
+                        if (is_int($key2) && $key2 === array_key_last($value)) 
+                        {
+                            $tempString .= $element;
+                        }
+                        else if (is_int($key))
+                        {
+                            $tempString .= $element.'/';
+                        }                    
+                    }
+                    Formulaire::createModuleCheckbox($value['description'], $value['count'], $tempString, $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('checkbox', $idForm, $idModule);
+                    $module_count++;
+                }
+            }
+        } 
+        
+        if(isset($_POST['radio']))
+        {
+
+            foreach($_POST['radio'] as $key => $value)
+            {
+                if(isset($value['description']))
+                {
+                    $tempString = '';
+                    foreach($key as $key2 => $element)
+                    {
+                        if (is_int($key2) && $key2 === array_key_last($value)) 
+                        {
+                            $tempString .= $element;
+                        }
+                        else if (is_int($key))
+                        {
+                            $tempString .= $element.'/';
+                        }                    
+                    }
+                    Formulaire::createModuleRadio($value['description'], $value['count'], $tempString, $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('radio', $idForm, $idModule);
+                    $module_count++;
+                }
             }
         }
+
+        if(isset($_POST['file']))
+        {
+
+            foreach($_POST['file'] as $key => $value)
+            {
+                if(isset($value['description']))
+                {
+                    Formulaire::createModuleFile($value['description'], $value['order']);
+                    $idModule = Formulaire::getLastInsertedId();
+                    Formulaire::createFormModuleLink('file', $idForm, $idModule);
+                    $module_count++;
+                }
+            }
+        }
+
     }
 
-    if(isset($_POST['getFormName']))
-    {
-        echo json_encode(Formulaire::getAllFormsNames());
-    }   
+    // if ($module_count > 0) 
+    // {
+    //     session_destroy();
+    //     session_start();
+    //     $_SESSION['message'] = 'Formulaire créé avec succès';
+    //     header('Location: formulaire');
+    // }
+    // else
+    // {
+    //     $_SESSION['message'] = 'Erreur lors de la création du formulaire';
+    //     header('Location: formulaire');
+    // }
 }
