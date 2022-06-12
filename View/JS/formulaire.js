@@ -25,11 +25,16 @@ export default function appendForm() {
 
     //---- création d'une fonction pour ajouter des inscriptions relatives aux erreurs
     function appendErrorP(targetDiv, errorType) {
-        let errorP = document.createElement('p');
-        errorP.innerHTML = errorType;
-        errorP.setAttribute('style', 'color: red');
-        errorP.setAttribute('class', 'errorP');
-        targetDiv.after(errorP);
+        
+        if (targetDiv.parentNode.querySelector(' p') == null) 
+        {
+            let errorP = document.createElement('p');
+            errorP.innerHTML = errorType;
+            errorP.setAttribute('style', 'color: red');
+            errorP.setAttribute('class', 'errorP');
+            targetDiv.after(errorP);
+        }
+        
     }
 
         //creation d'une fonction pour la suppression des p d'erreurs
@@ -59,7 +64,6 @@ export default function appendForm() {
     //event listener pour vérifications avant enregistrement du formulaire
     submitButton.addEventListener('click', (e) => {    
 
-        e.preventDefault();
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
@@ -293,6 +297,7 @@ export default function appendForm() {
                     let fieldsetTextLegend = document.createElement('legend');
                     fieldsetTextLegend.innerText = 'champ de texte';
 
+                    let firstTextBoxDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let textDiv = document.createElement('input');
                     textDiv.setAttribute('type', 'text');
@@ -308,12 +313,13 @@ export default function appendForm() {
                     textDivLabel.setAttribute('for','text');
                     textDivLabel.innerText = "Choisissez le label de votre champ"
                                             +"\n ( Ex :  Veuillez entrer votre nom )";
+                    firstTextBoxDiv.appendChild(textDivLabel);
+                    firstTextBoxDiv.appendChild(textDiv);
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetTextLegend);
-                    deleteSelectType.before(textDivLabel);
-                    textDivLabel.after(textDiv);
-                    textDiv.after(hiddenInput);
+                    deleteSelectType.before(firstTextBoxDiv);
+                    firstTextBoxDiv.after(hiddenInput);
 
                     //add input text Preview
                     let previewTextDiv = document.createElement('input');
@@ -374,6 +380,7 @@ export default function appendForm() {
                     let fieldsetTextareaLegend = document.createElement('legend');
                     fieldsetTextareaLegend.innerText = 'champ de commentaire';
 
+                    let firstTextareaDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let textareaDiv = document.createElement('input');
                     textareaDiv.setAttribute('type', 'text');
@@ -385,6 +392,8 @@ export default function appendForm() {
                     textareaDivLabel.setAttribute('for','textarea');
                     textareaDivLabel.innerText = "Choisissez le label de votre champ"
                                                 +"\n(Ex :  Informations complémentaires à nous transmettre )";
+                    firstTextareaDiv.appendChild(textareaDivLabel);
+                    firstTextareaDiv.appendChild(textareaDiv);
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenTextAreaInput = document.createElement('input');
@@ -392,9 +401,8 @@ export default function appendForm() {
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetTextareaLegend);
-                    deleteSelectType.before(textareaDivLabel);
-                    textareaDivLabel.after(textareaDiv);
-                    textareaDiv.after(hiddenTextAreaInput);
+                    deleteSelectType.before(firstTextareaDiv);
+                    firstTextareaDiv.after(hiddenTextAreaInput);
 
                     //add input Textarea Preview
                     let previewTextareaDiv = document.createElement('textarea');
@@ -578,14 +586,16 @@ export default function appendForm() {
                             spanSelectDivNameLabel.setAttribute('style', 'color: black');
                             removeErrorP(selectDiv);
 
+                            let selectOptionArray = [];
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<selectDiv.value; i++)
                             {
+                                let optionBoxDiv = document.createElement('div');
                                 //---- creation de l'input pour le nom des options
-                                let optionName = document.createElement('input');
-                                optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', tempDivName+'[]');
-                                optionName.setAttribute('id', 'option'+(i+1));                                
+                                selectOptionArray[i] = document.createElement('input');
+                                selectOptionArray[i].setAttribute('type', 'text');
+                                selectOptionArray[i].setAttribute('name', tempDivName+'[]');
+                                selectOptionArray[i].setAttribute('id', 'option'+(i+1));                                
 
                                 //label
                                 let optionNameLabel = document.createElement('label');
@@ -593,16 +603,17 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                selectDivOptions.appendChild(optionNameLabel);
-                                selectDivOptions.appendChild(optionName)
+                                optionBoxDiv.appendChild(optionNameLabel);
+                                optionBoxDiv.appendChild(selectOptionArray[i]);
+                                selectDivOptions.appendChild(optionBoxDiv);
 
                                 //ajout d'option à la preview
                                 let optionPreview = document.createElement('option');
                                 previewselectDiv.appendChild(optionPreview);
-                                optionName.addEventListener('keyup', () => {
-                                    optionPreview.innerHTML = optionName.value;
-                                    optionName.setAttribute('style', 'border: 1px solid black');
-                                    removeErrorP(optionName);
+                                selectOptionArray[i].addEventListener('keyup', () => {
+                                    optionPreview.innerHTML = selectOptionArray[i].value;
+                                    selectOptionArray[i].setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(selectOptionArray[i]);
                                 })
 
                             }
@@ -743,14 +754,16 @@ export default function appendForm() {
                             spanCheckboxtDivNameLabel.setAttribute('style', 'color: black');
                             removeErrorP(checkboxDiv);
 
+                            let checkboxOptionArray = [];
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<checkboxDiv.value; i++)
                             {
+                                let optionBoxDiv = document.createElement('div');
                                 //---- creation de l'input pour le nom des options
-                                let optionName = document.createElement('input');
-                                optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', tempDivName+'[]');
-                                optionName.setAttribute('id', 'option'+(i+1));
+                                checkboxOptionArray[i] = document.createElement('input');
+                                checkboxOptionArray[i].setAttribute('type', 'text');
+                                checkboxOptionArray[i].setAttribute('name', tempDivName+'[]');
+                                checkboxOptionArray[i].setAttribute('id', 'option'+(i+1));
 
                                 //label
                                 let optionNameLabel = document.createElement('label');
@@ -758,8 +771,9 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                checkboxDivOptions.appendChild(optionNameLabel);
-                                checkboxDivOptions.appendChild(optionName)
+                                optionBoxDiv.appendChild(optionNameLabel);
+                                optionBoxDiv.appendChild(checkboxOptionArray[i]);
+                                checkboxDivOptions.appendChild(optionBoxDiv);
 
                                 //add input checkbox Preview
                                 let previewcheckboxIndividualDiv = document.createElement('div')
@@ -771,10 +785,10 @@ export default function appendForm() {
                                 checkboxPreviewFieldset.appendChild(previewcheckboxIndividualDiv);
                                 previewcheckboxIndividualDiv.appendChild(previewcheckboxTextDiv);
                                 previewcheckboxTextDiv.after(previewcheckboxTextDivLabel);
-                                optionName.addEventListener('keyup', () => { 
-                                    previewcheckboxTextDivLabel.innerHTML = optionName.value;
-                                    optionName.setAttribute('style', 'border: 1px solid black');
-                                    removeErrorP(optionName);
+                                checkboxOptionArray[i].addEventListener('keyup', () => { 
+                                    previewcheckboxTextDivLabel.innerHTML = checkboxOptionArray[i].value;
+                                    checkboxOptionArray[i].setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(checkboxOptionArray[i]);
                                 })
                             }
 
@@ -910,15 +924,16 @@ export default function appendForm() {
                             removeErrorP(radioDiv);
                             let tempDivName = radioDiv.name.replace('[count]','');
 
+                            let radioOptionArray = [];
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<radioDiv.value; i++)
                             {
                                 let optionBoxDiv = document.createElement('div');
                                 //---- creation de l'input pour le nom des options
-                                let optionName = document.createElement('input');
-                                optionName.setAttribute('type', 'text');
-                                optionName.setAttribute('name', tempDivName+'[]');
-                                optionName.setAttribute('id', 'option'+(i+1));
+                                radioOptionArray[i] = document.createElement('input');
+                                radioOptionArray[i].setAttribute('type', 'text');
+                                radioOptionArray[i].setAttribute('name', tempDivName+'[]');
+                                radioOptionArray[i].setAttribute('id', 'option'+(i+1));
 
                                 //label
                                 let optionNameLabel = document.createElement('label');
@@ -927,7 +942,7 @@ export default function appendForm() {
 
                                 //ajout au dom
                                 optionBoxDiv.appendChild(optionNameLabel);
-                                optionBoxDiv.appendChild(optionName);
+                                optionBoxDiv.appendChild(radioOptionArray[i]);
                                 radioDivOptions.appendChild(optionBoxDiv)
 
                                 //add input radio Preview
@@ -940,10 +955,10 @@ export default function appendForm() {
                                 radioPreviewFieldset.appendChild(previewradioIndividualDiv);
                                 previewradioIndividualDiv.appendChild(previewradioTextDiv);
                                 previewradioTextDiv.after(previewradioTextDivLabel);
-                                optionName.addEventListener('keyup', () => { 
-                                    previewradioTextDivLabel.innerHTML = optionName.value;
-                                    optionName.setAttribute('style', 'border: 1px solid black');
-                                    removeErrorP(optionName);
+                                radioOptionArray[i].addEventListener('keyup', () => { 
+                                    previewradioTextDivLabel.innerHTML = radioOptionArray[i].value;
+                                    radioOptionArray[i].setAttribute('style', 'border: 1px solid black');
+                                    removeErrorP(radioOptionArray[i]);
                                 })
                             }
 
@@ -962,6 +977,7 @@ export default function appendForm() {
                     let fieldsetFileLegend = document.createElement('legend');
                     fieldsetFileLegend.innerText = 'Fichier';
                     
+                    let firstFileBoxDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let fileDivName = document.createElement('input');
                     fileDivName.setAttribute('type','text');
@@ -972,6 +988,9 @@ export default function appendForm() {
                     let fileDivNameLabel = document.createElement('label');
                     fileDivNameLabel.setAttribute('for', 'fileDivName');
                     fileDivNameLabel.innerText = "Choisir le champ de référence (Veuillez ajouter votre carte d'identité)";
+                    firstFileBoxDiv.appendChild(fileDivNameLabel);
+                    firstFileBoxDiv.appendChild(fileDivName);
+
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenFileInput = document.createElement('input');
@@ -979,9 +998,8 @@ export default function appendForm() {
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetFileLegend);
-                    deleteSelectType.before(fileDivNameLabel);
-                    fileDivNameLabel.after(fileDivName);
-                    fileDivName.after(hiddenFileInput);               
+                    deleteSelectType.before(firstFileBoxDiv);
+                    deleteSelectType.before(hiddenFileInput);               
 
                     //add input file Preview
                     let previewfileInput = document.createElement('input');

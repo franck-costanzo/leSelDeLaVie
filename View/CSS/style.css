@@ -251,6 +251,21 @@ h1, h2 {
             margin-bottom: 5%;
         }
 
+        #FormulaireGen > form > fieldset > div > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #FormulaireGen > form > fieldset > div > div > input {
+            width: 50%;
+            margin-bottom: 2%;
+        }
+
+        #FormulaireGen > form > fieldset > div > div > p {
+            margin-top: -2%;
+            margin-bottom: 5%;
+        }
+
         #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-inner-spin-button, 
         #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none;
@@ -578,7 +593,6 @@ h1, h2 {
 
 
         .image-styled {
-            /* --test:url('View/Media/carousel2.jpg'); */
             background-position: center;
             background-size: cover;
             display: flex;
