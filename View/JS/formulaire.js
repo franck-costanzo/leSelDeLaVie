@@ -60,7 +60,6 @@ export default function appendForm() {
     //event listener pour vérifications avant enregistrement du formulaire
     submitButton.addEventListener('click', (e) => {    
 
-        e.preventDefault();
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
@@ -70,6 +69,7 @@ export default function appendForm() {
         //vérification si les champs sont vides et remplissage de l'array errorArray
         let formInputs = formGenDiv.querySelectorAll('input');
         formInputs.forEach( (input) => {
+            console.log()
             if (input.value === '' && input !== nameForm) 
             {
                 input.setAttribute('style', 'border: 2px dotted red');
@@ -82,7 +82,7 @@ export default function appendForm() {
                 errorArray.push(input.name);
                 appendErrorP(input, 'Veuillez remplir ce champ');
             }
-            else if (input.value !== '' && input == nameForm)
+            else if (input.value == '' && input == nameForm)
             {
                 nameForm.setAttribute('style', 'border: 2px dotted red');
                 errorArray.push(input.name);
