@@ -2,13 +2,12 @@
 
 $bdd;
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$db = 'le_sel_de_la_vie_site';
-
 try
 {
+    $servername = 'localhost';
+    $username = 'root';
+    $password = '';
+    $db = 'le_sel_de_la_vie_site';
     $bdd = new PDO( "mysql:host=$servername;dbname=$db", $username, $password,
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION) );
 }
