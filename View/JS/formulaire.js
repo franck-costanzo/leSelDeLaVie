@@ -44,7 +44,8 @@ export default function appendForm() {
             }
             else  
             {
-                let errorP = targetDiv.parentNode.querySelectorAll('.errorP');
+                let errorP = targetDiv.parentNode.querySelectorAll('div > .errorP');
+                console.log(errorP);
                 if (errorP.length > 0) 
                 {
                     errorP.forEach(element => {
@@ -58,6 +59,7 @@ export default function appendForm() {
     //event listener pour vérifications avant enregistrement du formulaire
     submitButton.addEventListener('click', (e) => {    
 
+        e.preventDefault();
         let errorArray = [];
         let formGenDiv = document.getElementById('FormulaireGen');
 
@@ -70,10 +72,11 @@ export default function appendForm() {
             if (input.value === '' && input !== nameForm) 
             {
                 input.setAttribute('style', 'border: 2px dotted red');
+                console.log()
                 
-                if (input.parentNode.querySelector('fieldset > label > span') && input.parentNode.querySelector('fieldset > label > span').id)
+                if (input.parentNode.querySelector('fieldset > div > label > span') && input.parentNode.querySelector('fieldset > div > label > span').id)
                 {
-                    input.parentNode.querySelector('label > span').setAttribute('style', 'color: red');
+                    input.parentNode.querySelector('fieldset > div > label > span').setAttribute('style', 'color: red');
                 }
                 errorArray.push(input.name);
                 appendErrorP(input, 'Veuillez remplir ce champ');
@@ -448,6 +451,7 @@ export default function appendForm() {
                     let fieldsetSelectLegend = document.createElement('legend');
                     fieldsetSelectLegend.innerText = 'Liste déroulante';
 
+                    let selectFirstBoxDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let selectDivName = document.createElement('input');
                     selectDivName.setAttribute('type','text');
@@ -458,8 +462,11 @@ export default function appendForm() {
                     let selectDivNameLabel = document.createElement('label');
                     selectDivNameLabel.setAttribute('for', 'selectDivName');
                     selectDivNameLabel.innerHTML = "Choisir le label de votre champ \n(ex: En quelle classe est votre enfant ?)";
+                    selectFirstBoxDiv.appendChild(selectDivNameLabel);
+                    selectFirstBoxDiv.appendChild(selectDivName);
                     
 
+                    let selectSecondBoxDiv = document.createElement('div');
                     //creation de l'input number pour avoir le nombre d'option                   
                     let selectDiv = document.createElement('input');
                     selectDiv.setAttribute('type', 'number');
@@ -477,7 +484,10 @@ export default function appendForm() {
                         let spanSelectDivNameLabel = document.createElement('span');
                         spanSelectDivNameLabel.setAttribute('id', 'spanDivNameLabel');
                         spanSelectDivNameLabel.innerHTML = "(min 3 - max 9)"
-                        selectDivLabel.appendChild(spanSelectDivNameLabel); 
+                        selectDivLabel.appendChild(spanSelectDivNameLabel);
+                    
+                    selectSecondBoxDiv.appendChild(selectDivLabel);
+                    selectSecondBoxDiv.appendChild(selectDiv);
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenSelectInput = document.createElement('input');
@@ -485,11 +495,9 @@ export default function appendForm() {
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetSelectLegend);
-                    deleteSelectType.before(selectDivNameLabel);
-                    selectDivNameLabel.after(selectDivName);
-                    selectDivName.after(selectDivLabel);
-                    selectDivLabel.after(selectDiv);
-                    selectDiv.after(hiddenSelectInput);
+                    deleteSelectType.after(selectFirstBoxDiv);
+                    selectFirstBoxDiv.after(selectSecondBoxDiv);
+                    selectSecondBoxDiv.after(hiddenSelectInput);
 
                     //add input select Preview
                     let previewselectDiv = document.createElement('select');
@@ -619,6 +627,7 @@ export default function appendForm() {
                     let fieldsetCheckboxLegend = document.createElement('legend');
                     fieldsetCheckboxLegend.innerText = 'Choix multiples, cases à cocher';
 
+                    let checkboxtFirstBoxDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let checkboxDivName = document.createElement('input');
                     checkboxDivName.setAttribute('type','text');
@@ -630,7 +639,10 @@ export default function appendForm() {
                     checkboxDivNameLabel.setAttribute('for', 'checkboxDivName');
                     checkboxDivNameLabel.innerText = "Choisir le label de votre champ"
                                                     +"\n(ex: Quel matériel avez-vous ?)"
-
+                    checkboxtFirstBoxDiv.appendChild(checkboxDivNameLabel);
+                    checkboxtFirstBoxDiv.appendChild(checkboxDivName);
+                    
+                    let checkboxSecondBoxDiv = document.createElement('div');
                     //creation de l'input number pour avoir le nombre d'option 
                     let checkboxDiv = document.createElement('input');
                     checkboxDiv.setAttribute('type', 'number');
@@ -647,7 +659,9 @@ export default function appendForm() {
                         let spanCheckboxtDivNameLabel = document.createElement('span');
                         spanCheckboxtDivNameLabel.setAttribute('id', 'spanDivNameLabel');
                         spanCheckboxtDivNameLabel.innerHTML = "(min 3 - max 9)"
-                        checkboxDivLabel.appendChild(spanCheckboxtDivNameLabel); 
+                        checkboxDivLabel.appendChild(spanCheckboxtDivNameLabel);
+                    checkboxtFirstBoxDiv.appendChild(checkboxDivLabel);
+                    checkboxtFirstBoxDiv.appendChild(checkboxDiv);
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenCheckboxInput = document.createElement('input');
@@ -655,11 +669,9 @@ export default function appendForm() {
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetCheckboxLegend);
-                    deleteSelectType.before(checkboxDivNameLabel);
-                    checkboxDivNameLabel.after(checkboxDivName);
-                    checkboxDivName.after(checkboxDivLabel);
-                    checkboxDivLabel.after(checkboxDiv);
-                    checkboxDiv.after(hiddenCheckboxInput);
+                    deleteSelectType.after(checkboxtFirstBoxDiv);
+                    deleteSelectType.after(checkboxSecondBoxDiv);
+                    deleteSelectType.after(hiddenCheckboxInput);
 
                     //ajout de la preview du checkbox
                     let checkboxPreviewFieldset = document.createElement('fieldset');
@@ -782,6 +794,7 @@ export default function appendForm() {
                     let fieldsetRadioLegend = document.createElement('legend');
                     fieldsetRadioLegend.innerText = 'Choix unique';
 
+                    let radioFirstBoxDiv = document.createElement('div');
                     //---- création de l'input text pour saisir le champ libellé
                     let radioDivName = document.createElement('input');
                     radioDivName.setAttribute('type','text');
@@ -793,7 +806,10 @@ export default function appendForm() {
                     radioDivNameLabel.setAttribute('for', 'radioDivName');
                     radioDivNameLabel.innerText = "Choisir le nom de votre champ"
                                                 + "\n(ex: Votre enfant sait-il nager ?)";
+                    radioFirstBoxDiv.appendChild(radioDivNameLabel);
+                    radioFirstBoxDiv.appendChild(radioDivName);
 
+                    let radioSecondBoxDiv = document.createElement('div');
                     //creation de l'input number pour avoir le nombre d'option 
                     let radioDiv = document.createElement('input');
                     radioDiv.setAttribute('type', 'number');
@@ -812,6 +828,8 @@ export default function appendForm() {
                         spanRadiotDivNameLabel.setAttribute('id', 'spanDivNameLabel');
                         spanRadiotDivNameLabel.innerHTML = "(minimum 2 - maximum 3)"
                         radioDivLabel.appendChild(spanRadiotDivNameLabel);
+                    radioSecondBoxDiv.appendChild(radioDivLabel);
+                    radioSecondBoxDiv.appendChild(radioDiv);
 
                     //---- création de l'input hidden pour sauvegarder l'order de la div
                     let hiddenRadioInput = document.createElement('input');
@@ -819,11 +837,9 @@ export default function appendForm() {
 
                     //ajout au dom
                     deleteSelectType.before(fieldsetRadioLegend);
-                    deleteSelectType.before(radioDivNameLabel);
-                    radioDivNameLabel.after(radioDivName);
-                    radioDivName.after(radioDivLabel);
-                    radioDivLabel.after(radioDiv);
-                    radioDiv.after(hiddenRadioInput);
+                    deleteSelectType.after(radioSecondBoxDiv);
+                    deleteSelectType.after(radioFirstBoxDiv);                    
+                    deleteSelectType.after(hiddenRadioInput);
 
                     //ajout de la preview du radio
                     let radioPreviewFieldset = document.createElement('fieldset');
@@ -897,6 +913,7 @@ export default function appendForm() {
                             //boucle sur la valeur entrée dans l'input relatif au nombre d'option
                             for (let i=0; i<radioDiv.value; i++)
                             {
+                                let optionBoxDiv = document.createElement('div');
                                 //---- creation de l'input pour le nom des options
                                 let optionName = document.createElement('input');
                                 optionName.setAttribute('type', 'text');
@@ -909,8 +926,9 @@ export default function appendForm() {
                                 optionNameLabel.innerText = 'Nom du choix '+(i+1);
 
                                 //ajout au dom
-                                radioDivOptions.appendChild(optionNameLabel);
-                                radioDivOptions.appendChild(optionName)
+                                optionBoxDiv.appendChild(optionNameLabel);
+                                optionBoxDiv.appendChild(optionName);
+                                radioDivOptions.appendChild(optionBoxDiv)
 
                                 //add input radio Preview
                                 let previewradioIndividualDiv = document.createElement('div')

@@ -108,6 +108,7 @@ h1, h2 {
         color: green;
         font-weight: bold;
     }
+
     /* -------------- */
     /*   FORMULAIRE   */
     /* -------------- */
@@ -245,8 +246,13 @@ h1, h2 {
             margin-bottom: 5%;
         }
 
-        #FormulaireGen > form > fieldset > input[type=number]::-webkit-inner-spin-button, 
-        #FormulaireGen > form > fieldset > input[type=number]::-webkit-outer-spin-button { 
+        #FormulaireGen > form > fieldset > div > p {
+            margin-top: -2%;
+            margin-bottom: 5%;
+        }
+
+        #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-inner-spin-button, 
+        #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none; 
