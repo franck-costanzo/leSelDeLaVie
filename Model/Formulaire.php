@@ -1,4 +1,4 @@
-<?php //TODO ENORME TODO DE LA MORT : GERER ABSOLUMENT LES DUPLICATIONS DE NOMS POUR CIBLER LE MODULE EXACT ET LE FORMULAIRE EXACT
+<?php 
 
 abstract class Formulaire extends Model 
 {
@@ -28,48 +28,48 @@ abstract class Formulaire extends Model
         return $register;
     }
 
-    public static function createModuleText($textLabel)
+    public static function createModuleText($textLabel, $order)
     {
-        $params = array($textLabel);
+        $params = array($textLabel, $order);
 
-        $sql = 'INSERT INTO modules (text_Label)
-                VALUES (?)';
+        $sql = 'INSERT INTO modules (text_Label, module_order)
+                VALUES (?, ?)';
 
         $register = self::requestExecute($sql, $params);
 
         return $register;
     }
 
-    public static function createModuleTextArea($textAreaLabel)
+    public static function createModuleTextArea($textAreaLabel, $order)
     {
-        $params = array($textAreaLabel);
+        $params = array($textAreaLabel, $order);
 
-        $sql = 'INSERT INTO modules (textarea_Label)
-                VALUES (?)';
+        $sql = 'INSERT INTO modules (textarea_Label, module_order)
+                VALUES (?, ?)';
 
         $register = self::requestExecute($sql, $params);
 
         return $register;
     }
 
-    public static function createModuleSelect($selectLabel, $selectCount, $selectNames)
+    public static function createModuleSelect($selectLabel, $selectCount, $selectNames, $order)
     {
-        $params = array($selectLabel, $selectCount, $selectNames);
+        $params = array($selectLabel, $selectCount, $selectNames, $order);
 
-        $sql = 'INSERT INTO modules (select_label, option_count, option_names)
-                VALUES (?, ?, ?)';
+        $sql = 'INSERT INTO modules (select_label, option_count, option_names, module_order)
+                VALUES (?, ?, ?, ?)';
 
         $register = self::requestExecute($sql, $params);
 
         return $register;
     }
 
-    public static function createModuleCheckbox($checkboxLabel, $checkboxCount, $checkboxNames)
+    public static function createModuleCheckbox($checkboxLabel, $checkboxCount, $checkboxNames, $order)
     {
-        $params = array($checkboxLabel, $checkboxCount, $checkboxNames);
+        $params = array($checkboxLabel, $checkboxCount, $checkboxNames, $order);
 
-        $sql = 'INSERT INTO modules (checkbox_label, checkbox_count, checkbox_names)
-                VALUES (?, ?, ?)';
+        $sql = 'INSERT INTO modules (checkbox_label, checkbox_count, checkbox_names, module_order)
+                VALUES (?, ?, ?, ?)';
 
         $register = self::requestExecute($sql, $params);
 
@@ -77,16 +77,38 @@ abstract class Formulaire extends Model
 
     }
 
-    public static function createModuleRadio($radioLabel, $radioCount, $radioNames)
+    public static function createModuleRadio($radioLabel, $radioCount, $radioNames, $order)
     {
-        $params = array($radioLabel, $radioCount, $radioNames);
+        $params = array($radioLabel, $radioCount, $radioNames, $order);
 
-        $sql = 'INSERT INTO modules (radio_label, radio_count, radio_names)
-                VALUES (?, ?, ?)';
+        $sql = 'INSERT INTO modules (radio_label, radio_count, radio_names, module_order)
+                VALUES (?, ?, ?, ?)';
 
         $register = self::requestExecute($sql, $params);
 
         return $register;
     }
+
+    public static function createModuleFile($fileLabel, $order)
+    {
+        $params = array($fileLabel, $order);
+
+        $sql = 'INSERT INTO modules (file_Label, module_order)
+                VALUES (?, ?)';
+
+        $register = self::requestExecute($sql, $params);
+
+        return $register;
+    }
+
+    public static function getAllFormsNames()
+    {
+        $sql = 'SELECT name_form FROM forms';
+
+        $forms = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $forms;
+
+    }   
 
 }

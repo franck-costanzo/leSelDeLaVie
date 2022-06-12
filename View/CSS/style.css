@@ -9,6 +9,10 @@
     --main-color-3 : #77B9C1;
 }
 
+input, select {
+    padding: 1.5%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -99,39 +103,258 @@ h1, h2 {
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
+    .messageErreur {
+        margin-top: 1%;
+        color: green;
+        font-weight: bold;
+    }
+    /* -------------- */
+    /*   FORMULAIRE   */
+    /* -------------- */
+
+    .titreFormulaire {
+        text-align: center;
+        margin-top: 2%;
+        width: 100%;
+    }
 
     .mainFormulaire {
-        margin: 10%;
-    }
-
-    .mainFormulaire > form {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-around;
     }
 
-    .mainFormulaire > form > input,
-    .mainFormulaire > form > select,
-    .mainFormulaire > form > button {
-        width: 25%;
-        margin-bottom: 1%;
-    }
+    .nomobile {
+        margin: 10% 5%;
+        padding: 5%;
+    } 
 
-    .mainFormulaire > form > div {
-        display: flex;
-        flex-direction: column;
-    }
+    /*   PARTIE GENERATEUR FORMULAIRE   */
 
-    .mainFormulaire > form > div > * {
-        width: 25%;
-        margin-bottom: 1%;
-    }
+        #FormulaireGen {
+            width: 40%;
+            margin: 5%;
+        }
 
-    .mainFormulaire > form > div > input[type=number]::-webkit-inner-spin-button, 
-    .mainFormulaire > form > div > input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none; 
-    }
+        #FormulaireGen > form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #FormulaireGen > form > input {
+            width: 40%;
+            margin-bottom: 1%;
+        }
+
+        #FormulaireGen > form > #reg_form {
+            margin: 0 10px;
+            padding: 15px 15px;
+            border-radius: 30px;
+            background-color: var(--main-color-2);
+            color: white;
+            border: none;
+        }
+
+        #FormulaireGen > form > label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 1%;
+        }
+
+        #FormulaireGen > form > hr {
+            width: 100%;
+            margin: 1% 0;
+        }
+
+        #FormulaireGen > form > fieldset {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--main-color-1);
+        }
+        
+        #FormulaireGen > form > fieldset {
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            padding:5%;
+            margin: 2% 0;
+        }
+
+        #FormulaireGen > form > fieldset > legend {
+            font-size: 1em;
+            font-weight: bold;
+            color: var(--main-color-1);
+            width: unset;
+        }
+
+        #FormulaireGen > form > fieldset > input {
+            width: 50%;
+            margin-bottom: 5%;
+        }
+
+        
+        #FormulaireGen > form > fieldset > select {
+            width: 40%;
+            margin-bottom: 5%;
+        }
+
+        #FormulaireGen > form > fieldset > div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5%;
+
+        }
+
+        #FormulaireGen > form > fieldset > div > input {
+            width: 50%;
+            margin-bottom: 2%;
+        }
+
+        .deleteSelectType {
+            position: absolute;
+            z-index: 1;
+            bottom: -5px;
+            right: -5px;
+            border: none;
+            width: 40px;
+            height: auto;
+        }
+
+        .addSelectType {
+            width: 40px;
+            height: auto;
+            border: none;
+        }
+        
+        #FormulaireGen > form > fieldset > .addSelectTypeInsideFieldset {
+            position: absolute;
+            z-index: 1;
+            bottom: -5px;
+            left: -5px;
+            border: none;
+            width: 40px;
+            height: auto;
+
+        }    
+
+        #FormulaireGen > form > fieldset > p {
+            margin-top: -5%;
+            margin-bottom: 5%;
+        }
+
+        #FormulaireGen > form > fieldset > input[type=number]::-webkit-inner-spin-button, 
+        #FormulaireGen > form > fieldset > input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none; 
+        }
+
+    /*   PARTIE PREVIEW FORMULAIRE   */
+
+        #previewFormulaire {
+            width: 40%;
+            margin: 5%;
+            background-color: rgb(169, 198, 216);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            position: sticky;
+            top : 40px;
+            padding: 2% 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #previewFormulaire > legend {
+            background-color: white;
+            color: var(--main-color-1);
+            padding: 1% 2%;
+            font-weight: bold;
+        }
+        #previewFormulaire > h2 {
+            margin: 2%;
+            width:100%;
+            text-align: center;
+        }
+
+        #previewFormulaire > label {
+            margin: 2% 0 0 6%;
+        }
+
+        #previewFormulaire > input,
+        #previewFormulaire > textarea,        
+        #previewFormulaire > select {
+            margin: 2% 5%;
+            width : 75%;
+            
+        }
+
+        #previewFormulaire > fieldset {
+            margin: 2% 5%;
+            width : 90%;
+            padding: 2%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        #previewFormulaire > fieldset > legend {
+            padding: 1% 2%;
+            font-weight: bold;
+        }
+
+        #previewFormulaire > fieldset > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 2%;
+            color: var(--main-color-1);
+        }
+
+        #previewFormulaire > fieldset > div > label {
+            margin-left: 10px;
+        }
+
+        #previewFormulaire > .previewfileDiv {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: var(--main-color-1);
+            margin-left: 4%;
+        }
+        
+        #previewFormulaire > .previewfileDiv > label {
+            margin: 0 10px;
+            padding: 15px 15px;
+            border-radius: 30px;
+            background-color: var(--main-color-2);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+        }
+
+        #previewFormulaire > .previewfileDiv > label > p {
+            margin-right: 10px;
+        }
+
+        #previewFormulaire > .previewfileDiv > label > img {
+            width: 100%;
+            height: auto;
+        }
+
+        #previewFormulaire > .previewfileDiv > input {
+            display: none;
+        }
+
+
+
+
     /*----------*/
     /* CAROUSEL */
     /*----------*/

@@ -1,17 +1,22 @@
 <main class="mainFormulaire">
-    <form action="" method="POST">
-        <label for="name_form">Nom du formulaire</label>
-        <input type="text" name="name_form" id="name_form">
-        <input type="submit" value="Enregistrer le formulaire" name="reg_form" id="reg_form">
-    </form>
+    <?php /* if (isset($_SESSION['message']) && $_SESSION['message'] != '') : ?>
+        <p class="messageErreur"><?= $_SESSION['message'] ?></p>  
+    <?php endif; */?> 
+    <h2 class="titreFormulaire">Attention les formulaires ne sont plus modifiables une fois enregistrés !</h2>
+    
+
+    <div id="FormulaireGen" enctype="multipart/form-data">
+        <form action="" method="POST">
+            <label for="name_form">Nom du formulaire</label>
+            <input type="text" name="name_form" id="name_form">
+            <hr>
+            <input type="submit" value="Enregistrer le formulaire" name="reg_form" id="reg_form">
+        </form>
+    </div>
+
+    <fieldset id="previewFormulaire">
+        <legend>Prévisualisation</legend>
+
+    </fieldset>
+    
 </main>
-
-
-<!--
-POUR LA DEMULTIPLACTION DE NAME D INPUT
-
-In your html you can pass in an array for the name i.e
-
-<input type="text" name="address[]" /> 
-This way php will receive an array of addresses.
- -->
