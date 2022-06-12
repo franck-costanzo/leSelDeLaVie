@@ -39,7 +39,6 @@ export default function appendForm() {
             {
                 let errorP = targetDiv.parentNode.querySelectorAll('form > .errorP');
                 errorP.forEach(element => {
-                    console.log(element);
                     element.remove();
                 })
             }
@@ -49,7 +48,6 @@ export default function appendForm() {
                 if (errorP.length > 0) 
                 {
                     errorP.forEach(element => {
-                        console.log(element);
                         element.remove();
                     })
                 }
@@ -69,11 +67,9 @@ export default function appendForm() {
         //vérification si les champs sont vides et remplissage de l'array errorArray
         let formInputs = formGenDiv.querySelectorAll('input');
         formInputs.forEach( (input) => {
-            console.log()
             if (input.value === '' && input !== nameForm) 
             {
                 input.setAttribute('style', 'border: 2px dotted red');
-                console.log(input.parentNode.querySelector('fieldset > label > span'));
                 
                 if (input.parentNode.querySelector('fieldset > label > span') && input.parentNode.querySelector('fieldset > label > span').id)
                 {
@@ -408,7 +404,6 @@ export default function appendForm() {
                     
                     //event listener click sur add
                     addSelectTypeInsideFieldset.addEventListener('click', () => {
-                        console.log('youpla');
                         tempStoredDiv = previewTextareaDiv;
                         selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
                     })
@@ -565,7 +560,6 @@ export default function appendForm() {
 
                             while (previewselectDiv.firstChild && previewselectDiv.childElementCount >1)
                             {
-                                console.log(previewselectDiv.childElementCount)
                                 previewselectDiv.removeChild(previewselectDiv.lastChild);
                             }
                         }
@@ -719,7 +713,6 @@ export default function appendForm() {
                         }
                         else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes() )
                         { 
-                            console.log('youpi')
                             while (checkboxDivOptions.firstChild)
                             {
                                 checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
