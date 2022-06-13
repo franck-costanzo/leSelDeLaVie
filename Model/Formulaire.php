@@ -109,6 +109,27 @@ abstract class Formulaire extends Model
 
         return $forms;
 
-    }   
+    }
+    
+    public static function getAllForms()
+    {
+        $sql = 'SELECT * FROM forms';
+
+        $forms = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $forms;
+
+    }
+
+    public static function getFormByIdOrderByModuleOrder($idForm)
+    {
+        $params = array($idForm);
+
+        $sql = 'SELECT * FROM forms WHERE id_form = ?';
+
+        $form = self::requestExecute($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $form;
+    }
 
 }

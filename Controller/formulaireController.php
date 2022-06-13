@@ -112,7 +112,7 @@ if (isset($_POST['reg_form']))
                         {
                             $tempString .= $element;
                         }
-                        else if (is_int($key))
+                        else if (is_int($key2))
                         {
                             $tempString .= $element.'||';
                         }                    
@@ -133,13 +133,13 @@ if (isset($_POST['reg_form']))
                 if(isset($value['description']))
                 {
                     $tempString = '';
-                    foreach($key as $key2 => $element)
+                    foreach($value as $key2 => $element)
                     {
                         if (is_int($key2) && $key2 === array_key_last($value)) 
                         {
                             $tempString .= $element;
                         }
-                        else if (is_int($key))
+                        else if (is_int($key2))
                         {
                             $tempString .= $element.'||';
                         }                    

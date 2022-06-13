@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS forms_modules (
      
 CREATE TABLE IF NOT EXISTS articles (
     id_article INT AUTO_INCREMENT NOT NULL, 
-    name_state VARCHAR(255),
+    name_article VARCHAR(255),
     image_url VARCHAR(255),
     description_article TEXT,
     id_category INT NOT NULL,

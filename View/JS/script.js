@@ -1,6 +1,7 @@
 import appendCarousel from './carousel.js';
 import changePicture from './ImageAssociation.js';
 import appendForm from './formulaire.js';
+import article from './article.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -39,6 +40,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         else if (lastSegment == 'formulaire' && !matched)
         { 
             document.querySelector('h2').innerHTML = 'Veuillez vous connecter sur un ordinateur pour fabriquer votre formulaire';
+            document.querySelector('main div').remove();
+            document.querySelector('main fieldset').remove();
+
+            let noMobileImg = document.createElement('img');
+            noMobileImg.setAttribute('src','./View/Media/nomobile.svg');
+            noMobileImg.setAttribute('class', 'nomobile');
+            document.querySelector('h2').after(noMobileImg);
+
+        }
+
+        //affichage du créateur d'évènement si l'utilisateur est sur ordinateur
+        if (lastSegment == 'creationarticle' && matched)
+        {
+            article()
+        }
+        else if (lastSegment == 'creationarticle' && !matched)
+        { 
+            document.querySelector('h2').innerHTML = 'Veuillez vous connecter sur un ordinateur pour créer votre article';
             document.querySelector('main div').remove();
             document.querySelector('main fieldset').remove();
 

@@ -1,5 +1,3 @@
-<main>
-
 <?php
 
     $bdd;
@@ -30,6 +28,4 @@
 
     $formNamesJSON = json_encode($names);
 
-    ($formNamesJSON);
-?>
-</main>
+    echo $formNamesJSON;

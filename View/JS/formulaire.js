@@ -409,7 +409,7 @@ export default function appendForm() {
                     previewTextareaDiv.setAttribute('type','Textarea');
                     previewTextareaDiv.setAttribute('id', 'previewTextareaDiv');
                     previewTextareaDiv.setAttribute('rows','5');
-                    previewTextareaDiv.setAttribute('cols', '50')
+                    previewTextareaDiv.setAttribute('cols', '50');
                     let previewTextareaDivLabel = document.createElement('label');
                     previewTextareaDivLabel.setAttribute('for','previewTextareaDiv');
                     
@@ -790,7 +790,7 @@ export default function appendForm() {
                                 //add input checkbox Preview
                                 let previewcheckboxIndividualDiv = document.createElement('div')
                                 let previewcheckboxTextDiv = document.createElement('input');
-                                previewcheckboxTextDiv.setAttribute('type','checkbox');
+                                previewcheckboxTextDiv.setAttribute('type','checkbox');                                
                                 previewcheckboxTextDiv.setAttribute('id', 'previewcheckboxTextDiv')
                                 let previewcheckboxTextDivLabel = document.createElement('label');
                                 previewcheckboxTextDivLabel.setAttribute('for','previewcheckboxTextDiv');
