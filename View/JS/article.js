@@ -3,6 +3,10 @@ export default function article() {
     let submitButton = document.getElementById('reg_article');
     let inputNameArticle = document.getElementById('name_article');
     let selectIdForm = document.getElementById('id_form');
+    let inputImg = document.getElementById('image_url');
+    let inputImgDiv = document.getElementById('fileInputCreationArticle')
+    let inputDescription = document.getElementById('description_article');
+
     //---- counter pour dénombrer les elements du meme type rajouté
     var textCount = 1;
     var textAreaCount = 1;
@@ -13,7 +17,6 @@ export default function article() {
 
     submitButton.addEventListener('click', function (e) {
         console.log('YOUPIX');
-        e.preventDefault();
     });
 
     //variable relative à la div globale de la preview
@@ -22,10 +25,16 @@ export default function article() {
 
     //creation et append du titre de la preview
     let titreForm = document.createElement('H2');
-    previewFormDiv.appendChild(titreForm);    
+    previewFormDiv.appendChild(titreForm);
+    let description_article = document.createElement('P');
+    previewFormDiv.appendChild(description_article);
 
     inputNameArticle.addEventListener('keyup', function (e) {
         titreForm.innerHTML = inputNameArticle.value;
+    });
+
+    inputDescription.addEventListener('keyup', function (e) {
+        description_article.innerHTML = inputDescription.value;
     });
 
     selectIdForm.addEventListener('change', (e) => {
@@ -35,7 +44,7 @@ export default function article() {
         {
             while (previewFormDiv.lastChild) 
             {
-                if(previewFormDiv.lastChild.tagName == 'H2')
+                if(previewFormDiv.lastChild.tagName == 'P')
                 { 
                     break;
                 }
@@ -199,6 +208,41 @@ export default function article() {
 
     });
 
+    inputImg.addEventListener('change', (e) => {
+        let allImgs = document.querySelectorAll('#imgPreview');
+
+        if (allImgs.length > 0) 
+        {
+            allImgs.forEach(element => {
+                element.remove();
+            });
+        }
+
+        let file = e.target.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            let img = document.createElement('IMG');
+            img.setAttribute('src', e.target.result);
+            img.setAttribute('id', 'imgPreview');
+            inputImgDiv.after(img);
+            console.log('youpi');
+
+            let imgPreview = document.createElement('IMG');
+            imgPreview.setAttribute('src', e.target.result);
+            imgPreview.setAttribute('id', 'imgPreview');            
+            description_article.before(imgPreview);    
+            console.log('youpla');
+        }
+
+        
+        let reader2 = new FileReader();
+        reader2.readAsDataURL(file);
+        reader2.onload = (e) => {
+            
+        }
+    });
 
 
 

@@ -22,11 +22,11 @@ Class Article extends Model
         return $article;
     }
 
-    public static function createArticle($name_article, $image_url, $description, $id_category, $id_state, $id_form)
+    public static function createArticle($name_article, $image_url, $description, $id_category, $id_form)
     {
-        $params = array($name_article, $image_url, $description, $id_category, $id_state, $id_form);
+        $params = array($name_article, $image_url, $description, $id_category, $id_form);
 
-        $sql = 'INSERT INTO articles (name_article, image_url, description, id_category, id_state, id_form)
+        $sql = 'INSERT INTO articles (name_article, image_url, description_article, id_category, id_state, id_form)
                 VALUES (?, ?, ?, ?, 1, ?)';
 
         $register = self::requestExecute($sql, $params);
