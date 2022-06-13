@@ -103,10 +103,14 @@ h1, h2 {
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
-    .messageErreur {
-        margin-top: 1%;
-        color: green;
-        font-weight: bold;
+    /* -------------- */
+    /*      HOME      */
+    /* -------------- */
+
+    .article {
+        width: 20%;
+        height: auto;
+        margin: 2%;
     }
 
     /* ---------------------- */

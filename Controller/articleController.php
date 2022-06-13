@@ -20,3 +20,10 @@ if (isset($_POST['reg_article']))
     Article::createArticle($name_article, $targetFile, $description_article, $id_category, $id_form);
 
 }
+
+if (isset($_POST['voir_article']))
+{
+    $id_article = $_POST['id_article'];
+    $id_form = $_POST['id_form'];
+    header('Location: ./articledetail?id_article='.$id_article.'&id_form='.$id_form);
+}

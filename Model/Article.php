@@ -17,7 +17,7 @@ Class Article extends Model
         $params = array($id);
 
         $sql = 'SELECT * FROM articles WHERE id_article = ?';
-        $article = self::requestExecute($sql, $params);
+        $article = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 
         return $article;
     }

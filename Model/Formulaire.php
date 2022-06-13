@@ -125,9 +125,13 @@ abstract class Formulaire extends Model
     {
         $params = array($idForm);
 
-        $sql = 'SELECT * FROM forms WHERE id_form = ?';
+        $sql = 'SELECT forms.*, forms_modules.forms_modules_type, modules.* FROM `forms` 
+        INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form 
+        INNER JOIN modules ON forms_modules.id_module = modules.id_module
+        WHERE forms.id_form = ?
+        ORDER BY modules.module_order';
 
-        $form = self::requestExecute($sql, $params)->fetch(PDO::FETCH_ASSOC);
+        $form = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 
         return $form;
     }
