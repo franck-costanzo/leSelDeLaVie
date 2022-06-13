@@ -475,13 +475,26 @@ export default function appendForm() {
                     
 
                     let selectSecondBoxDiv = document.createElement('div');
-                    //creation de l'input number pour avoir le nombre d'option                   
-                    let selectDiv = document.createElement('input');
-                    selectDiv.setAttribute('type', 'number');
+                    //creation de l'input number pour avoir le nombre d'option
+                    let selectDiv = document.createElement('select');
                     selectDiv.setAttribute('name', 'select['+ selectCount +'][count]');
-                    selectDiv.setAttribute('min', '3');
-                    selectDiv.setAttribute('max', '9');
                     selectDiv.setAttribute('id', 'select');
+                    let disabledSelectOption = document.createElement('option');
+                    disabledSelectOption.setAttribute('disabled', 'disabled');
+                    disabledSelectOption.setAttribute('selected', 'selected');
+                    disabledSelectOption.innerText = "Choix";
+                    selectDiv.appendChild(disabledSelectOption);
+                    let selectOptionArray = [];
+                    for(let i=3; i<10; i++)
+                    {
+                        
+                        let option = document.createElement('option');
+                        option.setAttribute('value', i);
+                        option.innerText = i;
+                        selectOptionArray.push(option);
+                        selectDiv.appendChild(option);
+                    }
+                    
 
                     //label de l'input number
                     let selectDivLabel = document.createElement('label');
@@ -557,30 +570,25 @@ export default function appendForm() {
                     //creation de la div pour les options
                     let selectDivOptions = document.createElement('div');                 
                     choiceDiv.appendChild(selectDivOptions);
-    
-                    selectDiv.addEventListener('keyup', (event) => {
-
                         
-                        if ((selectDiv.value < 3 || selectDiv.value > 9) && event.key !== 'Backspace')
-                        { 
-                            //alert('veuillez choisir entre 3 et 9!')
-                            selectDiv.setAttribute('style', 'border: 2px dotted red'); 
-                        }
-                        else if (event.key === 'Backspace' && selectDivOptions.hasChildNodes() 
-                                    && previewselectDiv.hasChildNodes())
-                        { 
-                            while (selectDivOptions.firstChild)
+                    selectDiv.addEventListener('change', (event) => {
+                        if (selectDiv.value >= 3 || selectDiv.value <= 9)
+                        {
+                            if (selectDivOptions.hasChildNodes())
                             {
-                                selectDivOptions.removeChild(selectDivOptions.firstChild);
+                                while (selectDivOptions.firstChild)
+                                {
+                                    selectDivOptions.removeChild(selectDivOptions.firstChild);
+                                }
+
+                                while (previewselectDiv.firstChild && previewselectDiv.childElementCount >1)
+                                {
+                                    previewselectDiv.removeChild(previewselectDiv.lastChild);
+                                }
+
                             }
 
-                            while (previewselectDiv.firstChild && previewselectDiv.childElementCount >1)
-                            {
-                                previewselectDiv.removeChild(previewselectDiv.lastChild);
-                            }
-                        }
-                        else if ((selectDiv.value >= 3 || selectDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
-                        {                           
+
                             let tempDivName = selectDivName.name.replace('[description]','');
                             selectDiv.setAttribute('style', 'border: 1px solid black');
                             spanSelectDivNameLabel.setAttribute('style', 'color: black');
@@ -617,11 +625,7 @@ export default function appendForm() {
                                 })
 
                             }
-
                         }
-
-                        
-                        
                     })
                     
                     //incrementation du compte pour le type d'element
@@ -655,12 +659,23 @@ export default function appendForm() {
                     
                     let checkboxSecondBoxDiv = document.createElement('div');
                     //creation de l'input number pour avoir le nombre d'option 
-                    let checkboxDiv = document.createElement('input');
-                    checkboxDiv.setAttribute('type', 'number');
+                    let checkboxDiv = document.createElement('select');
                     checkboxDiv.setAttribute('name', 'checkbox['+ checkboxCount +'][count]');
-                    checkboxDiv.setAttribute('min', '3');
-                    checkboxDiv.setAttribute('max', '9');
                     checkboxDiv.setAttribute('id', 'checkbox');
+                    let disabledCheckboxOption = document.createElement('option');
+                    disabledCheckboxOption.setAttribute('disabled', 'disabled');
+                    disabledCheckboxOption.setAttribute('selected', 'selected');
+                    disabledCheckboxOption.innerText = "Choix";
+                    checkboxDiv.appendChild(disabledCheckboxOption);
+                    let checkboxOptionArray = [];
+                    for(let i=3; i<10; i++)
+                    {                        
+                        let option = document.createElement('option');
+                        option.setAttribute('value', i);
+                        option.innerText = i;
+                        checkboxOptionArray.push(option);
+                        checkboxDiv.appendChild(option);
+                    }
 
                     //label de l'input number
                     let checkboxDivLabel = document.createElement('label');
@@ -728,26 +743,23 @@ export default function appendForm() {
                     let checkboxDivOptions = document.createElement('div');                 
                     choiceDiv.appendChild(checkboxDivOptions);
                     
-                    checkboxDiv.addEventListener('keyup', (event) => {
-                        if ((checkboxDiv.value < 3 || checkboxDiv.value > 9) && event.key !== 'Backspace')
-                        { 
-                            //alert('veuillez choisir entre 3 et 9!')
-                            checkboxDiv.setAttribute('style', 'border: 2px dotted red'); 
-                        }
-                        else if (event.key === 'Backspace' && checkboxDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes() )
-                        { 
-                            while (checkboxDivOptions.firstChild)
-                            {
-                                checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
-                            }
+                    checkboxDiv.addEventListener('change', (event) => {
 
-                            while (checkboxPreviewFieldset.firstChild)
-                            {
-                                checkboxPreviewFieldset.removeChild(checkboxPreviewFieldset.firstChild);
-                            }
-                        }
-                        else if ((checkboxDiv.value >= 3 || checkboxDiv.value <= 9) && (event.key >= 3 || event.key <= 9))
+                        if (checkboxDiv.value >= 3 || checkboxDiv.value <= 9)
                         {
+                            if (checkboxDivOptions.hasChildNodes())
+                            {
+                                while (checkboxDivOptions.firstChild)
+                                {
+                                    checkboxDivOptions.removeChild(checkboxDivOptions.firstChild);
+                                }
+
+                                while (checkboxPreviewFieldset.firstChild)
+                                {
+                                    checkboxPreviewFieldset.removeChild(checkboxPreviewFieldset.firstChild);
+                                }
+                            }
+                            
                             let tempDivName = checkboxDiv.name.replace('[count]','');
 
                             checkboxDiv.setAttribute('style', 'border: 1px solid black');
@@ -791,8 +803,6 @@ export default function appendForm() {
                                     removeErrorP(checkboxOptionArray[i]);
                                 })
                             }
-
-
                         }
                         
                     })
@@ -825,12 +835,24 @@ export default function appendForm() {
 
                     let radioSecondBoxDiv = document.createElement('div');
                     //creation de l'input number pour avoir le nombre d'option 
-                    let radioDiv = document.createElement('input');
-                    radioDiv.setAttribute('type', 'number');
-                    radioDiv.setAttribute('name', 'radio['+ radioCount +'][count]')
-                    radioDiv.setAttribute('min', '2');
-                    radioDiv.setAttribute('max', '3');
+                    let radioDiv = document.createElement('select');
+                    radioDiv.setAttribute('name', 'radio['+ radioCount +'][count]');
                     radioDiv.setAttribute('id', 'radio');
+                    let disabledRadioOption = document.createElement('option');
+                    disabledRadioOption.setAttribute('disabled', 'disabled');
+                    disabledRadioOption.setAttribute('selected', 'selected');
+                    disabledRadioOption.innerText = "Choix";
+                    radioDiv.appendChild(disabledRadioOption);
+                    let radioOptionArray = [];
+                    for (let i=2; i<4; i++)
+                    {
+                        let option = document.createElement('option');
+                        option.setAttribute('value', i);
+                        option.innerText = i;
+                        radioOptionArray.push(option);
+                        radioDiv.appendChild(option);
+                    }
+
 
                     //label de l'input number
                     let radioDivLabel = document.createElement('label');
@@ -899,26 +921,23 @@ export default function appendForm() {
                     let radioDivOptions = document.createElement('div');                 
                     choiceDiv.appendChild(radioDivOptions);
                     
-                    radioDiv.addEventListener('keyup', (event) => {
-                        if ((radioDiv.value < 2 || radioDiv.value > 3) && event.key !== 'Backspace')
-                        { 
-                            //alert('veuillez choisir entre 2 et 3!');
-                            checkboxDiv.setAttribute('style', 'border: 2px dotted red');
-                        }
-                        else if (event.key === 'Backspace' && radioDivOptions.hasChildNodes() && checkboxPreviewFieldset.hasChildNodes())
-                        { 
-                            while (radioDivOptions.firstChild)
-                            {
-                                radioDivOptions.removeChild(radioDivOptions.firstChild);
-                            }
-
-                            while (checkboxPreviewFieldset.firstChild)
-                            {
-                                checkboxPreviewFieldset.removeChild(checkboxPreviewFieldset.firstChild);
-                            }
-                        }
-                        else if ((radioDiv.value >= 3 || radioDiv.value <= 9) && (event.key >= 3 || event.key <= 9)) 
+                    radioDiv.addEventListener('change', (event) => {
+                        if ((radioDiv.value >= 2 || radioDiv.value <= 3)) 
                         {
+                            if (radioDivOptions.hasChildNodes())
+                            {
+                                while (radioDivOptions.firstChild)
+                                {
+                                    radioDivOptions.removeChild(radioDivOptions.firstChild);
+                                }
+    
+                                while (radioPreviewFieldset.firstChild)
+                                {
+                                    radioPreviewFieldset.removeChild(radioPreviewFieldset.firstChild);
+                                }
+                            }
+                            
+
                             radioDiv.setAttribute('style', 'border: 1px solid black');
                             spanRadiotDivNameLabel.setAttribute('style', 'color: black');
                             removeErrorP(radioDiv);
@@ -984,6 +1003,8 @@ export default function appendForm() {
                     fileDivName.setAttribute('name','file['+ fileCount +'][description]')
                     fileDivName.setAttribute('id', 'fileDivName');
 
+                    fileCount++;
+
                     //label
                     let fileDivNameLabel = document.createElement('label');
                     fileDivNameLabel.setAttribute('for', 'fileDivName');
@@ -1005,14 +1026,17 @@ export default function appendForm() {
                     let previewfileInput = document.createElement('input');
                     previewfileInput.setAttribute('type','file');
                     previewfileInput.setAttribute('id', 'previewfileInput')
+                    previewfileInput.setAttribute('class', 'previewfileInput');
 
                     let previewfileInputLabel = document.createElement('label');
                     previewfileInputLabel.setAttribute('for','previewfileInput');
+                    previewfileInputLabel.setAttribute('class', 'previewfileInputLabel');
 
                     let previewfileInputLabelImg = document.createElement('img');
                     previewfileInputLabelImg.setAttribute('src', './View/Media/upload.svg');
 
                     let previewfileInputLabelImgTxt = document.createElement('p');
+                    previewfileInputLabelImgTxt.setAttribute('class', 'previewfileInputLabelImgTxt');
 
                     let previewfileDiv = document.createElement('div');
                     previewfileDiv.setAttribute('class', 'previewfileDiv');
@@ -1023,7 +1047,7 @@ export default function appendForm() {
 
                     //event listener click sur add
                     addSelectTypeInsideFieldset.addEventListener('click', () => {
-                        tempStoredDiv = previewfileInput;
+                        tempStoredDiv = previewfileDiv;
                         selectTypeAppend(addSelectTypeInsideFieldset.parentNode, 'after'); 
                     })
 

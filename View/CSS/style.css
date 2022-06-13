@@ -214,6 +214,15 @@ h1, h2 {
             margin-bottom: 2%;
         }
 
+        #FormulaireGen > form > fieldset > div > select {
+            width: 25%;
+            margin-bottom: 2%;
+        }
+
+        #FormulaireGen > form > fieldset > div > select > option {
+            text-align: center;
+        }
+
         .deleteSelectType {
             position: absolute;
             z-index: 1;
@@ -264,13 +273,6 @@ h1, h2 {
         #FormulaireGen > form > fieldset > div > div > p {
             margin-top: -2%;
             margin-bottom: 5%;
-        }
-
-        #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-inner-spin-button, 
-        #FormulaireGen > form > fieldset > div > input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none; 
         }
 
     /*   PARTIE PREVIEW FORMULAIRE   */
@@ -349,7 +351,7 @@ h1, h2 {
             margin-left: 4%;
         }
         
-        #previewFormulaire > .previewfileDiv > label {
+        #previewFormulaire > .previewfileDiv > .previewfileInputLabel {
             margin: 0 10px;
             padding: 15px 15px;
             border-radius: 30px;
@@ -369,7 +371,7 @@ h1, h2 {
             height: auto;
         }
 
-        #previewFormulaire > .previewfileDiv > input {
+        #previewFormulaire > .previewfileDiv > .previewfileInput {
             display: none;
         }
 

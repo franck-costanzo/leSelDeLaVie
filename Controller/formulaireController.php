@@ -84,7 +84,7 @@ if (isset($_POST['reg_form']))
                         }
                         else if (is_int($key2))
                         {
-                            $tempString .= $element.'/';
+                            $tempString .= $element.'||';
                         }                    
                     }
 
@@ -114,7 +114,7 @@ if (isset($_POST['reg_form']))
                         }
                         else if (is_int($key))
                         {
-                            $tempString .= $element.'/';
+                            $tempString .= $element.'||';
                         }                    
                     }
                     Formulaire::createModuleCheckbox($value['description'], $value['count'], $tempString, $value['order']);
@@ -141,7 +141,7 @@ if (isset($_POST['reg_form']))
                         }
                         else if (is_int($key))
                         {
-                            $tempString .= $element.'/';
+                            $tempString .= $element.'||';
                         }                    
                     }
                     Formulaire::createModuleRadio($value['description'], $value['count'], $tempString, $value['order']);
