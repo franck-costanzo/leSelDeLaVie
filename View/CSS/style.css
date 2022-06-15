@@ -7,6 +7,8 @@
     --main-color-1 : #18375F;
     --main-color-2 : #346E8C;
     --main-color-3 : #77B9C1;
+    --mod-color : #EFD759;
+    --admin-color : #FA7D4D;
 }
 
 input, select {
@@ -29,6 +31,9 @@ h1, h2 {
     color : var(--main-color-1);
 }
 
+ul {
+    list-style-type: none;
+}
 
     /* ------------- */
     /*     DESKTOP   */
@@ -103,15 +108,100 @@ h1, h2 {
 /* -------------- */
 /*      MAIN      */
 /* -------------- */
+
+
     /* -------------- */
     /*      HOME      */
     /* -------------- */
 
-    .article {
-        width: 20%;
-        height: auto;
-        margin: 2%;
+    .mainHome {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
+
+    .categoryNav {
+        margin: 2.5%;
+        width: 95%;    
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .displayArticle {
+        margin: 2.5%;
+        width:95%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .article {
+        width: 90%;
+        height: auto;
+        position: relative;
+        margin: 5% 0%;
+        padding: 5%;
+        border: var(--main-color-1) 1px solid;
+        border-radius: 5px;
+    }
+
+    .article > h3 {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 2%;
+        background-color: var(--main-color-1);
+        color: white;
+    }
+
+    .article > p {
+        margin: 5% 0;
+    }
+
+    .article > form {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .redirectArticle
+    {
+        margin: 2%;
+        padding: 10px 10px;
+        border-radius: 30px;
+        background-color: var(--main-color-2);
+        color: white;
+        border: none;
+    }
+    
+    .displayArticle > nav {
+        width: 100%
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .page-item  {
+        margin: 0 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: var(--main-color-2);
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .page-item-numbers {
+        margin: 0 5%;
+        color: var(--main-color-1);
+        font-weight: bold;
+    }
+
 
     /* ---------------------- */
     /*   CREATION D'ARTICLE   */
@@ -605,6 +695,65 @@ h1, h2 {
 
     @media screen and (min-width: 968px){
 
+        /*----------*/
+        /* CAROUSEL */
+        /*----------*/
+
+        .mainHome {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            flex-direction: row;
+        }
+    
+        .categoryNav {
+            margin: 2.5% 1%;
+            width: 8%;   
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            position: sticky;
+            top: 40px;
+            background-color: #A9C6D8 ;
+            padding-left: 1%;
+        }
+
+        .categoryNav > ul {
+            margin: 5% 0 0 10%;
+        }
+
+        .categoryNav > hr {
+            margin: 0;
+            width: 100%;
+            border: 0.5px solid var(--main-color-1);
+        }
+
+        .categoryNav > ul > li {
+            margin: 2% 0;
+            font-size: 1em;
+            font-weight: bold;
+            color: var(--main-color-1);
+        }
+    
+        .displayArticle {
+            margin: 2.5%;
+            width:85%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            flex-direction: row;
+        }
+        
+        .article {
+            width: 20%;
+            margin: 2%;
+            padding: 1%;
+        }
+
+        .page-item-numbers {
+            margin: 0 2%;
+        }
 
 
         /*----------*/
@@ -688,6 +837,10 @@ h1, h2 {
 /* ------------- */
 /*     FOOTER    */
 /* ------------- */
+
+    footer {
+        margin-top: 3%;
+    }
 
     .liensAdministratifs {
         color: black;

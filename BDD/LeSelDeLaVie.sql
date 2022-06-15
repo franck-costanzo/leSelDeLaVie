@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS articles (
     id_category INT NOT NULL,
     id_state INT NOT NULL,
     id_form INT NOT NULL,
+    date_created DATE NOW(),
     CONSTRAINT FK_articles_id_category_categories
     FOREIGN KEY (id_category) REFERENCES categories (id_category),
     CONSTRAINT FK_articles_id_state_states 
@@ -142,3 +143,12 @@ CREATE TABLE IF NOT EXISTS users_articles (
     CONSTRAINT FK_users_articles_id_article_articles 
     FOREIGN KEY (id_article) REFERENCES articles (id_article),
     PRIMARY KEY (id_users_articles)) ENGINE=InnoDB;
+
+-- ------------------------------------
+--        table récupération         --
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS recuperation (
+    id INT AUTO_INCREMENT NOT NULL,
+    mail VARCHAR(255) NOT NULL,
+    code int(11) NOT,
+    PRIMARY KEY(id)) ENGINE=InnoDB;

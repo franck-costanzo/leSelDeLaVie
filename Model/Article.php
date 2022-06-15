@@ -7,7 +7,7 @@ Class Article extends Model
     public static function getAllArticles()
     {
         $sql = 'SELECT * FROM articles';
-        $articles = self::requestExecute($sql);
+        $articles = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $articles;
     }
@@ -22,6 +22,16 @@ Class Article extends Model
         return $article;
     }
 
+    public static function getAllArticlesByCategory($id_category)
+    {
+        $params = array($id_category);
+
+        $sql = 'SELECT * FROM articles WHERE id_category = ?';
+        $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $articles;
+    }
+
     public static function createArticle($name_article, $image_url, $description, $id_category, $id_form)
     {
         $params = array($name_article, $image_url, $description, $id_category, $id_form);
@@ -33,5 +43,26 @@ Class Article extends Model
 
         return $register;
     }
+
+    public static function getArticlesPagination($first, $perPage)
+    {
+
+        $sql = 'SELECT * FROM articles ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
+
+        $articles = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $articles;
+    }
+
+    public static function getAllArticlesByCategoryPagination($id_category, $first, $perPage)
+    {
+        $params = array($id_category);
+
+        $sql = 'SELECT * FROM articles WHERE id_category = ? ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
+        $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $articles;
+    }
+
 
 }
