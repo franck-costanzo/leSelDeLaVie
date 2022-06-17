@@ -4,4 +4,6 @@
     <a href="association">Association</a>
     <a href="inscription">Inscription</a>
     <a href="connexion">Connexion</a>
+    <a href="profil">profil</a>
+    <a href="admin">admin</a>
 </nav>

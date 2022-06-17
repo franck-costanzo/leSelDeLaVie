@@ -1,22 +1,9 @@
 <main class='mainFormulaire'>
-<?php
-$message='';
-if(isset($_POST['sign_up'])){
-$message= UserController::signUpAction(
-                htmlentities($_POST['firstName'],ENT_QUOTES,"ISO-8859-1"),
-                htmlentities($_POST['lastName'],ENT_QUOTES,"ISO-8859-1"),
-                htmlentities($_POST['email'],ENT_QUOTES,"ISO-8859-1"),
-                htmlentities($_POST['password'],ENT_QUOTES,"ISO-8859-1"),
-                htmlentities($_POST['confpassword'],ENT_QUOTES,"ISO-8859-1"),         
-                htmlentities($_POST['adress'],ENT_QUOTES,"ISO-8859-1"),
-                htmlentities($_POST['zip_code'],ENT_QUOTES,"ISO-8859-1"),);
-            }
-        ?>
+<?php $message='';?>
 <form  method="post" >
 <div class='title'>
     <h2>Inscription</h2>
 
-    <p><?php echo $message ;?></p>
     <input id="firstName" class="input" type="text" placeholder=" " name="firstName" value=''required />
     <label for="firstName" class="placeholder">Prenom</label>
 
@@ -26,10 +13,15 @@ $message= UserController::signUpAction(
 
     <input id="email" class="input" type="email" placeholder=" " name="email" required />
     <label for="email" class="placeholder">Email</label>
+    <div id="check"></div>
 
 
     <input id="password" class="input" type="password" placeholder=" " name="password" required />
     <label for="password" class="placeholder">Mot de passe</label>
+        <p>le mot de passe doit contenir au moins un caractere minuscule</p>
+        <p>le mot de passe doit contenir au moins un caractere majuscule</p>
+        <p>le mot de passe doit contenir au moins 8 caracteres</p>
+        <p>le mot de passe doit contenir au moins 1 chiffre</p>
 
     <input id="confpassword" class="input" type="password" placeholder=" " name="confpassword" required />
     <label for="confpassword" class="placeholder">Validation mot de passe</label>

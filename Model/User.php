@@ -6,9 +6,9 @@ class User extends Model
     public function __construct() {}
 
 
-    public function checkUser($email){
+static public function checkUser($email){
         $sql = "SELECT * FROM `users` WHERE users.email=:email";
-        $test=Model::getBdd()->prepare($sql);
+        $test=self::getBdd()->prepare($sql);
         $test->execute(array(':email'=>$email));
         $test2=$test->rowCount();
         return $test2;      
@@ -20,7 +20,7 @@ class User extends Model
         $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code)
         VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code)";
 
-        Model::requestExecute($sqlinsert,$params=array(
+        self::requestExecute($sqlinsert,$params=array(
             ':firstname' => $firstName,
             ':lastname' => $lastName,
             ':email' => $email,
@@ -34,8 +34,8 @@ class User extends Model
     //---------connexion--------------------------------
 
     public function userConnexion($email){
-        $sqlinsert = "SELECT * FROM users WHERE email=:email ";
-        $signIn =Model::getBdd()->prepare($sqlinsert);
+        $sqlinsert = "SELECT id_user,firstname,lastname,adress,zip_code,password,email FROM users WHERE email=:email ";
+        $signIn =self::getBdd()->prepare($sqlinsert);
         $signIn->execute(array(
             ':email' => $email,
         ));
@@ -85,5 +85,6 @@ public function lastNamedUpdate($lastName){
         ':id'=>$_SESSION['user']['id']
     ));
 }
+
 
 }
