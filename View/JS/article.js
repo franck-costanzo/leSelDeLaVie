@@ -55,7 +55,8 @@ export default function article() {
 
         let idForm = e.target.value;
 
-        fetch('/leSelDeLaVie/View/JS/articleforms.php')
+        fetch('/leSelDeLaVie/articleForms')
+        // fetch('/leSelDeLaVie/View/JS/articleforms.php')
             .then(response =>{
                 return response.json();
             })

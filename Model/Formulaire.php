@@ -136,4 +136,14 @@ abstract class Formulaire extends Model
         return $form;
     }
 
+    public static function getFormByModuleOrder()
+    {
+        $sql = 'SELECT forms.*, forms_modules.forms_modules_type, modules.* FROM `forms` 
+            INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form 
+            INNER JOIN modules ON forms_modules.id_module = modules.id_module
+            ORDER BY modules.module_order;';
+        
+        return (self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC));
+    }
+
 }

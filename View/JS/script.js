@@ -2,6 +2,7 @@ import appendCarousel from './carousel.js';
 import changePicture from './ImageAssociation.js';
 import appendForm from './formulaire.js';
 import article from './article.js';
+import pdfGenerator from './pdfgenerator.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -66,6 +67,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             noMobileImg.setAttribute('class', 'nomobile');
             document.querySelector('h2').after(noMobileImg);
 
+        }
+        
+        if (lastSegment == 'test')
+        {
+            pdfGenerator();
         }
         
 });

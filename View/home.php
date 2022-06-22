@@ -1,7 +1,3 @@
-<?php
-    
-
-?>
 <main>
     <div class="mainHome">
         <nav class="categoryNav">

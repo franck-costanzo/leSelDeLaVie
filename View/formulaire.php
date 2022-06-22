@@ -1,6 +1,4 @@
 <main class="mainFormulaire">
-    <?php /* if (isset($_SESSION['qlqchose''])  : ?>  
-    <?php endif; */?> 
     <h2 class="titreFormulaire">Attention les formulaires ne sont plus modifiables une fois enregistrés !</h2>
     
 
@@ -19,5 +17,3 @@
     </fieldset>
     
 </main>
-
-<pre><?= var_dump($_POST)?></pre>

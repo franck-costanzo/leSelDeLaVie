@@ -9,7 +9,7 @@ export default function appendForm() {
         //fonction qui va remplir le tableau
         async function getFormName ()
         {
-            await fetch('/leSelDeLaVie/View/JS/names.php')
+            await fetch('/leSelDeLaVie/names')
             .then(response =>{
                 return response.json();
             })
