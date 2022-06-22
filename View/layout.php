@@ -8,6 +8,7 @@
     <script src="View\JS\script.js" type="module"></script>
     <script src="View\JS\SignUp.js" ></script>
     <link rel="stylesheet" type="text/css" href="View/CSS/style.css">
+    <link rel="stylesheet" type="text/css" href="View/CSS/headerfooter.css">
 </head>
 <body>
 

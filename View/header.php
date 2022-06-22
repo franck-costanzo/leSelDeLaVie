@@ -1,3 +1,5 @@
+<pre><?= var_dump($_SESSION)?></pre>
+
 <a href=""><img src="View/Media/logo-sel-text-seul-blanc.svg" alt="Le sel de la vie logo"></a>
 <nav>
     <a href="home">Accueil</a>

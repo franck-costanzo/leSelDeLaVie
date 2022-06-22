@@ -137,6 +137,3 @@ if(isset($_POST['sign_up'])){
 if (isset($_POST['signIn'])) { 
     UserController::signInAction($_POST['email'],$_POST['password']);
 }
-
-
-
