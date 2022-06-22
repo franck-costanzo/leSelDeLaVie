@@ -1,6 +1,6 @@
 <?php
     require_once 'View/Renderer.php';
-
+ 
     //autoload models
     foreach (glob("Model/*.php") as $classname)
     {

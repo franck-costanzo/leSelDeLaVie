@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
     <script src="View\JS\script.js" type="module"></script>
-    <script src="View\JS\jspdf.min.js" type="module"></script>
-    <script src="View\JS\jspdf.debug.js" type="module"></script>
+    <script src="View\JS\SignUp.js" ></script>
     <link rel="stylesheet" type="text/css" href="View/CSS/style.css">
 </head>
 <body>
