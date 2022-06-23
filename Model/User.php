@@ -36,12 +36,12 @@ class User extends Model
 
     public function userConnexion($email)
     {
-        $sqlinsert = "SELECT id_user,firstname,lastname,adress,zip_code,password,email FROM users WHERE email=:email ";
+        $sqlinsert = "SELECT id_user, firstname, lastname, adress, zip_code, password, email, id_right FROM users WHERE email=:email ";
         $signIn =self::getBdd()->prepare($sqlinsert);
         $signIn->execute(array(
             ':email' => $email,
         ));
-        $user=$signIn->fetch(PDO::FETCH_ASSOC);
+        $user = $signIn->fetch(PDO::FETCH_ASSOC);
         return ($user);
     }
 

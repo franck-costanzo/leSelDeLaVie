@@ -58,8 +58,10 @@ class UserController {
         } 
         else 
         {           
-            $signIn=$test->userConnexion($email);
-            if (password_verify(htmlspecialchars($password, ENT_QUOTES, "ISO-8859-1"),$signIn['password'])) 
+            $signIn = $test->userConnexion($email);
+            var_dump($signIn);
+            var_dump(password_verify(htmlspecialchars($password, ENT_QUOTES, "ISO-8859-1"), $signIn['password']));
+            if (password_verify(htmlspecialchars($password, ENT_QUOTES, "ISO-8859-1"), $signIn['password'])) 
             {
                 $_SESSION['users'] = $signIn; 
                 header('Location:home');
