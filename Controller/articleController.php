@@ -27,25 +27,3 @@ if (isset($_POST['voir_article']))
     $id_form = $_POST['id_form'];
     header('Location: ./articledetail?id_article='.$id_article.'&id_form='.$id_form);
 }
-
-// if (isset($_POST['genPdf']))
-// {
-//     require('./_librairiephp/fpdf.php');
-
-//     $pdf = new FPDF();
-//     $pdf->AddPage();
-//     $pdf->SetFont('Arial','B',16);
-//     foreach($_POST as $key => $value)
-//     {
-//         if($key != 'genPdf' && $key != 'image_url')
-//         {
-//             $pdf->Cell(40,10,$value);
-//         }
-//     }
-//     foreach($_FILES as $key => $value)
-//     {
-//         $pdf->Image($value['tmp_name'],10,10,50,50);
-//     }
-//     $pdf->Output();
-
-// }
