@@ -82,8 +82,38 @@ public function lastNamedUpdate($lastName){
     $update=$this->db->prepare("UPDATE `user` SET nom=:lastname WHERE `id`= :id");
     $update->execute(array(
         ':lastname'=>$lastName,
-        ':id'=>$_SESSION['user']['id']
+        ':id'=>$_SESSION['users']['id']
     ));
 }
+//--------------------------select all--------------------------------------
+public static function userDisplay()
+{
+    $sqlinsert = "SELECT id_user,lastname,firstname,email,password,adress,zip_code,right_name
+    FROM `users`INNER JOIN `rights` ON users.id_right=rights.id_right; ";
+    $infos = self::requestExecute($sqlinsert);
+    $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+    return $return;
+}
+
+//-------------------------id_rigth-----------------------------------------
+public static function rightDisplay()
+{
+    $sqlinsert = "SELECT id_right, right_name FROM rights ";
+    $infos = self::requestExecute($sqlinsert);
+    $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+    return $return;
+}
+
+public static function updateRight($right,$id)
+{
+    $sqlinsert = "UPDATE `users` set id_right=:right WHERE id_user=:id ";
+    $params=array(
+        ':right'=>$right,
+        ':id'=>$id
+    );
+    self::requestExecute($sqlinsert,$params);
+
+}
+
 
 }

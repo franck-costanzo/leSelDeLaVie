@@ -12,7 +12,7 @@ abstract class Model {
         $servername = 'localhost';
         $username = 'root';
         $password = '';
-        $db = 'le_sel_de_la_vie_site';
+        $db = 'leseldelavie';
 
         try
         {
@@ -48,5 +48,10 @@ abstract class Model {
         return $id;
     }
     
-
+    public static function getArticles(){
+        $sqlinsert = "SELECT * FROM users WHERE id_state=2 ";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
 }
