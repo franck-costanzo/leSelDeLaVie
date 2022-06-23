@@ -14,9 +14,6 @@ ORDER BY modules.module_order;
 
 if (isset($_POST['reg_form'])) 
 {
-    // counter for modules
-    $module_count = 0;
-
     // receive all input values from the form
     $name_form = htmlspecialchars($_POST['name_form']);
 
@@ -45,10 +42,7 @@ if (isset($_POST['reg_form']))
             {
                 if(isset($value['description']))
                 {
-                    Formulaire::createModuleText($value['description'], $value['order']);
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('text', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('text', $value['order'], $value['description'], $idForm);
                 }
             }
         }
@@ -59,10 +53,7 @@ if (isset($_POST['reg_form']))
             {
                 if(isset($value['description']))
                 {
-                    Formulaire::createModuleTextArea($value['description'], $value['order']);
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('textArea', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('textarea', $value['order'], $value['description'], $idForm);
                 }
             }
         }
@@ -88,10 +79,9 @@ if (isset($_POST['reg_form']))
                         }                    
                     }
 
-                    Formulaire::createModuleSelect($value['description'], $value['count'], $tempString, $value['order']);
                     $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('select', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('select', $value['order'], $value['description'], 
+                                            $idForm, $value['count'], $tempString);
                 }
             }
 
@@ -117,10 +107,9 @@ if (isset($_POST['reg_form']))
                             $tempString .= $element.'||';
                         }                    
                     }
-                    Formulaire::createModuleCheckbox($value['description'], $value['count'], $tempString, $value['order']);
                     $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('checkbox', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('checkbox', $value['order'], $value['description'], 
+                                                $idForm, $value['count'], $tempString);
                 }
             }
         } 
@@ -144,41 +133,23 @@ if (isset($_POST['reg_form']))
                             $tempString .= $element.'||';
                         }                    
                     }
-                    Formulaire::createModuleRadio($value['description'], $value['count'], $tempString, $value['order']);
                     $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('radio', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('radio', $value['order'], $value['description'], 
+                                                $idForm, $value['count'], $tempString);
                 }
             }
         }
 
         if(isset($_POST['file']))
         {
-
             foreach($_POST['file'] as $key => $value)
             {
                 if(isset($value['description']))
                 {
-                    Formulaire::createModuleFile($value['description'], $value['order']);
                     $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createFormModuleLink('file', $idForm, $idModule);
-                    $module_count++;
+                    Formulaire::createModule('file', $value['order'], $value['description'], $idForm);
                 }
             }
         }
-
     }
-
-    // if ($module_count > 0) 
-    // {
-    //     session_destroy();
-    //     session_start();
-    //     $_SESSION['message'] = 'Formulaire créé avec succès';
-    //     header('Location: formulaire');
-    // }
-    // else
-    // {
-    //     $_SESSION['message'] = 'Erreur lors de la création du formulaire';
-    //     header('Location: formulaire');
-    // }
 }

@@ -66,7 +66,7 @@ export default function article() {
 
                     if (element.id_form == idForm) 
                     {
-                        switch (element.forms_modules_type)
+                        switch (element.module_type)
                         {
                             case 'text':
                                 let inputText = document.createElement('INPUT');
@@ -75,7 +75,7 @@ export default function article() {
                                 inputText.setAttribute('id', 'text'+textCount);
                                 let labelText = document.createElement('LABEL');
                                 labelText.setAttribute('for', 'text'+textCount);
-                                labelText.innerHTML = element.text_label;
+                                labelText.innerHTML = element.module_label;
                                 previewFormDiv.appendChild(labelText);
                                 previewFormDiv.appendChild(inputText);
                                 textCount++;
@@ -89,7 +89,7 @@ export default function article() {
                                 inputTextarea.setAttribute('id', 'textarea'+textAreaCount);
                                 let labelTextarea = document.createElement('LABEL');
                                 labelTextarea.setAttribute('for', 'text'+textAreaCount);
-                                labelTextarea.innerHTML = element.textarea_label;
+                                labelTextarea.innerHTML = element.module_label;
                                 previewFormDiv.appendChild(labelTextarea);
                                 previewFormDiv.appendChild(inputTextarea);
                                 textAreaCount++;
@@ -102,7 +102,7 @@ export default function article() {
                                 inputFile.setAttribute('id', 'file'+fileCount);
                                 let labelFile = document.createElement('LABEL');
                                 labelFile.setAttribute('for', 'file'+fileCount);
-                                labelFile.innerHTML = element.file_label;
+                                labelFile.innerHTML = element.module_label;
                                 previewFormDiv.appendChild(labelFile);
                                 previewFormDiv.appendChild(inputFile);
                                 fileCount++;
@@ -119,7 +119,7 @@ export default function article() {
                                 inputSelect.appendChild(disabledOptionSelect);
                                 let labelSelect = document.createElement('LABEL');
                                 labelSelect.setAttribute('for', 'select'+selectCount);
-                                labelSelect.innerHTML = element.select_label;
+                                labelSelect.innerHTML = element.module_label;
                                 let optionNameString = element.option_names;
                                 let optionArray = optionNameString.split('||');
                                 optionArray.forEach(element => {
@@ -144,8 +144,8 @@ export default function article() {
                                 fieldsetCheckbox.setAttribute('name', 'checkbox[]');
                                 fieldsetCheckbox.setAttribute('id', 'checkbox'+checkboxCount);
                                 let labelCheckbox = document.createElement('legend');
-                                labelCheckbox.innerHTML = element.checkbox_label;
-                                let checkboxArray = element.checkbox_names.split('||')
+                                labelCheckbox.innerHTML = element.module_label;
+                                let checkboxArray = element.option_names.split('||')
                                 checkboxArray.forEach(element => {
                                     let optionDiv = document.createElement('DIV');
                                     let option = document.createElement('INPUT');
@@ -173,8 +173,8 @@ export default function article() {
                                 fieldsetRadio.setAttribute('name', 'radio[]');
                                 fieldsetRadio.setAttribute('id', 'radio'+radioCount);
                                 let labelRadio = document.createElement('legend');
-                                labelRadio.innerHTML = element.radio_label;
-                                let radioArray = element.radio_names.split('||')
+                                labelRadio.innerHTML = element.module_label;
+                                let radioArray = element.option_names.split('||')
                                 radioArray.forEach(element => {
                                     let optionDiv = document.createElement('DIV');
                                     let option = document.createElement('INPUT');

@@ -93,64 +93,30 @@ INSERT INTO `forms` (`id_form`, `name_form`) VALUES (1, 'Soutien Scolaire');
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS modules (
-    id_module INT AUTO_INCREMENT NOT NULL, 
-    module_order INT,
-    text_label VARCHAR(255),
-    textarea_label VARCHAR(255),
-    file_label VARCHAR(255),
-    select_label VARCHAR(255),
+    id_module INT AUTO_INCREMENT NOT NULL,
+    module_type VARCHAR(255) NOT NULL, 
+    module_order INT NOT NULL,
+    module_label VARCHAR(255) NOT NULL,
     option_count INT,
     option_names VARCHAR(255),
-    checkbox_label VARCHAR(255),
-    checkbox_count INT,
-    checkbox_names VARCHAR(255),
-    radio_label VARCHAR(255),
-    radio_count INT,
-    radio_names VARCHAR(255),
+    id_form INT NOT NULL,
+    CONSTRAINT FK_forms_id_form_modules 
+    FOREIGN KEY (id_form) REFERENCES forms (id_form),
     PRIMARY KEY (id_module)) ENGINE=InnoDB;
 
-INSERT INTO `modules` (`id_module`, `module_order`, `text_label`, `textarea_label`, `file_label`, `select_label`, `option_count`, `option_names`, `checkbox_label`, `checkbox_count`, `checkbox_names`, `radio_label`, `radio_count`, `radio_names`) VALUES
-(1, 0, 'Nom Prénom (parent 1) :', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, 'Nom Prénom (parent 2) :', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 4, 'Nom Prénom (enfant) :', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 6, NULL, 'Informations complémentaires à nous transmettre', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 5, NULL, NULL, NULL, 'En quelle classe est votre enfant ?', 5, 'CP||CE1||CE2||CM1||CM2', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 7, NULL, NULL, NULL, NULL, NULL, NULL, 'Quel matériel avez-vous ?', 4, 'Quel matériel avez-vous ?||Stylos multicolores||Cahier gros carreaux||Règle||Colle', NULL, NULL, NULL),
-(7, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, "Voulez-vous que votre enfant soit seul avec l'encadrant", 2, 'Oui||Non'),
-(8, 1, NULL, NULL, "Carte d'identité (parent 1)", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 3, NULL, NULL, "Carte d'identité (parent 2)", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 9, NULL, NULL, 'Livret de famille', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 10, NULL, NULL, 'Certificat de scolarité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
--- ------------------------------------
---        table forms_modules        --
--- ------------------------------------
-
-CREATE TABLE IF NOT EXISTS forms_modules (
-    id_forms_modules INT AUTO_INCREMENT NOT NULL, 
-    forms_modules_type VARCHAR(255),
-    id_form INT NOT NULL,
-    id_module INT NOT NULL,
-    CONSTRAINT FK_forms_modules_id_form_forms
-    FOREIGN KEY (id_form) REFERENCES forms (id_form),
-    CONSTRAINT FK_forms_modules_id_module_modules 
-    FOREIGN KEY (id_module) REFERENCES modules (id_module),
-    PRIMARY KEY (id_forms_modules)
-    ) ENGINE=InnoDB;
-
-INSERT INTO `forms_modules` (`id_forms_modules`, `forms_modules_type`, `id_form`, `id_module`) VALUES
-(1, 'text', 1, 1),
-(2, 'text', 1, 2),
-(3, 'text', 1, 3),
-(4, 'textArea', 1, 4),
-(5, 'select', 1, 5),
-(6, 'checkbox', 1, 6),
-(7, 'radio', 1, 7),
-(8, 'file', 1, 8),
-(9, 'file', 1, 9),
-(10, 'file', 1, 10),
-(11, 'file', 1, 11);
-
+INSERT INTO `modules` (`id_module`, `module_type`,`module_order`, `module_label`, 
+                         `option_count`, `option_names`,  `id_form`) VALUES
+(1, 'text', 0, 'Nom Prénom (parent 1) :', NULL, NULL, 1),
+(2, 'text', 2, 'Nom Prénom (parent 2) :', NULL, NULL,  1),
+(3, 'text', 4, 'Nom Prénom (enfant) :', NULL, NULL,  1),
+(4, 'textArea', 6, 'Informations complémentaires à nous transmettre', NULL, NULL,  1),
+(5, 'select', 5, 'En quelle classe est votre enfant ?', 5, 'CP||CE1||CE2||CM1||CM2', 1),
+(6, 'checkbox', 7, 'Quel matériel avez-vous ?', 4, 'Quel matériel avez-vous ?||Stylos multicolores||Cahier gros carreaux||Règle||Colle',  1),
+(7, 'radio', 8, "Voulez-vous que votre enfant soit seul avec l'encadrant", 2, 'Oui||Non', 1),
+(8, 'file', 1, "Carte d'identité (parent 1)", NULL, NULL, 1),
+(9, 'file', 3, "Carte d'identité (parent 2)", NULL, NULL, 1),
+(10, 'file', 9, 'Livret de famille', NULL, NULL, 1),
+(11, 'file', 10, 'Certificat de scolarité', NULL, NULL, 1);
 
 -- ------------------------------------
 --           table articles          --
