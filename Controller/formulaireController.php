@@ -1,13 +1,5 @@
 <?php 
 
-// query get all forms 
-/* 
-SELECT forms.*, forms_modules.forms_modules_type, modules.* FROM `forms` 
-INNER JOIN forms_modules ON forms.id_form = forms_modules.id_form 
-INNER JOIN modules ON forms_modules.id_module = modules.id_module
-ORDER BY modules.module_order; 
-*/
-
 /*-------------------------------
           REGISTER FORM 
 --------------------------------*/
@@ -15,7 +7,7 @@ ORDER BY modules.module_order;
 if (isset($_POST['reg_form'])) 
 {
     // receive all input values from the form
-    $name_form = htmlspecialchars($_POST['name_form']);
+    $name_form = htmlentities($_POST['name_form']);
 
     // check if form already exists
     $names = Formulaire::getAllFormsNames();
@@ -35,121 +27,55 @@ if (isset($_POST['reg_form']))
          
         $idForm = Formulaire::getLastInsertedId();
 
-        
-        if(isset($_POST['text']))
+        function moduleCreation($postVariable, $moduleType, $idForm)
         {
-            foreach($_POST['text'] as $key => $value)
+            if(isset($postVariable))
             {
-                if(isset($value['description']))
+                foreach($postVariable as $key => $value)
                 {
-                    Formulaire::createModule('text', $value['order'], $value['description'], $idForm);
-                }
-            }
-        }
-
-        if (isset($_POST['textarea']))
-        {
-            foreach($_POST['textarea'] as $key => $value)
-            {
-                if(isset($value['description']))
-                {
-                    Formulaire::createModule('textarea', $value['order'], $value['description'], $idForm);
-                }
-            }
-        }
-
-        if (isset($_POST['select']))
-        {
-
-            foreach($_POST['select'] as $key => $value)
-            {
-                if(isset($value['description']))
-                {
-                    $tempString = '';
-
-                    foreach($value as $key2 => $element)
+                    if(isset($value['description']))
                     {
-                        if (is_int($key2) && $key2 === array_key_last($value)) 
+                        if ($moduleType == 'text' || $moduleType == 'textarea' || $moduleType == 'file')
                         {
-                            $tempString .= $element;
+                            Formulaire::createModule($moduleType, htmlentities($value['order']), htmlentities($value['description']), $idForm);
                         }
-                        else if (is_int($key2))
+                        else if ($moduleType == 'select' || $moduleType == 'checkbox' || $moduleType == 'radio')
                         {
-                            $tempString .= $element.'||';
+                            $tempString = '';
+
+                            foreach($value as $key2 => $element)
+                            {
+                                if (is_int($key2) && $key2 === array_key_last($value)) 
+                                {
+
+                                    $tempString .= htmlentities($element);
+                                }
+                                else if (is_int($key2))
+                                {
+                                    $tempString .= htmlentities($element).'||';
+                                }                    
+                            }
+
+                            $idModule = Formulaire::getLastInsertedId();
+                            Formulaire::createModule( $moduleType, htmlentities($value['order']), htmlentities($value['description']), 
+                                                    $idForm, htmlentities($value['count']), $tempString);
                         }                    
                     }
-
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createModule('select', $value['order'], $value['description'], 
-                                            $idForm, $value['count'], $tempString);
-                }
-            }
-
-            
-        }
-
-        if (isset($_POST['checkbox']))
-        {
-
-            foreach($_POST['checkbox'] as $key => $value)
-            {
-                if(isset($value['description']))
-                {
-                    $tempString = '';
-                    foreach($value as $key2 => $element)
-                    {
-                        if (is_int($key2) && $key2 === array_key_last($value)) 
-                        {
-                            $tempString .= $element;
-                        }
-                        else if (is_int($key2))
-                        {
-                            $tempString .= $element.'||';
-                        }                    
-                    }
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createModule('checkbox', $value['order'], $value['description'], 
-                                                $idForm, $value['count'], $tempString);
-                }
-            }
-        } 
-        
-        if(isset($_POST['radio']))
-        {
-
-            foreach($_POST['radio'] as $key => $value)
-            {
-                if(isset($value['description']))
-                {
-                    $tempString = '';
-                    foreach($value as $key2 => $element)
-                    {
-                        if (is_int($key2) && $key2 === array_key_last($value)) 
-                        {
-                            $tempString .= $element;
-                        }
-                        else if (is_int($key2))
-                        {
-                            $tempString .= $element.'||';
-                        }                    
-                    }
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createModule('radio', $value['order'], $value['description'], 
-                                                $idForm, $value['count'], $tempString);
                 }
             }
         }
 
-        if(isset($_POST['file']))
-        {
-            foreach($_POST['file'] as $key => $value)
-            {
-                if(isset($value['description']))
-                {
-                    $idModule = Formulaire::getLastInsertedId();
-                    Formulaire::createModule('file', $value['order'], $value['description'], $idForm);
-                }
-            }
-        }
+        moduleCreation($_POST['text'], 'text', $idForm);
+
+        moduleCreation($_POST['textarea'], 'textarea', $idForm);
+
+        moduleCreation($_POST['file'], 'file', $idForm);
+
+        moduleCreation($_POST['select'], 'select', $idForm);
+
+        moduleCreation($_POST['checkbox'], 'checkbox', $idForm);
+
+        moduleCreation($_POST['radio'], 'radio', $idForm);
+
     }
 }
