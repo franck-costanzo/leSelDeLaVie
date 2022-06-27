@@ -11,20 +11,15 @@ export default function f404() {
 
     main404.appendChild(image404);
 
-    let count = -1;
+    let count = 0;
 
-    function randomPosition() 
-    {
-        
+    function randomPosition() {        
         image404.style.bottom = '0px';
         let leftPos = parseInt(Math.round(Math.random() *( main404.offsetWidth - 0)));
         image404.style.left = leftPos + 'px'; 
     }
 
     randomPosition();
-    console.log(image404.style.bottom);
-    console.log((main404Height+'px'))
-
     function increaseHeight()
     {
         if (image404.style.bottom != (main404Height+'px'))
