@@ -194,6 +194,17 @@ ul {
             background-color: var(--main-color-2);
         }
 
+        #decoBtn {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--main-color-2);
+            color: inherit;
+            border: none;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit            
+        }
+
         header > nav > #buttonAdmin {
             margin: 0 10px;
             padding: 15px 15px;

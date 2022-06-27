@@ -139,3 +139,15 @@ if(isset($_POST['sign_up'])){
 if (isset($_POST['signIn'])) { 
     UserController::signInAction($_POST['email'],$_POST['password']);
 }
+
+/*-------------------------------
+        DISCONNECT CHANGE 
+--------------------------------*/
+if (isset($_POST['deconnexion'])) 
+{
+  session_start();
+
+  session_destroy();
+  header('Location: home');
+  exit;
+}
