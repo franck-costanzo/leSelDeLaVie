@@ -30,6 +30,10 @@
     {
         echo json_encode(Formulaire::getFormByModuleOrder());
     }
+    else if (isset($_GET['url']) && ($_GET['url'] == "articleCarousel"))
+    {
+        echo json_encode(Carousel::getAllArticleInCarousel());
+    }
     else if( isset($_GET['url']) )
     {
         $view = New Renderer($_GET['url']);

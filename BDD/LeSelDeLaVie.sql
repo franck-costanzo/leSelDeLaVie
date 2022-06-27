@@ -162,3 +162,15 @@ CREATE TABLE IF NOT EXISTS recuperation (
     mail VARCHAR(255) NOT NULL,
     code int(11) NOT NULL,
     PRIMARY KEY (id)) ENGINE=InnoDB;
+
+-- ------------------------------------
+--           table carousel          --
+-- ------------------------------------
+
+CREATE TABLE IF NOT EXISTS carousel_articles(
+    id_carousel_article INT NOT NULL,
+    id_article INT NOT NULL,
+    CONSTRAINT FK_carousel_articles_id_article_articles
+    FOREIGN KEY (id_article) REFERENCES articles (id_article),
+    PRIMARY KEY (id_carousel_article)
+    ) ENGINE=InnoDB;
