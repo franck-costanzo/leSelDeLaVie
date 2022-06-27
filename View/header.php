@@ -5,6 +5,6 @@
     <a href="inscription">Inscription</a>
     <a href="connexion">Connexion</a>
     <a href="profil">Profil</a>
-    <a href="admin" id="buttonAdmin">Admin</a>
     <a href="modo" id='buttonModo'>Modérateur</a>
+    <a href="admin" id="buttonAdmin">Admin</a>
 </nav>

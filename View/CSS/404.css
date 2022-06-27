@@ -1,0 +1,23 @@
+body {
+    position: relative;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    min-height: 70%;
+    width: 100%;
+}
+
+#hommeTxt {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}

@@ -1,4 +1,5 @@
 export default function signUp() {
+    
     //-----------------user friendly password--------
     let password = document.querySelector("[name='password']")
     let p = document.querySelectorAll("p")

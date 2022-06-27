@@ -7,8 +7,9 @@
             <?php $allCategories = Categorie::getAllCategories(); ?>
             <ul>
                 <li><a href="./">Toutes les Catégories</a></li>
+                <hr>
                 <?php foreach($allCategories as $categorie): ?>
-                    <li><a href="./?id_category=<?= $categorie['id_category'] ?>" name='<?= $categorie['id_category'] ?>'><?= $categorie['name_category'] ?></a></li>
+                    <li><a href="./?id_category=<?= $categorie['id_category'] ?>" name='<?= $categorie['id_category'] ?>'><?= ucfirst($categorie['name_category']) ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </nav>

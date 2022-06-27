@@ -31,7 +31,8 @@ class Renderer
         else 
         {
             ob_start();
-            echo "<h4>Erreur 404</h4>";
+            $this->title = '404';
+            require "View/404.php";
             return ob_get_clean();
         }
 

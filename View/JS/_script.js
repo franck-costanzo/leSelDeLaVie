@@ -1,9 +1,10 @@
 import appendCarousel from './carousel.js';
-import changePicture from './ImageAssociation.js';
+import changePicture from './imageAssociation.js';
 import appendForm from './formulaire.js';
 import article from './article.js';
 import pdfGenerator from './pdfgenerator.js';
 import signUp from './signUp.js';
+import f404 from './404.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -81,5 +82,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     {
         signUp();
     }
+
+    //erreur 404
+    if (document.title == "404" && matched)
+    {
+        f404();
+    }
+    
         
 });
