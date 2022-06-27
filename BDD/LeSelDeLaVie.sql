@@ -9,8 +9,12 @@ USE `le_sel_de_la_vie_site` ;
 CREATE TABLE IF NOT EXISTS rights (
     id_right INT AUTO_INCREMENT NOT NULL, 
     right_name VARCHAR(255), 
-    PRIMARY KEY (id_right)) ENGINE=InnoDB;
+    PRIMARY KEY (id_right)
+    ) ENGINE=InnoDB;
 
+INSERT INTO `rights` (`id_right`, `right_name`) VALUES (1, 'utilisateur');
+INSERT INTO `rights` (`id_right`, `right_name`) VALUES (2, 'moderateur');
+INSERT INTO `rights` (`id_right`, `right_name`) VALUES (1337, 'admin');
 
 -- ------------------------------------
 --        table users         --
@@ -53,6 +57,13 @@ CREATE TABLE IF NOT EXISTS categories (
     name_category VARCHAR(255), 
     PRIMARY KEY (id_category)) ENGINE=InnoDB;
 
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (1, 'scolaire');
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (2, 'sortie');
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (3, 'evenement');
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (4, 'conference');
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (5, 'atelier');
+INSERT INTO `categories` (`id_category`, `name_category`) VALUES (6, 'divertissement');
+
 
 -- ------------------------------------
 --           table states        --
@@ -63,6 +74,9 @@ CREATE TABLE IF NOT EXISTS states (
     name_state VARCHAR(255), 
     PRIMARY KEY (id_state)) ENGINE=InnoDB;
 
+INSERT INTO `states` (`id_state`, `name_state`) VALUES (1, 'en cours de validation');
+INSERT INTO `states` (`id_state`, `name_state`) VALUES (2, 'valide');
+
 -- ------------------------------------
 --           table forms             --
 -- ------------------------------------ 
@@ -72,42 +86,37 @@ CREATE TABLE IF NOT EXISTS forms (
     name_form VARCHAR(255), 
     PRIMARY KEY (id_form)) ENGINE=InnoDB;
 
+INSERT INTO `forms` (`id_form`, `name_form`) VALUES (1, 'Soutien Scolaire');
+
 -- ------------------------------------
 --           table modules           --
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS modules (
-    id_module INT AUTO_INCREMENT NOT NULL, 
-    module_order INT,
-    text_label VARCHAR(255),
-    textarea_label VARCHAR(255),
-    file_label VARCHAR(255),
-    select_label VARCHAR(255),
+    id_module INT AUTO_INCREMENT NOT NULL,
+    module_type VARCHAR(255) NOT NULL, 
+    module_order INT NOT NULL,
+    module_label VARCHAR(255) NOT NULL,
     option_count INT,
     option_names VARCHAR(255),
-    checkbox_label VARCHAR(255),
-    checkbox_count INT,
-    checkbox_names VARCHAR(255),
-    radio_label VARCHAR(255),
-    radio_count INT,
-    radio_names VARCHAR(255),
+    id_form INT NOT NULL,
+    CONSTRAINT FK_forms_id_form_modules 
+    FOREIGN KEY (id_form) REFERENCES forms (id_form),
     PRIMARY KEY (id_module)) ENGINE=InnoDB;
 
--- ------------------------------------
---        table forms_modules        --
--- ------------------------------------
-
-CREATE TABLE IF NOT EXISTS forms_modules (
-    id_forms_modules INT AUTO_INCREMENT NOT NULL, 
-    forms_modules_type VARCHAR(255),
-    id_form INT NOT NULL,
-    id_module INT NOT NULL,
-    CONSTRAINT FK_forms_modules_id_form_forms
-    FOREIGN KEY (id_form) REFERENCES forms (id_form),
-    CONSTRAINT FK_forms_modules_id_module_modules 
-    FOREIGN KEY (id_module) REFERENCES modules (id_module),
-    PRIMARY KEY (id_forms_modules)) ENGINE=InnoDB;
-
+INSERT INTO `modules` (`id_module`, `module_type`,`module_order`, `module_label`, 
+                         `option_count`, `option_names`,  `id_form`) VALUES
+(1, 'text', 0, 'Nom Prénom (parent 1) :', NULL, NULL, 1),
+(2, 'text', 2, 'Nom Prénom (parent 2) :', NULL, NULL,  1),
+(3, 'text', 4, 'Nom Prénom (enfant) :', NULL, NULL,  1),
+(4, 'textArea', 6, 'Informations complémentaires à nous transmettre', NULL, NULL,  1),
+(5, 'select', 5, 'En quelle classe est votre enfant ?', 5, 'CP||CE1||CE2||CM1||CM2', 1),
+(6, 'checkbox', 7, 'Quel matériel avez-vous ?', 4, 'Quel matériel avez-vous ?||Stylos multicolores||Cahier gros carreaux||Règle||Colle',  1),
+(7, 'radio', 8, "Voulez-vous que votre enfant soit seul avec l'encadrant", 2, 'Oui||Non', 1),
+(8, 'file', 1, "Carte d'identité (parent 1)", NULL, NULL, 1),
+(9, 'file', 3, "Carte d'identité (parent 2)", NULL, NULL, 1),
+(10, 'file', 9, 'Livret de famille', NULL, NULL, 1),
+(11, 'file', 10, 'Certificat de scolarité', NULL, NULL, 1);
 
 -- ------------------------------------
 --           table articles          --
@@ -115,12 +124,13 @@ CREATE TABLE IF NOT EXISTS forms_modules (
      
 CREATE TABLE IF NOT EXISTS articles (
     id_article INT AUTO_INCREMENT NOT NULL, 
-    name_state VARCHAR(255),
+    name_article VARCHAR(255),
     image_url VARCHAR(255),
     description_article TEXT,
+    date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_category INT NOT NULL,
     id_state INT NOT NULL,
-    id_form INT NOT NULL,
+    id_form INT NOT NULL,    
     CONSTRAINT FK_articles_id_category_categories
     FOREIGN KEY (id_category) REFERENCES categories (id_category),
     CONSTRAINT FK_articles_id_state_states 
@@ -142,3 +152,13 @@ CREATE TABLE IF NOT EXISTS users_articles (
     CONSTRAINT FK_users_articles_id_article_articles 
     FOREIGN KEY (id_article) REFERENCES articles (id_article),
     PRIMARY KEY (id_users_articles)) ENGINE=InnoDB;
+
+
+-- ------------------------------------
+--        table récupération         --
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS recuperation (
+    id INT AUTO_INCREMENT NOT NULL,
+    mail VARCHAR(255) NOT NULL,
+    code int(11) NOT NULL,
+    PRIMARY KEY (id)) ENGINE=InnoDB;

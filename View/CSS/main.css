@@ -1,0 +1,310 @@
+/* ----------------------------------------------------------------------------------- */
+
+/* -------------- */
+/*     GENERAL    */
+/* -------------- */
+:root {
+    --main-color-1 : #18375F;
+    --main-color-2 : #346E8C;
+    --main-color-3 : #77B9C1;
+    --mod-color : #EFD759;
+    --admin-color : #FA7D4D;
+}
+
+input, select {
+    padding: 1.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a, a:hover {
+    color: inherit;
+    text-decoration: none; /* no underline */
+}
+
+h1, h2 {
+    color : var(--main-color-1);
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* ------------------------------------------------- */
+    /*----------*/
+    /* CAROUSEL */
+    /*----------*/
+
+    #divCarousel {
+        position:relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .slider {
+        position:relative;
+        overflow: hidden;
+        object-fit: contain;
+        height:30vh;
+        width: 70%;
+    }
+
+    .desktopCarouselImgs {
+        display:none;
+    }
+
+    #boutonActivité {
+        position:absolute;
+        bottom: 10%;
+        padding: 10px 10px;
+        background-color: var(--main-color-2);        
+        color: white;
+    }
+
+    .divSousLesFleches {
+        border:none;
+        background-color:transparent;
+        outline:none;
+        width: 15%;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: blur(4px);
+        opacity: 0.6;
+    }
+
+    #divflechegauche {
+        position:absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 20%;
+        top: 40%;
+        left: 2%;
+    }
+
+    #divflechedroite {
+        position:absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 20%;
+        top: 40%;
+        right: 2%;
+        
+    }
+
+    /* ------------- */
+    /*     DESKTOP   */
+    /* ------------- */
+
+    @media screen and (min-width: 968px){
+        /*----------*/
+        /* CAROUSEL */
+        /*----------*/
+        
+        .slider {
+            width: 40%;
+        }
+
+        main > section:nth-child(1) > button {
+            height :30vh;
+            background-position: center;
+        }
+
+        .desktopCarouselImgs {
+            display:block;
+            filter: blur(4px);
+            opacity: 0.6;
+            height :30vh;
+            width: 15%;
+            background-position: center;
+        }
+
+        #divflechegauche {
+            left: 17%;
+        }
+    
+        #divflechedroite {
+            right: 17%;
+        }
+
+    }
+
+
+
+
+/* ------------- */
+/*     HEADER    */
+/* ------------- */
+
+    header {
+        background-color: var(--main-color-1);
+        height: 15%;
+        width: 100%;      
+    }
+    
+    img {
+        height: 100%;
+        width: 100%;
+    }
+
+    header > nav {
+        display: none;
+    }
+
+    /* ------------- */
+    /*     DESKTOP   */
+    /* ------------- */
+
+    @media screen and (min-width: 968px){
+
+        header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header > a:nth-child(1) > img {
+            margin-left: 50px;
+            width: 300px;
+            height: 100px;
+        }
+
+        header > nav  {
+            margin-right: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            color:white;
+        }
+
+        header > nav > a {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--main-color-2);
+        }
+
+        header > nav > #buttonAdmin {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--admin-color);
+        }
+
+        header > nav > #buttonModo {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--mod-color);
+            color: var(--main-color-1);
+        }
+
+    }
+
+/* ------------------------------------------------- */
+
+/* ------------- */
+/*     FOOTER    */
+/* ------------- */
+
+footer {
+    margin-top: 3%;
+}
+
+.liensAdministratifs {
+    color: black;
+    padding: 5px;
+    text-align: center;
+    background-color: var(--main-color-3);
+}
+
+.liensEducation {
+    color: black;
+    padding: 5px;
+    text-align: center;
+    background-color: var(--main-color-2);
+}
+
+.liensDuSite {
+    padding: 5px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    text-align: center;
+    background-color: var(--main-color-1);
+}
+
+.liensAdministratifs > nav, 
+.liensEducation > nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.liensDuSite > nav {
+    text-shadow: none;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;        
+}
+
+.liensDuSite > nav > a {
+    margin: 10px;
+}
+
+.liensAdministratifs > nav > a > img, 
+.liensEducation > nav > a > img  {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.liensDuSite > fieldset {
+    margin-bottom: 5%;
+}
+
+.contactFooter {
+    display: none;
+}
+
+
+
+/* ------------- */
+/*     DESKTOP   */
+/* ------------- */
+
+@media screen and (min-width: 968px){
+
+    .liensAdministratifs > nav, 
+    .liensEducation > nav  {
+        justify-content: space-evenly;
+    }
+    
+    .liensDuSite > nav {
+        text-shadow: none;
+        margin: 20px;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;        
+    }
+
+    .liensDuSite > fieldset {
+        display: none;
+    }
+
+    .contactFooter {
+        display: block;
+        margin-bottom: 2%;
+    }
+              
+
+}
+
+/* ----------------------------------------------------------------------------------- */

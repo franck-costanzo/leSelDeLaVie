@@ -1,0 +1,117 @@
+.mainAssociation {
+    display: block;
+}
+
+.sectionAssociation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+    text-align: justify;
+}
+
+.contactAsso {
+    color : var(--main-color-1);
+}
+
+.contactAsso > legend {
+    display: block;
+    width: 150px;
+    margin: auto;
+    text-align: center;
+    padding: 2%;
+}    
+
+.sectionAssociation > h1, 
+.sectionAssociation > h2 {
+    margin-bottom: 5%;
+}
+
+.divContact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5% 0;
+    padding: 0 5%;
+}
+
+.divLogoContact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.divLogoContact > a {
+    margin-right: 20px;
+}
+
+.logoContact {
+    width: 30px;
+}
+
+.sectionAssociation > iframe {
+    width: 75vmin;
+    margin-bottom: 5%;
+}
+
+.image-styled {
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    height: 75vmin;
+    width: 75vmin;
+    transition: background 0.5s linear;
+}
+
+
+
+
+/* ------------- */
+/*     DESKTOP   */
+/* ------------- */
+
+@media screen and (min-width: 968px){
+
+        .mainAssociation {
+            display: flex;
+            flex-direction: row;
+        }
+    
+        .contactAsso {
+            display: none;
+        }
+
+        .histoire {
+            display: block;
+        }
+
+        .histoire > h1 {
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            float: left;
+            width:25%
+        }
+
+        .sectionAssociation > iframe {
+            width: 40vmin;
+            height: 25vmin;
+        }
+
+
+        .image-styled {
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            height: 50vmin;
+            width: 50vmin;
+            transition: background 0.5s linear;
+        }
+
+}

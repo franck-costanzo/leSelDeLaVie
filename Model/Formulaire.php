@@ -16,89 +16,31 @@ abstract class Formulaire extends Model
         return $register;
     }
 
-    public static function createFormModuleLink($type, $idForm, $idModule)
+    public static function createModule($moduleType, $moduleOrder, $moduleLabel,
+                                 $idForms, $optionCount = NULL, $optionNames = NULL)
     {
-        $params = array($type, $idForm, $idModule);
+        if ($optionCount == NULL and $optionNames == NULL)
+        {
+            $params = array($moduleType, $moduleOrder, $moduleLabel, $idForms);
 
-        $sql = 'INSERT INTO forms_modules (forms_modules_type, id_form, id_module)
-                VALUES (?, ?, ?)';
+            $sql = 'INSERT INTO modules (module_type, module_order, 
+                    module_label, id_form)
+                    VALUES (?, ?, ?, ?)';
+        }
+        else
+        {
+            $params = array($moduleType, $moduleOrder, $moduleLabel,
+                            $optionCount, $optionNames, $idForms);
+
+            $sql = 'INSERT INTO modules (`module_type`,`module_order`, `module_label`, 
+            `option_count`, `option_names`,  `id_form`)
+                    VALUES (?, ?, ?, ?, ?, ?)';
+        }
 
         $register = self::requestExecute($sql, $params);
 
         return $register;
-    }
-
-    public static function createModuleText($textLabel, $order)
-    {
-        $params = array($textLabel, $order);
-
-        $sql = 'INSERT INTO modules (text_Label, module_order)
-                VALUES (?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
-    }
-
-    public static function createModuleTextArea($textAreaLabel, $order)
-    {
-        $params = array($textAreaLabel, $order);
-
-        $sql = 'INSERT INTO modules (textarea_Label, module_order)
-                VALUES (?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
-    }
-
-    public static function createModuleSelect($selectLabel, $selectCount, $selectNames, $order)
-    {
-        $params = array($selectLabel, $selectCount, $selectNames, $order);
-
-        $sql = 'INSERT INTO modules (select_label, option_count, option_names, module_order)
-                VALUES (?, ?, ?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
-    }
-
-    public static function createModuleCheckbox($checkboxLabel, $checkboxCount, $checkboxNames, $order)
-    {
-        $params = array($checkboxLabel, $checkboxCount, $checkboxNames, $order);
-
-        $sql = 'INSERT INTO modules (checkbox_label, checkbox_count, checkbox_names, module_order)
-                VALUES (?, ?, ?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
-
-    }
-
-    public static function createModuleRadio($radioLabel, $radioCount, $radioNames, $order)
-    {
-        $params = array($radioLabel, $radioCount, $radioNames, $order);
-
-        $sql = 'INSERT INTO modules (radio_label, radio_count, radio_names, module_order)
-                VALUES (?, ?, ?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
-    }
-
-    public static function createModuleFile($fileLabel, $order)
-    {
-        $params = array($fileLabel, $order);
-
-        $sql = 'INSERT INTO modules (file_Label, module_order)
-                VALUES (?, ?)';
-
-        $register = self::requestExecute($sql, $params);
-
-        return $register;
+        
     }
 
     public static function getAllFormsNames()
@@ -109,6 +51,39 @@ abstract class Formulaire extends Model
 
         return $forms;
 
-    }   
+    }
+    
+    public static function getAllForms()
+    {
+        $sql = 'SELECT * FROM forms';
+
+        $forms = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $forms;
+
+    }
+
+    public static function getFormByIdOrderByModuleOrder($idForm)
+    {
+        $params = array($idForm);
+
+        $sql = 'SELECT forms.name_form, modules.* FROM `forms`
+        INNER JOIN modules ON forms.id_form = modules.id_form
+        WHERE forms.id_form = ?
+        ORDER BY modules.module_order';
+
+        $form = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $form;
+    }
+
+    public static function getFormByModuleOrder()
+    {
+        $sql = 'SELECT forms.name_form, modules.* FROM `forms`
+                INNER JOIN modules ON forms.id_form = modules.id_form
+                ORDER BY modules.module_order;';
+        
+        return (self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC));
+    }
 
 }

@@ -6,7 +6,7 @@ abstract class Model {
     
     // Effectue la connexion à la BDD
     // Instancie et renvoie l'objet PDO associé 
-    private static function getBdd() 
+    public static function getBdd() 
     {
         //version locale
         $servername = 'localhost';
@@ -47,6 +47,34 @@ abstract class Model {
         $id = self::$bdd->lastInsertId();
         return $id;
     }
+
+    protected static function requestExecute2($sql, $params = null) 
+    {
+        if ($params == null) 
+        {
+            $result = self::getBdd()->query($sql);    // exécution directe
+        }
+        else 
+        {
+            $result = self::getBdd()->prepare($sql);  // requête préparée
+            $result->execute($params);
+            $result2=$result->fetch(PDO::FETCH_ASSOC);
+        }
+        return $result2;
+    }
+
+    static public function checkEmail($email)
+    {
+        $sql = "SELECT * FROM `users` WHERE users.email=:email";
+        $test=self::getBdd()->prepare($sql);
+        $test->execute(array(':email'=>$email));
+        $test2=$test->rowCount();
+        if ( $test2 > 0) {
+            echo json_encode('cette adresse mail est déjà liée à un compte');
+        } else {
+            echo json_encode('cette adresse mail est disponible');
+        }
+    }
     
     public static function getArticles(){
         $sqlinsert = "SELECT * FROM users WHERE id_state=2 ";
@@ -55,3 +83,15 @@ abstract class Model {
         return $return;
     }
 }
+
+
+
+if(isset($_GET['test'])){
+if($_GET['test']==1)
+
+
+Model::checkEmail($_POST['email']);
+
+}
+
+       

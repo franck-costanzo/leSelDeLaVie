@@ -1,82 +1,88 @@
 <?php 
 
-abstract class User extends Model 
+class User extends Model 
 {
 
     public function __construct() {}
 
-    public static function checkUser($email)
+
+    static public function checkUser($email)
     {
-        $sqlinsert = "SELECT * FROM users WHERE email=:email ";
-        $params=array(':email'=> $email);
-        $infos = self::requestExecute($sqlinsert,$params);
-        $return = $infos->fetch(PDO::FETCH_ASSOC);
-        return $return;
+            $sql = "SELECT * FROM `users` WHERE users.email=:email";
+            $test=self::getBdd()->prepare($sql);
+            $test->execute(array(':email'=>$email));
+            $test2=$test->rowCount();
+            return $test2;      
     }
 
     
     public static function setUser($firstName,$lastName,$email,$password,$adress,$zipCode)
-    {   $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code,id_right)
-        VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code,:id_right)";
-        $params=array(
-            ":firstname" => $firstName,
-            ":lastname" => $lastName,
-            ":email" => $email,
-            ":password" => $password,
-            ":adress" => $adress,
-            ":zip_code" => $zipCode,
-            ":id_rigth" => '1'        
-        );
-        Model::requestExecute($sqlinsert,$params);
+    {   
+        $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code)
+        VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code)";
+
+        self::requestExecute($sqlinsert,$params=array(
+            ':firstname' => $firstName,
+            ':lastname' => $lastName,
+            ':email' => $email,
+            ':password' => $password,
+            ':adress' => $adress,
+            ':zip_code' => $zipCode
+        ));
     }
 
 
     //---------connexion--------------------------------
 
-    public function userConnexion($login){
-        $sqlinsert = "SELECT * FROM user WHERE login=:login ";
-        $signIn = $this->db->prepare($sqlinsert);
+    public function userConnexion($email)
+    {
+        $sqlinsert = "SELECT id_user, firstname, lastname, adress, zip_code, password, email, id_right FROM users WHERE email=:email ";
+        $signIn =self::getBdd()->prepare($sqlinsert);
         $signIn->execute(array(
-            ':login' => $login,
+            ':email' => $email,
         ));
-        $user=$signIn->fetch(PDO::FETCH_ASSOC);
+        $user = $signIn->fetch(PDO::FETCH_ASSOC);
         return ($user);
-}
+    }
 
 
-//------------Profil--------------------------------------------------------
+    //------------Profil--------------------------------------------------------
 
-public function loginUpdate($login){
-    $update=$this->db->prepare("UPDATE `user` SET login=:login WHERE id= :id");
-    $update->execute(array(
-        ':login'=>$login,
-        ':id'=>$_SESSION['user']['id']
-    ));
-}
+    public function loginUpdate($login)
+    {
+        $update=$this->db->prepare("UPDATE `user` SET login=:login WHERE id= :id");
+        $update->execute(array(
+            ':login'=>$login,
+            ':id'=>$_SESSION['user']['id']
+        ));
+    }
 
-public function passwordUpdate($password){
-    $update=$this->db->prepare("UPDATE `user` SET password=:password WHERE id= :id");
-    $update->execute(array(
-        ':password'=>$password,
-        ':id'=>$_SESSION['user']['id']
-    ));
-}
+    public function passwordUpdate($password)
+    {
+        $update=$this->db->prepare("UPDATE `user` SET password=:password WHERE id= :id");
+        $update->execute(array(
+            ':password'=>$password,
+            ':id'=>$_SESSION['user']['id']
+        ));
+    }
 
-public function emailUpdate($email){
-    $update=$this->db->prepare("UPDATE `user` SET email=:email WHERE id= :id");
-    $update->execute(array(
-        ':email'=>$email,
-        ':id'=>$_SESSION['user']['id']
-    ));
-}
+    public function emailUpdate($email)
+    {
+        $update=$this->db->prepare("UPDATE `user` SET email=:email WHERE id= :id");
+        $update->execute(array(
+            ':email'=>$email,
+            ':id'=>$_SESSION['user']['id']
+        ));
+    }
 
-public function firstNamedUpdate($firstName){
-    $update=$this->db->prepare("UPDATE `user` SET prenom=:firstname WHERE id= :id");
-    $update->execute(array(
-        ':firstname'=>$firstName,
-        ':id'=>$_SESSION['user']['id']
-    ));
-}
+    public function firstNamedUpdate($firstName)
+    {
+        $update=$this->db->prepare("UPDATE `user` SET prenom=:firstname WHERE id= :id");
+        $update->execute(array(
+            ':firstname'=>$firstName,
+            ':id'=>$_SESSION['user']['id']
+        ));
+    }
 
 public function lastNamedUpdate($lastName){
     $update=$this->db->prepare("UPDATE `user` SET nom=:lastname WHERE `id`= :id");
@@ -115,5 +121,6 @@ public static function updateRight($right,$id)
 
 }
 
+  
 
 }
