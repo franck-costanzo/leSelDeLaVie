@@ -31,6 +31,7 @@ class Renderer
         else 
         {
             ob_start();
+            session_start();  
             $this->title = '404';
             require "View/404.php";
             return ob_get_clean();

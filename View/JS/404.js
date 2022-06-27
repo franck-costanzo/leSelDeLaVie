@@ -36,6 +36,6 @@ export default function f404() {
     }
 
     
-    setInterval(increaseHeight, 12);   
+    setInterval(increaseHeight, 12);
     
 }

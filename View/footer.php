@@ -59,5 +59,3 @@
     
     <p>© Le Sel de la Vie - 2022</p>
 </section>
-
-<pre><?= var_dump($_SESSION) ?></pre>
