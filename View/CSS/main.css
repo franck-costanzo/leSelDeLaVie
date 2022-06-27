@@ -36,6 +36,112 @@ ul {
 }
 
 /* ------------------------------------------------- */
+    /*----------*/
+    /* CAROUSEL */
+    /*----------*/
+
+    #divCarousel {
+        position:relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .slider {
+        position:relative;
+        overflow: hidden;
+        object-fit: contain;
+        height:30vh;
+        width: 70%;
+    }
+
+    .desktopCarouselImgs {
+        display:none;
+    }
+
+    #boutonActivité {
+        position:absolute;
+        bottom: 10%;
+        padding: 10px 10px;
+        background-color: var(--main-color-2);        
+        color: white;
+    }
+
+    .divSousLesFleches {
+        border:none;
+        background-color:transparent;
+        outline:none;
+        width: 15%;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: blur(4px);
+        opacity: 0.6;
+    }
+
+    #divflechegauche {
+        position:absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 20%;
+        top: 40%;
+        left: 2%;
+    }
+
+    #divflechedroite {
+        position:absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 20%;
+        top: 40%;
+        right: 2%;
+        
+    }
+
+    /* ------------- */
+    /*     DESKTOP   */
+    /* ------------- */
+
+    @media screen and (min-width: 968px){
+        /*----------*/
+        /* CAROUSEL */
+        /*----------*/
+        
+        .slider {
+            width: 40%;
+        }
+
+        main > section:nth-child(1) > button {
+            height :30vh;
+            background-position: center;
+        }
+
+        .desktopCarouselImgs {
+            display:block;
+            filter: blur(4px);
+            opacity: 0.6;
+            height :30vh;
+            width: 15%;
+            background-position: center;
+        }
+
+        #divflechegauche {
+            left: 17%;
+        }
+    
+        #divflechedroite {
+            right: 17%;
+        }
+
+    }
+
+
+
 
 /* ------------- */
 /*     HEADER    */
@@ -85,11 +191,21 @@ ul {
         header > nav > a {
             margin: 0 10px;
             padding: 15px 15px;
-            border-radius: 30px;
             background-color: var(--main-color-2);
         }
 
+        header > nav > #buttonAdmin {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--admin-color);
+        }
 
+        header > nav > #buttonModo {
+            margin: 0 10px;
+            padding: 15px 15px;
+            background-color: var(--mod-color);
+            color: var(--main-color-1);
+        }
 
     }
 

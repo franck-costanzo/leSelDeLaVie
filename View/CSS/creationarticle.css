@@ -1,0 +1,225 @@
+#creationArticleMain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.titreCreationArticle {
+    text-align: center;
+    margin-top: 2%;
+    width: 100%;
+}
+
+#FormulaireGen {
+    width: 26%;
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+#creationArticleMain > #formCreationArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#creationArticleMain > #FormulaireGen > form > #fileInputCreationArticle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+#creationArticleMain > #FormulaireGen > form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    margin: 2% 0;
+}
+
+
+#formCreationArticle > #fileInputCreationArticle > label {
+    margin: 0 10px;
+    padding: 15px 15px;
+    border-radius: 30px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+}
+
+#formCreationArticle > #fileInputCreationArticle > label > img {
+    height: 100%;
+    width: auto;
+}
+
+
+#formCreationArticle > #fileInputCreationArticle > #image_url {
+    display: none;
+}
+
+
+#formCreationArticle > #fileInputCreationArticle > p {
+    margin-right: 10px;
+}
+
+#FormulaireGen > form > #reg_article {
+    margin-top: 1%;
+    padding: 15px 15px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+}
+/*   PARTIE PREVIEW FORMULAIRE   */
+
+#previewFormulaire {
+    width: 66%;
+    margin: 2%;
+    background-color: rgb(169, 198, 216);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: sticky;
+    top : 40px;
+    padding: 2% 0;
+    border-radius: 5px;
+    border: none;
+}
+
+#previewFormulaire > legend {
+    background-color: white;
+    color: var(--main-color-1);
+    padding: 1% 2%;
+    font-weight: bold;
+}
+#previewFormulaire > h2 {
+    margin: 2%;
+    width:100%;
+    text-align: center;
+}
+
+#previewFormulaire > label {
+    margin: 2% 0 0 6%;
+}
+
+#previewFormulaire > input,
+#previewFormulaire > textarea,        
+#previewFormulaire > select {
+    margin: 2% 5%;
+    width : 75%;
+    
+}
+
+#previewFormulaire > fieldset {
+    margin: 2% 5%;
+    width : 90%;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#previewFormulaire > fieldset > legend {
+    padding: 1% 2%;
+    font-weight: bold;
+}
+
+#previewFormulaire > fieldset > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 2%;
+    color: var(--main-color-1);
+}
+
+#previewFormulaire > fieldset > div > label {
+    margin-left: 10px;
+}
+
+#previewFormulaire > .previewfileDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--main-color-1);
+    margin-left: 4%;
+}
+
+#previewFormulaire > .previewfileDiv > .previewfileInputLabel {
+    margin: 0 10px;
+    padding: 15px 15px;
+    border-radius: 30px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+#previewFormulaire > .previewfileDiv > label > p {
+    margin-right: 10px;
+}
+
+#previewFormulaire > .previewfileDiv > label > img {
+    width: 100%;
+    height: auto;
+}
+
+#previewFormulaire > .previewfileDiv > .previewfileInput {
+    display: none;
+}
+
+#previewFormulaire > button {
+    margin: 1% 5%;
+    padding: 15px 15px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+}
+
+#previewFormulaire > #fileInputCreationArticle {
+    margin: 1% 5%;
+    display: flex;
+    align-items: center;
+}
+
+#previewFormulaire > #fileInputCreationArticle > label {
+    margin: 0 10px;
+    padding: 15px 15px;
+    border-radius: 30px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+}
+
+#previewFormulaire > #fileInputCreationArticle > label > img {
+    height: 100%;
+    width: auto;
+}
+
+.fileInputs {
+    display: none;
+}
+
+#previewFormulaire > #fileInputCreationArticle > p {
+    margin-right: 10px;
+}
+
+#imgPreview {
+    max-height: 20%;
+    object-fit: contain;
+}

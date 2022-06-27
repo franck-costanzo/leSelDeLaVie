@@ -26,8 +26,10 @@ export default function article() {
     //creation et append du titre de la preview
     let titreForm = document.createElement('H2');
     previewFormDiv.appendChild(titreForm);
+
     let description_article = document.createElement('P');
     previewFormDiv.appendChild(description_article);
+    description_article.style.margin = "2% 3%"
 
     inputNameArticle.addEventListener('keyup', function (e) {
         titreForm.innerHTML = inputNameArticle.value;
@@ -96,15 +98,26 @@ export default function article() {
                                 break;
 
                             case 'file':
+                                let inputMainDiv = document.createElement('DIV');
+                                inputMainDiv.setAttribute('id', 'fileInputCreationArticle')
                                 let inputFile = document.createElement('INPUT');
                                 inputFile.setAttribute('type', 'file');
                                 inputFile.setAttribute('name', 'file[]');
                                 inputFile.setAttribute('id', 'file'+fileCount);
+                                inputFile.setAttribute('class', 'fileInputs');
                                 let labelFile = document.createElement('LABEL');
                                 labelFile.setAttribute('for', 'file'+fileCount);
-                                labelFile.innerHTML = element.module_label;
-                                previewFormDiv.appendChild(labelFile);
-                                previewFormDiv.appendChild(inputFile);
+                                let fileImg = document.createElement('IMG');
+                                fileImg.setAttribute('src', './View/Media/upload.svg')
+                                let fileP = document.createElement('P');
+                                fileP.innerHTML = element.module_label;
+
+                                previewFormDiv.appendChild(inputMainDiv);
+                                inputMainDiv.appendChild(labelFile);
+                                labelFile.appendChild(fileImg);
+                                inputMainDiv.appendChild(inputFile);
+                                inputMainDiv.appendChild(fileP);
+
                                 fileCount++;
                                 break;
 
@@ -210,13 +223,13 @@ export default function article() {
     });
 
     inputImg.addEventListener('change', (e) => {
-        let allImgs = document.querySelectorAll('#imgPreview');
+        let allImgs = document.querySelector('#imgPreview');
+        let imgPrev = document.querySelector('#imgPreviewArticle')
 
-        if (allImgs.length > 0) 
+        if (allImgs != null && imgPrev != null && allImgs.length > 0 && imgPrev.length > 0) 
         {
-            allImgs.forEach(element => {
-                element.remove();
-            });
+            allImgs.remove();
+            imgPrev.remove();
         }
 
         let file = e.target.files[0];
@@ -232,7 +245,10 @@ export default function article() {
 
             let imgPreview = document.createElement('IMG');
             imgPreview.setAttribute('src', e.target.result);
-            imgPreview.setAttribute('id', 'imgPreview');            
+            imgPreview.setAttribute('id', "imgPreviewArticle");
+            imgPreview.style.maxWidth = '60%';
+            imgPreview.style.objectFit = 'contain';
+            imgPreview.style.margin = '0 auto'           
             description_article.before(imgPreview);    
             console.log('youpla');
         }

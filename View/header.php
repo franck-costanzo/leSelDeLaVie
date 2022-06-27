@@ -4,6 +4,7 @@
     <a href="association">Association</a>
     <a href="inscription">Inscription</a>
     <a href="connexion">Connexion</a>
-    <a href="profil">profil</a>
-    <a href="admin">admin</a>
+    <a href="profil">Profil</a>
+    <a href="admin" id="buttonAdmin">Admin</a>
+    <a href="modo" id='buttonModo'>Modérateur</a>
 </nav>
