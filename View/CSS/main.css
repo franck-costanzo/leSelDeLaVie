@@ -64,9 +64,7 @@ ul {
     .slider {
         position: relative;
         top:8px;
-        overflow: hidden;        
-        /* object-fit: none;
-        object-position: center; */
+        overflow: hidden;       
         height:30vh;
         width: 70%;
     }

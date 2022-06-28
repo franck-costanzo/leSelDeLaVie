@@ -24,10 +24,24 @@
     <h3>Liens du site</h3>
     <nav>
         <a href="home">Accueil</a>
-        <a href="association">À propos de l’association</a>       
-        <a href="connexion">Connexion</a>
+        <a href="association">association</a>       
+        <?php if(!isset($_SESSION["users"])) : ?>
         <a href="inscription">Inscription</a>
-        <a href="profil">Profil</a>
+        <a href="connexion">Connexion</a>
+        
+        <?php endif ?>
+
+        <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] >= 0) : ?>
+            <a href="profil">Profil</a>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 2) : ?>
+            <a href="./admin" id='buttonModo'>Modérateur</a>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 1337) : ?>
+            <a href="./admin" id="buttonAdmin">Admin</a>
+        <?php endif; ?>
     </nav>
 
     <fieldset>
