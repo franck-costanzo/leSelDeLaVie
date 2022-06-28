@@ -41,14 +41,30 @@ ul {
     /*----------*/
 
     #divCarousel {
+        margin: -10px;
         position:relative;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        margin-bottom: 5%;
+    }
+
+    .BGdiv {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        filter: blur(10px);
+        z-index: -1;
+        background-size:initial;
+        background-position: center;
+        transform: scale(1,1);
     }
 
     .slider {
         position:relative;
+        top:10px;
         overflow: hidden;
         object-fit: contain;
         height:30vh;
@@ -95,8 +111,8 @@ ul {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 1% 0;
         width: 10%;
-        height: 20%;
         top: 40%;
         left: 2%;
     }
@@ -106,11 +122,21 @@ ul {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 1% 0;
         width: 10%;
-        height: 20%;
         top: 40%;
         right: 2%;
-        
+        transform: scale(-1, 1);     
+    }
+
+    .titreArticle {
+        position:absolute;
+        color: white;
+        text-align: center;
+        min-width: 30%;
+        padding: 1%;
+        top: 10%;
+        background-color: var(--main-color-1);
     }
 
     /* ------------- */
@@ -118,10 +144,15 @@ ul {
     /* ------------- */
 
     @media screen and (min-width: 968px){
+
         /*----------*/
         /* CAROUSEL */
         /*----------*/
-        
+
+        .BGdiv {
+            background-size:cover;
+        }
+
         .slider {
             width: 40%;
         }
@@ -141,17 +172,18 @@ ul {
         }
 
         #divflechegauche {
+            width: 5%;
+            top: 30%;
             left: 17%;
         }
     
         #divflechedroite {
+            width: 5%;
+            top: 30%;
             right: 17%;
         }
 
     }
-
-
-
 
 /* ------------- */
 /*     HEADER    */

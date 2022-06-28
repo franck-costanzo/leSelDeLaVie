@@ -13,6 +13,14 @@
                 <?php endforeach; ?>
             </ul>
         </nav>
+        <nav class="categoryNavSelect">
+            <h2>Catégories</h2>
+            <hr>
+            <?php $allCategories = Categorie::getAllCategories(); ?>
+            <select name="CategorySelect" id="CategorySelect">
+                <option value="" selected disabled>--Please choose an option--</option>
+            </select>
+        </nav>
         <div class="displayArticle">
             <?php if(isset($_GET['id_category']) && !empty($_GET['id_category'])): ?>
             <?php 

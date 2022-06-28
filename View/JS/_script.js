@@ -5,6 +5,7 @@ import article from './article.js';
 import pdfGenerator from './pdfgenerator.js';
 import signUp from './signUp.js';
 import f404 from './404.js';
+import home from './home.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -26,7 +27,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (lastSegment == 'home' || lastSegment == 'activites' 
             || lastSegment == '' ||  ( lastSegment == 'association' && matched))
         {
+            // appendCarousel();
             appendCarousel();
+        }
+
+        if (lastSegment == 'home' || lastSegment == 'activites' 
+            || lastSegment == ''  && !matched)
+        {
+            home();
         }
     
     //affichage du changeur d'image pour la rubrique histoire de l'association

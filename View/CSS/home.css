@@ -5,11 +5,15 @@
 }
 
 .categoryNav {
-    margin: 2.5%;
-    width: 95%;    
-    text-align: center;
+    display: none;
+}
+
+.categoryNavSelect {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
 }
 
 .displayArticle {
@@ -108,6 +112,10 @@
         position: sticky;
         top: 40px;
         padding-left: 1%;
+    }
+
+    .categoryNavSelect {
+        display:none;
     }
 
     .categoryNav > ul {

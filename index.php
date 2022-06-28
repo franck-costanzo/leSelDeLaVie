@@ -34,6 +34,10 @@
     {
         echo json_encode(Carousel::getAllArticleInCarousel());
     }
+    else if (isset($_GET['url']) && ($_GET['url'] == "getAllCategories"))
+    {
+        echo json_encode(Categorie::getAllCategories());
+    }
     else if( isset($_GET['url']) )
     {
         $view = New Renderer($_GET['url']);

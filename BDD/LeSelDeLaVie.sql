@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS articles (
     date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_category INT NOT NULL,
     id_state INT NOT NULL,
-    id_form INT NOT NULL,    
+    id_form INT,    
     CONSTRAINT FK_articles_id_category_categories
     FOREIGN KEY (id_category) REFERENCES categories (id_category),
     CONSTRAINT FK_articles_id_state_states 
