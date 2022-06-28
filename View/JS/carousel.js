@@ -35,7 +35,7 @@ fetch('/leSelDeLaVie/articleCarousel')
         })
 
     })
-    .then(response => {
+    .then(() => {
 
         //---- création du bouton pour accéder au descriptif de l'activités
         let boutonActivite = document.createElement('Input');

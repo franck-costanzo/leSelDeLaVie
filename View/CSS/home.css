@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     align-items: center;
 }
 
@@ -25,6 +24,7 @@
 }
 
 .article {
+    min-height: 400px;
     width: 90%;
     height: auto;
     position: relative;
@@ -32,6 +32,12 @@
     padding: 5%;
     border: var(--main-color-1) 1px solid;
     border-radius: 5px;
+}
+
+.imgArticleContainer {
+    height: 150px;
+    object-fit: contain;
+    background-color: aqua;
 }
 
 .article > h3 {
@@ -54,11 +60,14 @@
 
 .redirectArticle
 {
+    position: absolute;
     margin: 2%;
     padding: 10px 10px;
     background-color: var(--main-color-2);
     color: white;
     border: none;
+    bottom: 5%;
+    right:5%;
 }
 
 .displayArticle > nav {

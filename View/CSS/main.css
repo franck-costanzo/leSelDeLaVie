@@ -65,14 +65,11 @@ ul {
     .slider {
         position:relative;
         top:10px;
-        overflow: hidden;
-        object-fit: contain;
+        overflow: hidden;        
+        /* object-fit: none;
+        object-position: center; */
         height:30vh;
         width: 70%;
-    }
-
-    .desktopCarouselImgs {
-        display:none;
     }
 
     #formActivité {
@@ -93,19 +90,6 @@ ul {
         outline: inherit;
     }
 
-    .divSousLesFleches {
-        border:none;
-        background-color:transparent;
-        outline:none;
-        width: 15%;
-        background-repeat: no-repeat;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        filter: blur(4px);
-        opacity: 0.6;
-    }
-
     #divflechegauche {
         position:absolute;
         display: flex;
@@ -114,7 +98,7 @@ ul {
         padding: 1% 0;
         width: 10%;
         top: 40%;
-        left: 2%;
+        left: 4%;
     }
 
     #divflechedroite {
@@ -125,7 +109,7 @@ ul {
         padding: 1% 0;
         width: 10%;
         top: 40%;
-        right: 2%;
+        right: 4%;
         transform: scale(-1, 1);     
     }
 
@@ -133,9 +117,10 @@ ul {
         position:absolute;
         color: white;
         text-align: center;
-        min-width: 30%;
+        min-width: 25%;
+        max-width: 30%;
         padding: 1%;
-        top: 10%;
+        top: 5%;
         background-color: var(--main-color-1);
     }
 
@@ -149,25 +134,19 @@ ul {
         /* CAROUSEL */
         /*----------*/
 
+        #divCarousel {
+            margin-bottom: 0;
+        }
         .BGdiv {
             background-size:cover;
         }
 
         .slider {
-            width: 40%;
+            width: 30%;
         }
 
         main > section:nth-child(1) > button {
             height :30vh;
-            background-position: center;
-        }
-
-        .desktopCarouselImgs {
-            display:block;
-            filter: blur(4px);
-            opacity: 0.6;
-            height :30vh;
-            width: 15%;
             background-position: center;
         }
 
@@ -181,6 +160,10 @@ ul {
             width: 5%;
             top: 30%;
             right: 17%;
+        }
+
+        .titreArticle {
+            padding: 0.5%;
         }
 
     }

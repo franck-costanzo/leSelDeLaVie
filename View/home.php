@@ -48,8 +48,10 @@
                 <?php foreach($allArticlesByCategory as $article): ?>
                     <div class="article">
                         <h3><?= $article['name_article'] ?></h3>
-                        <img src="<?= $article['image_url'] ?>" alt="">
-                        <p><?= substr($article['description_article'], 0, 150)." ..." ?></p>
+                        <div class="imgArticleContainer">
+                            <img src="<?= $article['image_url'] ?>" alt="">
+                        </div>                        
+                        <p><?= substr($article['description_article'], 0, 300)." ..." ?></p>
                         <form action="articledetail" method='POST'>
                             <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
                             <input type="hidden" name="id_form" value="<?= $article['id_form'] ?>">
@@ -103,8 +105,10 @@
             <?php foreach ($pageArticles as $article) : ?>
                 <div class="article">
                     <h3><?= $article['name_article'] ?></h3>
-                    <img src="<?= $article['image_url'] ?>" alt="">
-                    <p><?= substr($article['description_article'], 0, 150)." ..." ?></p>
+                    <div class="imgArticleContainer">
+                        <img src="<?= $article['image_url'] ?>" alt="">
+                    </div>
+                    <p><?= substr($article['description_article'], 0, 300)." ..." ?></p>
                     <form action="articledetail" method='POST'>
                         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
                         <input type="hidden" name="id_form" value="<?= $article['id_form'] ?>">
