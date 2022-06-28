@@ -35,7 +35,7 @@
 }
 
 .imgArticleContainer {
-    height: 150px;
+    height: 200px;
     object-fit: contain;
     background-color: aqua;
 }
