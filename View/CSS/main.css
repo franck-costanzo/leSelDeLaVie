@@ -69,6 +69,11 @@ ul {
         width: 70%;
     }
 
+    .slider > img {
+        object-fit: cover;
+        object-position: center;
+    }
+
     #formActivité {
         position:absolute;
         width:25%;
