@@ -1,7 +1,9 @@
 
 <main>
 
-<?php admin::idRigth();?>
-
-
+<?php
+    admin::idRigth();
+    admin::displayArticleStatus();
+    admin::formCat()
+    ?>
 <main>

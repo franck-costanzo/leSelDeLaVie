@@ -35,7 +35,7 @@
                 $premier = ($currentPage * $parPage) - $parPage;
             ?>
                 <?php $allArticlesByCategory = 
-                Article::getAllArticlesByCategoryPagination($_GET['id_category'], $premier, $parPage); ?>
+                Article::getAllArticlesByCategoryPagination($_GET['id_category'],$state, $premier, $parPage); ?>
                 <?php foreach($allArticlesByCategory as $article): ?>
                     <div class="article">
                         <h3><?= $article['name_article'] ?></h3>
