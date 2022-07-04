@@ -5,6 +5,7 @@
     ?>
     <h1><?= $articleDetail[0]['name_article'] ?></h1>
     <img src=<?= $articleDetail[0]['image_url']; ?>>
+    
     <p><?= $articleDetail[0]['description_article'] ?></p>
 
         <?php
