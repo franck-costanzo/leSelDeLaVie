@@ -129,7 +129,7 @@ class admin extends User
     //------------------------modification d'un article---------------------------------------------------
     public static function adminUpdateArticle($articleDetail)
     {
-
+ if(isset($_POST['updateArticle'])){
         if (empty($_POST['name_article'])) {
             $_POST['name_article'] = $articleDetail[0]['name_article'];
         }
@@ -146,7 +146,6 @@ class admin extends User
             $_POST['form'] = $articleDetail[0]['id_form'];
         }
 
-        if(isset($_POST['updateArticle'])){
             Article::updateArticle($_POST['id_article'],$_POST['name_article'],$_POST['image_url'],date('Y-m-d H:i:s'),$_POST['cat'],$_POST['form']);
         }
     }
