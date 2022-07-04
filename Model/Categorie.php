@@ -56,6 +56,14 @@ Class Categorie extends Model
         return $register;
     }
 
+    public static function deleteCat($idcat)
+    {
+        $sqlinsert = "DELETE FROM categories WHERE id_category=:id ";
+        $params=array(':id'=>$idcat);
+        $infos = self::requestExecute($sqlinsert,$params);
+        
+    }
+
     //getAllCategoriesNameById
     public static function getAllCategoriesNameById($id_category)
     {

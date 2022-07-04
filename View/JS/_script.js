@@ -2,10 +2,10 @@ import appendCarousel from './carousel.js';
 import changePicture from './imageAssociation.js';
 import appendForm from './formulaire.js';
 import article from './article.js';
-import pdfGenerator from './pdfgenerator.js';
 import signUp from './signUp.js';
 import f404 from './404.js';
 import home from './home.js';
+import appendFormView from './articleDisplay.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         //réduction de l'url pour récupérer la rotue exacte
         const lastSegment = url.split("/").pop();
+        console.log(lastSegment);
         
         //affichage du carousel si on est sur home ou sur activités ou sur home mais version ' '
         if (lastSegment == 'home' || lastSegment == 'activites' 
@@ -79,10 +80,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
     
-    //affichage 
-    if (lastSegment == 'test')
+    if (lastSegment == 'articledetail')
     {
-        pdfGenerator();
+        appendFormView();
     }
 
     //Script pour le sign up

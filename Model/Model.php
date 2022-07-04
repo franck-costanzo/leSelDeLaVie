@@ -12,7 +12,7 @@ abstract class Model {
         $servername = 'localhost';
         $username = 'root';
         $password = '';
-        $db = 'leseldelavie';
+        $db = 'le_sel_de_la_vie_site';
 
         try
         {

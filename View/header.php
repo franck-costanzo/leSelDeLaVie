@@ -14,8 +14,8 @@
         <a href="profil">Profil</a>
     <?php endif; ?>
 
-    <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 2) : ?>
-        <a href="./admin" id='buttonModo'>Modérateur</a>
+    <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] >= 2) : ?>
+        <a href="./creationarticle" id='buttonModo'>Création Article</a>
     <?php endif; ?>
 
     <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 1337) : ?>

@@ -81,20 +81,29 @@ public static function valideArticle($id_article)
 
     $articles = self::requestExecute($sql,$params);
 }
-public static function updateArticle($id_article,$nameArticle,$imageUrl,$date,$id_category,$id_form)
+public static function updateArticle($nameArticle, $imageUrl, $description, 
+                                        $date, $id_category, $id_form,
+                                        $id_article)
 {
-    $params = array($id_article,$nameArticle,$imageUrl,$date,$id_category,$id_form);
+    $params = array($nameArticle, $imageUrl, $description,
+                        $date, $id_category, 1, $id_form,
+                        $id_article);
     $sql = 'UPDATE `articles` 
-    set name_article=?,image_url=?,description_article=?,date_created=?,id_category=?,id_state=1,id_form=? 
-    WHERE id_article=?';
+            set name_article = ?, image_url = ?, description_article = ?,
+                date_created = ?, id_category = ?, id_state = ?, id_form = ? 
+            WHERE id_article = ?';
 
     $articles = self::requestExecute($sql,$params);
 }
 
 }
-if(isset($_POST['delete'])){
-    Article::deleteArticle($_POST['article']);
+
+if(isset($_POST['delete']))
+{
+    Article::deleteArticle($_GET['id_article']);
 }
-if(isset($_POST['validate'])){
-    Article::valideArticle($_POST['article']);
+
+if(isset($_POST['validate']))
+{
+    Article::valideArticle($_GET['id_article']);
 }

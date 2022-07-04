@@ -12,7 +12,7 @@
 
     <form  method="post" >
 
-        <h2>Inscription</h2>
+        <h2>Connexion</h2>
 
         <p><?php echo $message ;?></p>
 

@@ -13,6 +13,20 @@ abstract class Carousel extends Model {
         self::requestExecute($sql, $params);
     }
 
+    public static function getArticleById($idCarousel)
+    {
+        $sql= "SELECT carousel_articles.id_carousel_article, articles.*
+        FROM carousel_articles
+        INNER JOIN articles ON carousel_articles.id_article = articles.id_article
+        WHERE id_carousel_article = ?";
+
+        $params = array($idCarousel);
+
+        $result = self::requestExecute($sql, $params)->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
 
     public static function getArticleIdById($idCarousel)
     {
@@ -32,7 +46,8 @@ abstract class Carousel extends Model {
         $sql = "SELECT carousel_articles.id_carousel_article, articles.*, categories.name_category
         FROM carousel_articles
         INNER JOIN articles ON carousel_articles.id_article = articles.id_article
-        INNER JOIN categories ON articles.id_category = categories.id_category";
+        INNER JOIN categories ON articles.id_category = categories.id_category
+        ORDER BY carousel_articles.id_carousel_article";
 
         $result = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
 

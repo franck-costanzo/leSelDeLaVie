@@ -1,30 +1,28 @@
-<?php var_dump($_SESSION['users']);?>
 <form  method="post" >
 
     <h2>profil</h2>
 
-    <input id="firstName" class="input" type="text" placeholder="<?php echo $_SESSION['users']['firstname'] ?>" name="firstName" value=''required />
-    <label for="firstName" class="placeholder">Prenom</label>
+    <label for="firstName" class="value">Prenom</label>
+    <input id="firstName" class="input" type="text" value="<?php echo $_SESSION['users']['firstname'] ?>" name="firstName" value=''required />
 
-    <input id="lastName" class="input" type="text" placeholder="<?php echo $_SESSION['users']['lastname'] ?>" name="lastName" value=''required />
-    <label for="lastName" class="placeholder">Nom</label>
+    <label for="lastName" class="value">Nom</label>
+    <input id="lastName" class="input" type="text" value="<?php echo $_SESSION['users']['lastname'] ?>" name="lastName" value=''required />
 
-    <input id="email" class="input" type="email" placeholder="<?php echo $_SESSION['users']['email'] ?>" name="email" required />
-    <label for="email" class="placeholder">Email</label>
+    <label for="email" class="value">Email</label>
+    <input id="email" class="input" type="email" value="<?php echo $_SESSION['users']['email'] ?>" name="email" required />
     <div id="check"></div>
 
-
-    <input id="password" class="input" type="password" placeholder=" " name="password" required />
-    <label for="password" class="placeholder">Mot de passe</label>
+    <label for="password" class="value">Mot de passe</label>
+    <input id="password" class="input" type="password" value="" name="password" required />
     
-    <input id="confpassword" class="input" type="password" placeholder="veillez valider votre mot de passe " name="confpassword" required />
-    <label for="confpassword" class="placeholder">Validation mot de passe</label>
+    <label for="confpassword" class="value">Validation mot de passe</label>
+    <input id="confpassword" class="input" type="password" value="" name="confpassword" required />
 
-    <input id="adress" class="input" type="text" placeholder="<?php echo $_SESSION['users']['adress'] ?>" name="adress" required />
-    <label for="adress" class="placeholder">Adresse</label>
+    <label for="adress" class="value">Adresse</label>
+    <input id="adress" class="input" type="text" value="<?php echo $_SESSION['users']['adress'] ?>" name="adress" required />
 
-    <input id="zip_code" class="input" type="text" placeholder="<?php echo $_SESSION['users']['zip_code'] ?>"  name="zip_code" required />
-    <label for="zip_code" class="placeholder">Code Postale</label>
+    <label for="zip_code" class="value">Code Postal</label>
+    <input id="zip_code" class="input" type="text" value="<?php echo $_SESSION['users']['zip_code'] ?>"  name="zip_code" required />
 
     <input name='sign_up' type="submit" class='submit' value='Inscription'>
     </form>
