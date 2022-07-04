@@ -1,3 +1,4 @@
+<?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] >= 2) : ?>
 <main class="mainFormulaire">
     <h2 class="titreFormulaire">Attention les formulaires ne sont plus modifiables une fois enregistrés !</h2>
     
@@ -17,3 +18,6 @@
     </fieldset>
     
 </main>
+<?php else : ?>
+    <?php header('Location:home');?>
+<?php endif; ?>

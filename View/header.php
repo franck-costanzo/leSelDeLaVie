@@ -15,7 +15,7 @@
     <?php endif; ?>
 
     <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] >= 2) : ?>
-        <a href="./creationarticle" id='buttonModo'>Création Article</a>
+        <a href="./modo" id='buttonModo'>Modérateur</a>
     <?php endif; ?>
 
     <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 1337) : ?>

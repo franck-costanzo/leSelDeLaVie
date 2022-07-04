@@ -1,5 +1,5 @@
 <main>
-
+    <?php if(isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] == 1337) : ?>
     <?php
         Admin::idRigth();
         Admin::displayArticleStatus();
@@ -28,5 +28,8 @@
             <?php endfor; ?>
         </div>            
     </section>
+    <?php else : ?>
+        <?php header('Location:home'); ?>
+    <?php endif; ?>
 
 </main>
