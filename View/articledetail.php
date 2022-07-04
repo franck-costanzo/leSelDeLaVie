@@ -13,9 +13,10 @@
         ?>
 
 <form method='post'>
+    
     <input type=hidden name=id_article value=<?= $articleDetail[0]['id_article'] ?>>
-    <label for name_article >Titre:'.<?= $articleDetail[0]['name_article'] ?>.'</label>
-        <input type='text' name=name_article >
+    <label for name_article >Titre:<?= $articleDetail[0]['name_article'] ?></label>
+        <input type='text' name=name_article value='<?= $articleDetail[0]['name_article'] ?>' >
 
     <label for image_url >image:<?= $articleDetail[0]['image_url'] ?></label>
         <input type='file' name=image_url value="'.<?= $articleDetail[0]['image_url'] ?>.'">

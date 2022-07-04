@@ -127,31 +127,41 @@ class admin extends User
         }
     }
     //------------------------modification d'un article---------------------------------------------------
-    public static function adminUpdateArticle($articleDetail)
+    public static function adminUpdateArticle($nameArticle,$imageUrl,$description_article,$date,$id_category,$idstate,$id_form,$id_article)
     {
 
-        if (empty($_POST['name_article'])) {
-            $_POST['name_article'] = $articleDetail[0]['name_article'];
-        }
-        if (empty($_POST['image_url'])) {
-            $_POST['image_url'] = $articleDetail[0]['image_url'];
-        }
-        if (empty($_POST['description_article'])) {
-            $_POST['description_article'] = $articleDetail[0]['description_article'];
-        }
-        if (empty($_POST['cat'])) {
-            $_POST['cat'] = $articleDetail[0]['id_category'];
-        }
-        if (empty($_POST['form'])) {
-            $_POST['form'] = $articleDetail[0]['id_form'];
-        }
+        // if (empty($_POST['name_article'])) {
+        //     $_POST['name_article'] = $articleDetail[0]['name_article'];
+        // }
+        // if (empty($_POST['image_url'])) {
+        //     $_POST['image_url'] = $articleDetail[0]['image_url'];
+        // }
+        // if (empty($_POST['description_article'])) {
+        //     $_POST['description_article'] = $articleDetail[0]['description_article'];
+        // }
+        // if (empty($_POST['cat'])) {
+        //     $_POST['cat'] = $articleDetail[0]['id_category'];
+        // }
+        // if (empty($_POST['form'])) {
+        //     $_POST['form'] = $articleDetail[0]['id_form'];
+        // }
 
-            Article::updateArticle($_POST['id_article'],$_POST['name_article'],$_POST['image_url'],date('Y-m-d H:i:s'),$_POST['cat'],$_POST['form']);
+            Article::updateArticle($nameArticle,$imageUrl,$description_article,$date,$id_category,$idstate,$id_form,$id_article);
         
     }
+
+    public static function createCategories(){
+        echo '<h1>Création des catégories</h1>
+        <form method=' . 'POST' . '>
+        <input type=text name=catagoeriesCreation>
+        <input type=submit name=' . 'Create' . ' value=' . 'Créer' . '></form>';
+    }
+}
+if(isset($_POST['Create'])){
+    Categorie::createCategory($_POST['catagoeriesCreation']);
 }
 if(isset($_POST['updateArticle'])){
-admin::adminUpdateArticle($articleDetail);
+admin::adminUpdateArticle($_POST['name_article'],$_POST['image_url'],$_POST['description_article'],date('Y-m-d H:i:s'),$_POST['cat'],1,$_POST['form'],$_POST['id_article']);
 }
 if (isset($_POST['deleteCat'])) {
     user::deleteCat($_POST['deleteCatOption']);
