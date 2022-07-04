@@ -6,7 +6,7 @@ Class Article extends Model
 
     public static function getAllArticles()
     {
-        $sql = 'SELECT * FROM articles';
+        $sql = 'SELECT * FROM articles WHERE id_state=1';
         $articles = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $articles;
@@ -16,17 +16,20 @@ Class Article extends Model
     {
         $params = array($id);
 
-        $sql = 'SELECT * FROM articles WHERE id_article = ?';
+        $sql = 'SELECT * FROM articles 
+        INNER JOIN categories ON articles.id_category=categories.id_category
+        INNER JOIN forms ON articles.id_form=forms.id_form
+        WHERE id_article = ?';
         $article = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 
         return $article;
     }
 
-    public static function getAllArticlesByCategory($id_category)
+    public static function getAllArticlesByCategory($id_category,$state=2)
     {
-        $params = array($id_category);
+        $params = array($id_category,$state);
 
-        $sql = 'SELECT * FROM articles WHERE id_category = ?';
+        $sql = 'SELECT * FROM articles WHERE id_category = ? AND id_state =?';
         $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 
         return $articles;
@@ -47,7 +50,7 @@ Class Article extends Model
     public static function getArticlesPagination($first, $perPage)
     {
 
-        $sql = 'SELECT * FROM articles ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
+        $sql = 'SELECT * FROM articles WHERE id_state=2 ORDER BY `date_created` DESC LIMIT '.$first.','.$perPage.' ';
 
         $articles = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -58,11 +61,40 @@ Class Article extends Model
     {
         $params = array($id_category);
 
-        $sql = 'SELECT * FROM articles WHERE id_category = ? ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
+        $sql = 'SELECT * FROM articles WHERE id_category = ? AND id_state=? ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
         $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 
         return $articles;
     }
 
+    public static function deleteArticle($id_article)
+    {
+        $params = array($id_article);
+        $sql = 'DELETE FROM `articles` WHERE id_article=?';
 
+        $articles = self::requestExecute($sql,$params);
+}
+public static function valideArticle($id_article)
+{
+    $params = array($id_article);
+    $sql = 'UPDATE `articles` set id_state=2 WHERE id_article=?';
+
+    $articles = self::requestExecute($sql,$params);
+}
+public static function updateArticle($id_article,$nameArticle,$imageUrl,$date,$id_category,$id_form)
+{
+    $params = array($id_article,$nameArticle,$imageUrl,$date,$id_category,$id_form);
+    $sql = 'UPDATE `articles` 
+    set name_article=?,image_url=?,description_article=?,date_created=?,id_category=?,id_state=1,id_form=? 
+    WHERE id_article=?';
+
+    $articles = self::requestExecute($sql,$params);
+}
+
+}
+if(isset($_POST['delete'])){
+    Article::deleteArticle($_POST['article']);
+}
+if(isset($_POST['validate'])){
+    Article::valideArticle($_POST['article']);
 }
