@@ -1,5 +1,5 @@
 <main>
-    <form action="#" method="POST">
+    <form action="#" method="POST" enctype="multipart/form-data">
         <label for="supaTXT" id="supaTXTlabel" class="importantLabel">Le label du texte : </label>
         <input type="text" name="supaTXT" id="supaTXT" value="text value">
 
@@ -54,6 +54,7 @@
 
         <label for="image_url" id="labelimg">Le label de l'image : </label>
         <input type="file" name="image_url" id="image_url">
+        <input type="file" name="image_url2" id="image_url">
         <input type="submit" value="submit" name="genPdf">
     </form>
 </main>
