@@ -19,7 +19,7 @@ if (isset($_POST['reg_article']))
 
     //recupération du nom de produit et détermination de l'endroit ou stocker l'image uploadée
     $targetPath = 'View/ArticleImg/';
-    $filename = substr($_POST['name_article'],0,10);
+    $filename = substr(str_replace(" ",'',$_POST['name_article']),0,10);
     $targetFile = $targetPath.$filename.'.jpg';
 
     //transfert de l'image vers l'endroit
