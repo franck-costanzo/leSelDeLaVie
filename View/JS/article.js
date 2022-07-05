@@ -251,13 +251,6 @@ export default function article() {
             description_article.before(imgPreview);    
             console.log('youpla');
         }
-
-        
-        let reader2 = new FileReader();
-        reader2.readAsDataURL(file);
-        reader2.onload = (e) => {
-            
-        }
     });
 
 

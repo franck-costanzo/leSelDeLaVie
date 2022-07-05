@@ -86,4 +86,13 @@ abstract class Formulaire extends Model
         return (self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC));
     }
 
+    
+    public static function selectForm()
+    {
+        $sqlinsert = "SELECT id_form, name_form FROM forms ";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
+
 }

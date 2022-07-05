@@ -25,12 +25,12 @@
 
     <label for cat><?= $articleDetail[0]['name_category'] ?></label>
         <select name=cat>
-            <?php admin::selectCate(); ?>
+            <?php Admin::selectCate(); ?>
         </select>
 
     <label for form><?= $articleDetail[0]['name_form'] ?></label>
     <select name=form>
-        <?php admin::selectFormSelect() ?>
+        <?php Admin::selectFormSelect() ?>
     </select>
     <input type='submit' name='updateArticle' value='modifier'>
     <input type='submit' name='delete' value='supprimer'>

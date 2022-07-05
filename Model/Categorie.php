@@ -12,6 +12,14 @@ Class Categorie extends Model
         return $categories;
     }
 
+    public static function selectCat()
+    {
+        $sqlinsert = "SELECT id_category, name_category FROM categories ";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
+
     public static function getCategory($id)
     {
         $params = array($id);

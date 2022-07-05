@@ -2,7 +2,6 @@ export default function appendFormView()
 {
     //variable relative à la div globale de la preview
     const previewFormDiv = document.getElementById('formArticle');
-    console.log(previewFormDiv);
 
     let idForm = window.location.search.split('&')[1].split('=')[1];
     //---- counter pour dénombrer les elements du meme type rajouté
@@ -106,7 +105,6 @@ export default function appendFormView()
 
                     case 'checkbox':
 
-                        console.log('checkbox');
                         let fieldsetCheckbox = document.createElement('fieldset');
                         fieldsetCheckbox.setAttribute('type', 'checkbox');
                         fieldsetCheckbox.setAttribute('name', 'checkbox[]');
@@ -135,7 +133,7 @@ export default function appendFormView()
                         break;
 
                     case 'radio':
-                        console.log('radio');
+
                         let fieldsetRadio = document.createElement('fieldset');
                         fieldsetRadio.setAttribute('type', 'radio');
                         fieldsetRadio.setAttribute('name', 'radio[]');
@@ -167,8 +165,28 @@ export default function appendFormView()
             }
         })
 
-        let genererPDF = document.createElement('BUTTON');
+        if (previewFormDiv.hasChildNodes())
+        {
+            let genererPDF = document.createElement('BUTTON');
                 genererPDF.innerHTML = 'Générer le PDF';
                 previewFormDiv.appendChild(genererPDF);
+        }
+        
+    })
+
+
+    //---- creation de variable pour l'affichage du changement d'image
+    let alterImgButton = document.getElementById('fileChange');
+    let alterImgDisplay = document.getElementById('alterIMGchanger');
+
+    alterImgButton.addEventListener('change', (e) => {
+        console.log('youpla')
+        let file = e.target.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            alterImgDisplay.setAttribute('src', e.target.result);
+        }
     })
 }               

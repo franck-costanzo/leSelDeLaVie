@@ -18,9 +18,9 @@ Class Article extends Model
 
         $sql = 'SELECT * FROM articles 
         INNER JOIN categories ON articles.id_category=categories.id_category
-        INNER JOIN forms ON articles.id_form=forms.id_form
-        WHERE id_article = ?';
-        $article = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+        LEFT JOIN forms ON articles.id_form = forms.id_form
+        WHERE articles.id_article = ?';
+        $article = self::requestExecute($sql, $params)->fetch();
 
         return $article;
     }
@@ -35,7 +35,7 @@ Class Article extends Model
         return $articles;
     }
 
-    public static function createArticle($name_article, $image_url, $description, $id_category, $id_form)
+    public static function createArticle($name_article, $image_url, $description, $id_category, $id_form = NULL)
     {
         $params = array($name_article, $image_url, $description, $id_category, $id_form);
 
@@ -73,37 +73,52 @@ Class Article extends Model
         $sql = 'DELETE FROM `articles` WHERE id_article=?';
 
         $articles = self::requestExecute($sql,$params);
-}
-public static function valideArticle($id_article)
-{
-    $params = array($id_article);
-    $sql = 'UPDATE `articles` set id_state=2 WHERE id_article=?';
+    }
 
-    $articles = self::requestExecute($sql,$params);
-}
-public static function updateArticle($nameArticle, $imageUrl, $description, 
-                                        $date, $id_category, $id_form,
-                                        $id_article)
-{
-    $params = array($nameArticle, $imageUrl, $description,
-                        $date, $id_category, 1, $id_form,
-                        $id_article);
-    $sql = 'UPDATE `articles` 
-            set name_article = ?, image_url = ?, description_article = ?,
-                date_created = ?, id_category = ?, id_state = ?, id_form = ? 
-            WHERE id_article = ?';
+    public static function valideArticle($id_article)
+    {
+        $params = array($id_article);
+        $sql = 'UPDATE `articles` set id_state=2 WHERE id_article=?';
 
-    $articles = self::requestExecute($sql,$params);
-}
+        $articles = self::requestExecute($sql,$params);
+    }
 
-}
+    public static function updateArticle($nameArticle, $description, 
+                                            $date, $id_category, 
+                                            $id_article, $id_form = NULL)
+    {
+        $params = array($nameArticle, $description,
+                            $date, $id_category, 1, $id_form,
+                            $id_article);
+        $sql = 'UPDATE `articles` 
+                set name_article = ?, description_article = ?,
+                    date_created = ?, id_category = ?, id_state = ?, 
+                    id_form = ? 
+                WHERE id_article = ?';
 
-if(isset($_POST['delete']))
-{
-    Article::deleteArticle($_GET['id_article']);
-}
+        $articles = self::requestExecute($sql,$params);
+    }  
+    
+    public static function updateArticleIMG($image_url, $id_article)
+    {
+        $params = array($image_url, 1, $id_article);
+        $sql = 'UPDATE `articles`
+                set image_url = ?, id_state = ?
+                WHERE id_article = ?';
+        return self::requestExecute($sql,$params);
+    }
+    
+    public static function getArticles()
+    {
+        $sqlinsert = "SELECT articles.*, 
+        states.name_state, categories.name_category
+            FROM articles
+            INNER JOIN categories ON articles.id_category = categories.id_category
+            INNER JOIN states ON articles.id_state = states.id_state        
+            WHERE articles.id_state = 1";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
 
-if(isset($_POST['validate']))
-{
-    Article::valideArticle($_GET['id_article']);
 }

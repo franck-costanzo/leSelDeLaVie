@@ -1,4 +1,5 @@
 main {
+    min-height: 30rem;
     width: 96%;
     margin: 2%;
     display: flex;
@@ -10,16 +11,18 @@ main {
 #detailArticle {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 #detailArticle > img {
-    width: 50%;
+    max-height: 500px;
+    margin-right: 30px;    
 }
 
 #detailArticle > fieldset
 {
-    width: 40%;
+    min-width: 80%;
     padding: 3%;
 }
 
@@ -52,11 +55,11 @@ main > fieldset {
 #formArticle > input,
 #formArticle > textarea,        
 #formArticle > select, 
-#alterForm > input,
-#alterForm > textarea,
-#alterForm > select {
+.alterForm > input,
+.alterForm > textarea,
+.alterForm > select {
     margin: 2% 5%;
-    width : 75%;    
+    width : 100%;    
 }
 
 #formArticle > fieldset {
@@ -87,7 +90,7 @@ main > fieldset {
 }
 
 #formArticle {
-    width: 50%;
+    width: 80%;
     margin-top: 5%;
     display: flex;
     flex-direction: column;
@@ -148,7 +151,7 @@ main > hr {
     width: 100%;
 }
 
-#alterForm {
+.alterForm {
     width: 80%;
     margin-top: 4%;
     display: flex;
@@ -156,16 +159,16 @@ main > hr {
     align-items: center;
 }
 
-#alterForm > textarea {
+.alterForm > textarea {
     padding: 1%;
 }
 
-#alterForm >* {
+.alterForm >* {
     margin-top: 1%;
 }
 
-#alterForm > input[type=submit],
-#alterForm > input[type=file]{
+.alterForm > input[type=submit],
+.alterForm > input[type=file]{
     margin: 3% 5%;
     padding: 15px 15px;
     background-color: var(--main-color-2);
@@ -173,13 +176,13 @@ main > hr {
     border: none;
 }
 
-#alterForm > #fileInputCreationArticle {
+.alterForm > #fileInputCreationArticle {
     margin: 1% 5%;
     display: flex;
     align-items: center;
 }
 
-#alterForm > #fileInputCreationArticle > label {
+.alterForm > #fileInputCreationArticle > label {
     margin: 0 10px;
     padding: 15px 15px;
     border-radius: 30px;
@@ -192,12 +195,12 @@ main > hr {
     width: 50px;
 }
 
-#alterForm > #fileInputCreationArticle > label > img {
-    height: 100%;
+.alterForm > .prevIMG {
+    max-height: 150px;
     width: auto;
 }
 
-#alterForm > img {
+.alterForm > img {
     width: 50%;
 }
 
@@ -212,4 +215,46 @@ main > hr {
     background-color: var(--main-color-2);
     color: white;
     border: none;
+}
+
+#alterIMG {
+    margin: 3% 5%;
+    padding: 15px 15px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+}
+
+/* ------------- */
+/*     DESKTOP   */
+/* ------------- */
+
+@media screen and (min-width: 968px){
+
+    #detailArticle {
+        flex-direction: row;
+    }
+    
+    #detailArticle > fieldset
+    {
+        min-width: 600px;
+    }
+    
+    #formArticle > input,
+    #formArticle > textarea,        
+    #formArticle > select, 
+    .alterForm > input,
+    .alterForm > textarea,
+    .alterForm > select {
+        margin: 2% 5%;
+        width : 75%;    
+    }
+    
+    #formArticle {
+        width: 50%;
+    }
+
+    #alterIMG {
+        max-width: 200px;
+    }
 }

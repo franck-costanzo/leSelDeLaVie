@@ -1,19 +1,36 @@
 <?php
 
 
-    if(isset($_POST['updateArticle'])){
+    if(isset($_POST['updateArticle'])){        
+
+        if ($_POST["form"] == "NULL"){
+            Article::updateArticle( $_POST['name_article'], $_POST["description_article"],
+                                    date('Y-m-d H:i:s'), $_POST['cat'], $_POST['id_article']);
+        }
+        else {
+            Article::updateArticle( $_POST['name_article'], $_POST["description_article"],
+                                    date('Y-m-d H:i:s'), $_POST['cat'], $_POST['id_article'], $_POST['form']);
+            
+        }
+        
+
+    }
+
+    if(isset($_POST['alterIMG']))
+    {
+        if (file_exists($_POST['old_img_url']) ) 
+        {
+            unlink($_POST['old_img_url']); 
+        };
 
         //recupération du nom de produit et détermination de l'endroit ou stocker l'image uploadée
         $targetPath = 'View/ArticleImg/';
-        $filename = $_FILES['image_url']["full_path"];
+        $filename = $_FILES['image_url']["name"];
         $targetFile = $targetPath.$filename;
 
         //transfert de l'image vers l'endroit
         move_uploaded_file($_FILES['image_url']['tmp_name'], $targetFile);
-
-        Article::updateArticle( $_POST['name_article'], $targetFile, $_POST["description_article"],
-                                    date('Y-m-d H:i:s'), $_POST['cat'], $_POST['form'],
-                                    $_POST['id_article'],);
+        Article::updateArticleIMG($targetFile, $_POST['id_article']);        
     }
 
     if (isset($_POST['deleteCat'])) {
@@ -27,9 +44,6 @@
     if(isset($_POST['createCategorie']))
     {
         Categorie::createCategory($_POST['nomCategorie']);
-        // $nom = $_POST['nomCategorie'];
-
-        // $categorie->createCategorie($nom);
     }
 
     if(isset($_POST["objet1"]))

@@ -1,6 +1,6 @@
 <?php
 
-class admin extends User
+class Admin extends User
 {
 
     public static function idRigth()
@@ -56,7 +56,7 @@ class admin extends User
 
     public static function displayArticleStatus()
     {
-        $survey = self::getArticles();
+        $survey = Article::getArticles();
         echo '<section class="adminSection">';
         echo '<h2> Gestion des articles à valider</h2>
             <table>
@@ -80,11 +80,9 @@ class admin extends User
         </section>';
     }
 
-
-
     public static function formCat()
     {
-        $survey4 = self::selectCat();
+        $survey4 = Categorie::selectCat();
         echo '<section class="adminSection"><h2>Gestion des catégories</h2>';
         echo '<form action="" method="POST" class="">            
             <input type="text" name="nomCategorie">
@@ -146,10 +144,7 @@ class admin extends User
     //------------------------recuperation categori dans un select---------------------------------------------------
     public static function selectCate()
     {
-        $surveyCat = self::selectCat();
-        foreach ($surveyCat as $value2) {
-            echo '<option value=' . $value2['id_category'] . '>' . $value2['name_category'] . '</option>';
-        }
+        $surveyCat = self::selectCat();        
     }
 
     //------------------------recuperation form dans un select---------------------------------------------------
@@ -160,12 +155,5 @@ class admin extends User
             echo '<option value=' . $value2['id_form'] . '>' . $value2['name_form'] . '</option>';
         }
     }
-    
-    //------------------------modification d'un article---------------------------------------------------
-    public static function adminUpdateArticle($articleDetail)
-    {
 
-        
-        
-    }
 }

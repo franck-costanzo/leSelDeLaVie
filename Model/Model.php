@@ -63,40 +63,4 @@ abstract class Model {
         return $result2;
     }
 
-    static public function checkEmail($email)
-    {
-        $sql = "SELECT * FROM `users` WHERE users.email=:email";
-        $test=self::getBdd()->prepare($sql);
-        $test->execute(array(':email'=>$email));
-        $test2=$test->rowCount();
-        if ( $test2 > 0) {
-            echo json_encode('cette adresse mail est déjà liée à un compte');
-        } else {
-            echo json_encode('cette adresse mail est disponible');
-        }
-    }
-    
-    public static function getArticles(){
-        $sqlinsert = "SELECT id_article,name_article,image_url,description_article,date_created,categories.name_category,states.name_state,forms.name_form,forms.id_form 
-        FROM articles
-        INNER JOIN categories ON articles.id_category=categories.id_category
-        INNER JOIN states ON articles.id_state=states.id_state
-        INNER JOIN forms ON articles.id_form=forms.id_form
-        WHERE articles.id_state=1 ";
-        $infos = self::requestExecute($sqlinsert);
-        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-        return $return;
-    }
 }
-
-
-
-if(isset($_GET['test'])){
-if($_GET['test']==1)
-
-
-Model::checkEmail($_POST['email']);
-
-}
-
-       

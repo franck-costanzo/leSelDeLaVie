@@ -84,42 +84,42 @@ class User extends Model
         ));
     }
 
-public function lastNamedUpdate($lastName){
-    $update=$this->db->prepare("UPDATE `user` SET nom=:lastname WHERE `id`= :id");
-    $update->execute(array(
-        ':lastname'=>$lastName,
-        ':id'=>$_SESSION['users']['id']
-    ));
-}
-//--------------------------select all--------------------------------------
-public static function userDisplay()
-{
-    $sqlinsert = "SELECT id_user,lastname,firstname,email,password,adress,zip_code,right_name
-    FROM `users`INNER JOIN `rights` ON users.id_right=rights.id_right; ";
-    $infos = self::requestExecute($sqlinsert);
-    $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-    return $return;
-}
+    public function lastNamedUpdate($lastName){
+        $update=$this->db->prepare("UPDATE `user` SET nom=:lastname WHERE `id`= :id");
+        $update->execute(array(
+            ':lastname'=>$lastName,
+            ':id'=>$_SESSION['users']['id']
+        ));
+    }
+    //--------------------------select all--------------------------------------
+    public static function userDisplay()
+    {
+        $sqlinsert = "SELECT id_user,lastname,firstname,email,password,adress,zip_code,right_name
+        FROM `users`INNER JOIN `rights` ON users.id_right=rights.id_right; ";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
 
-//-------------------------id_rigth-----------------------------------------
-public static function rightDisplay()
-{
-    $sqlinsert = "SELECT id_right, right_name FROM rights ";
-    $infos = self::requestExecute($sqlinsert);
-    $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-    return $return;
-}
+    //-------------------------id_rigth-----------------------------------------
+    public static function rightDisplay()
+    {
+        $sqlinsert = "SELECT id_right, right_name FROM rights ";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
 
-public static function updateRight($right,$id)
-{
-    $sqlinsert = "UPDATE `users` set id_right=:right WHERE id_user=:id ";
-    $params=array(
-        ':right'=>$right,
-        ':id'=>$id
-    );
-    self::requestExecute($sqlinsert,$params);
+    public static function updateRight($right,$id)
+    {
+        $sqlinsert = "UPDATE `users` set id_right=:right WHERE id_user=:id ";
+        $params=array(
+            ':right'=>$right,
+            ':id'=>$id
+        );
+        self::requestExecute($sqlinsert,$params);
 
-}
+    }
 
     //-------------------------article update-----------------------------------------
 
@@ -131,20 +131,17 @@ public static function updateRight($right,$id)
         return $return;
     }
 
-    public static function selectCat()
+    static public function checkEmail($email)
     {
-        $sqlinsert = "SELECT id_category, name_category FROM categories ";
-        $infos = self::requestExecute($sqlinsert);
-        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-        return $return;
-    }
-
-    public static function selectForm()
-    {
-        $sqlinsert = "SELECT id_form, name_form FROM forms ";
-        $infos = self::requestExecute($sqlinsert);
-        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-        return $return;
+        $sql = "SELECT * FROM `users` WHERE users.email=:email";
+        $test=self::getBdd()->prepare($sql);
+        $test->execute(array(':email'=>$email));
+        $test2=$test->rowCount();
+        if ( $test2 > 0) {
+            echo json_encode('cette adresse mail est déjà liée à un compte');
+        } else {
+            echo json_encode('cette adresse mail est disponible');
+        }
     }
 
 }
