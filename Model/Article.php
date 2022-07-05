@@ -101,6 +101,7 @@ public static function updateArticle($nameArticle, $imageUrl, $description,
 if(isset($_POST['delete']))
 {
     Article::deleteArticle($_GET['id_article']);
+    header('Location:home');
 }
 
 if(isset($_POST['validate']))
