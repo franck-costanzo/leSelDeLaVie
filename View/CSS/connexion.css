@@ -1,4 +1,12 @@
+main {
+    min-height: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,14 +17,27 @@ form > * {
 }
 
 form > input {
-    padding:  1%;
-    width: 25%;
+    padding:  2%;
+    width: 75%;
 }
 
 form > input[type=submit] {
+    width:25%;
     margin-top: 1%;
     padding: 15px 15px;
     background-color: var(--main-color-2);
     color: white;
     border: none;
 }
+
+    /* ------------- */
+    /*     DESKTOP   */
+    /* ------------- */
+
+    @media screen and (min-width: 968px){
+        
+        form > input {
+            padding:  1%;
+            width: 25%;
+        }
+    }

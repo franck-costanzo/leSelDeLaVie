@@ -9,14 +9,31 @@ form > * {
 }
 
 form > input {
-    padding:  1%;
-    width: 25%;
+    padding:  2%;
+    width: 75%;
 }
 
 form > input[type=submit] {
+    width:25%;
     margin-top: 1%;
     padding: 15px 15px;
     background-color: var(--main-color-2);
     color: white;
     border: none;
 }
+
+p {
+    text-align: center;
+}
+
+    /* ------------- */
+    /*     DESKTOP   */
+    /* ------------- */
+
+    @media screen and (min-width: 968px){
+        
+        form > input {
+            padding:  1%;
+            width: 25%;
+        }
+    }
