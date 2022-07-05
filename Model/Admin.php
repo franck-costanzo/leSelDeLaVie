@@ -100,7 +100,6 @@ class Admin extends User
     }
 
 
-
     //------------------------recuperation de form en view----------------------------------------------------
     public static function testform($formDetail)
     {

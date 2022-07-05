@@ -6,6 +6,7 @@ import signUp from './signUp.js';
 import f404 from './404.js';
 import home from './home.js';
 import appendFormView from './articleDisplay.js';
+import pdfGen from './pdfGen.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -95,6 +96,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (document.title == "404" && matched)
     {
         f404();
+    }
+
+    if (lastSegment == 'test')
+    {
+        pdfGen();
     }
     
         
