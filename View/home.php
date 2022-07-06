@@ -51,7 +51,7 @@
                         <div class="imgArticleContainer">
                             <img src="<?= $article['image_url'] ?>" alt="">
                         </div>                        
-                        <p><?= substr($article['description_article'], 0, 300)." ..." ?></p>
+                        <p><?= substr($article['description_article'], 0, 250)." ..." ?></p>
                         <form action="articledetail" method='POST'>
                             <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
                             <input type="hidden" name="id_form" value="<?= $article['id_form'] ?>">
@@ -108,7 +108,7 @@
                     <div class="imgArticleContainer">
                         <img src="<?= $article['image_url'] ?>" alt="">
                     </div>
-                    <p><?= substr($article['description_article'], 0, 300)." ..." ?></p>
+                    <p><?= substr($article['description_article'], 0, 250)." ..." ?></p>
                     <form action="articledetail" method='POST'>
                         <input type="hidden" name="id_article" value="<?= $article['id_article'] ?>">
                         <input type="hidden" name="id_form" value="<?= $article['id_form'] ?>">

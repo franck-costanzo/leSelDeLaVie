@@ -4,10 +4,9 @@
     ?>
 
     <div id='detailArticle'>
-        <h1><?= $articleDetail['name_article'] ?></h1>
         <img src=<?= $articleDetail['image_url']; ?>>
         <fieldset>
-            <legend>Description</legend>
+            <legend><?= $articleDetail['name_article'] ?></legend>
             <p><?= $articleDetail['description_article'] ?></p>
         </fieldset>
     </div>

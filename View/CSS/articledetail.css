@@ -16,8 +16,12 @@ main {
 }
 
 #detailArticle > img {
+    
     max-height: 500px;
-    margin-right: 30px;    
+    margin-right: 30px;
+    object-fit: cover;
+    object-position: center;
+
 }
 
 #detailArticle > fieldset
@@ -26,10 +30,9 @@ main {
     padding: 3%;
 }
 
-#detailArticle > h1 {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+#detailArticle > fieldset > legend {
+    font-size: x-large;
+    margin: 0 1%;
     padding: 2%;
     background-color: var(--main-color-1);
     color: white;
@@ -60,6 +63,10 @@ main > fieldset {
 .alterForm > select {
     margin: 2% 5%;
     width : 100%;    
+}
+
+#formArticle > textarea {
+    padding: 2%;
 }
 
 #formArticle > fieldset {

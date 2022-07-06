@@ -28,7 +28,7 @@
         <label for="adress" class="placeholder">Adresse</label>
         <input id="adress" class="input" type="text" placeholder=" " name="adress" required />
 
-        <label for="zip_code" class="placeholder">Code Postale</label>
+        <label for="zip_code" class="placeholder">Code Postal</label>
         <input id="zip_code" class="input" type="text" placeholder=" " name="zip_code" required />
 
         <input name='sign_up' type="submit" class='submit' value='Inscription'>

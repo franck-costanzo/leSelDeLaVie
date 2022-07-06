@@ -36,8 +36,6 @@ export default function pdfGen(){
     }
     
     creationPdf();
-
-    console.log(doc.getFontList())
     
     genpdf.addEventListener('click', () =>
     {

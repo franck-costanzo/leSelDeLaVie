@@ -46,22 +46,22 @@
         Categorie::createCategory($_POST['nomCategorie']);
     }
 
-    if(isset($_POST["objet1"]))
+    if(isset($_POST["objet0"]))
     {
         Carousel::updateToCarousel($_POST['idArticle'],1);
     }
 
-    if(isset($_POST["objet2"]))
+    if(isset($_POST["objet1"]))
     {
         Carousel::updateToCarousel($_POST['idArticle'],2);
     }
 
-    if(isset($_POST["objet3"]))
+    if(isset($_POST["objet2"]))
     {
         Carousel::updateToCarousel($_POST['idArticle'],3);
     }
 
-    if(isset($_POST["objet4"]))
+    if(isset($_POST["objet3"]))
     {
         Carousel::updateToCarousel($_POST['idArticle'],4);
     }

@@ -139,6 +139,12 @@ CREATE TABLE IF NOT EXISTS articles (
     FOREIGN KEY (id_form) REFERENCES forms (id_form),
     PRIMARY KEY (id_article)) ENGINE=InnoDB;
 
+INSERT INTO `articles` (`id_article`, `name_article`, `image_url`, `description_article`, `date_created`, `id_category`, `id_state`, `id_form`) VALUES
+(1, 'Bienvenue à tous !', 'View/ArticleImg/Bienvenue.jpg', 
+"Les étudiants de LaPlateforme_ en partenariat avec l'association Le Sel de la Vie sont heureux de vous présenter leur travail. 
+Nous avons œuvré afin  de doter cette belle association d'un site mettant en avant ces actions ainsi que son histoire. 
+Ce site-outil est mis à disposition de ses adhérents et des participants de l\'association. 
+Merci à vous pour cette belle opportunité de partenariat et d'apprentissage !", '2022-07-06 16:05:00', 3, 1, NULL);
 -- ------------------------------------
 --        table users_articles        --
 -- ------------------------------------

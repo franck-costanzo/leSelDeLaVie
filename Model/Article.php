@@ -6,7 +6,7 @@ Class Article extends Model
 
     public static function getAllArticles()
     {
-        $sql = 'SELECT * FROM articles WHERE id_state=1';
+        $sql = 'SELECT * FROM articles WHERE id_state=2';
         $articles = self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         return $articles;

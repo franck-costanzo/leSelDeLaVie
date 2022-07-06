@@ -62,17 +62,17 @@ class Admin extends User
             <table>
                 <thead>
                     <tr>
-                        <th>titre</th>
-                        <th>état</th>
-                        <th>catégorie</th>
+                        <th>Titre</th>                        
+                        <th>Catégorie</th>
+                        <th>État</th>
                     </tr>
                 </thead>
                 <tbody>';
         foreach ($survey as $value) {
             echo '<tr>            
-                        <td><a href=articledetail?id_article=' . $value['id_article'] . '&id_form=' . $value['id_form'] . '>' . $value['name_article'] . ' </a></td>
-                        <td>' . $value['name_state'] . '</td>
+                        <td>' . $value['name_article'] . ' </td>
                         <td>' . $value['name_category'] . '</td>
+                        <td>' . $value['name_state'] . ' <a href=articledetail?id_article=' . $value['id_article'] . '&id_form=' . $value['id_form'] . '>Examiner</a></td>
                 </tr>';
         }
         echo '</tbody>
@@ -83,19 +83,24 @@ class Admin extends User
     public static function formCat()
     {
         $survey4 = Categorie::selectCat();
-        echo '<section class="adminSection"><h2>Gestion des catégories</h2>';
-        echo '<form action="" method="POST" class="">            
-            <input type="text" name="nomCategorie">
-            <input type="submit" name="createCategorie" 
-            value="Créer une catégorie" class="">        
-        </form>';
-        echo '<form method=' . 'POST' . '>
-        <select name=' . 'deleteCatOption' . '>';
-            foreach ($survey4 as $value2) {
-                echo '<option value=' . $value2['id_category'] . '>' . $value2['name_category'] . '</option>';
-            }
-            echo '</select>
-        <input type=submit name=' . 'deleteCat' . ' value=' . 'supprimer' . '></form></section>';
+        echo '<section class="adminSection">
+                <h2>Gestion des catégories</h2>';
+        echo '  <div id="divCateg">
+                    <form method="POST">            
+                        <input type="text" name="nomCategorie">
+                        <input type="submit" name="createCategorie" 
+                        value="Créer une catégorie">        
+                    </form>';
+        echo '      <form method="POST"">
+                        <select name="deleteCatOption">';
+                        foreach ($survey4 as $value2) {
+                            echo '<option value=' . $value2['id_category'] . '>' . $value2['name_category'] . '</option>';
+                        }
+        echo '          </select>
+                        <input type=submit name="deleteCat" value="supprimer">
+                    </form>
+                </div>
+            </section>';
         
     }
 
