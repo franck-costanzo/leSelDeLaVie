@@ -1,3 +1,5 @@
+import pdfGen from './pdfGen.js';
+
 export default function appendFormView()
 {
     //variable relative à la div globale de la preview
@@ -32,6 +34,7 @@ export default function appendFormView()
                         let labelText = document.createElement('LABEL');
                         labelText.setAttribute('for', 'text'+textCount);
                         labelText.innerHTML = element.module_label;
+                        labelText.className = 'importantLabel';
                         previewFormDiv.appendChild(labelText);
                         previewFormDiv.appendChild(inputText);
                         textCount++;
@@ -46,6 +49,7 @@ export default function appendFormView()
                         let labelTextarea = document.createElement('LABEL');
                         labelTextarea.setAttribute('for', 'text'+textAreaCount);
                         labelTextarea.innerHTML = element.module_label;
+                        labelTextarea.className = 'importantLabel';
                         previewFormDiv.appendChild(labelTextarea);
                         previewFormDiv.appendChild(inputTextarea);
                         textAreaCount++;
@@ -87,6 +91,7 @@ export default function appendFormView()
                         let labelSelect = document.createElement('LABEL');
                         labelSelect.setAttribute('for', 'select'+selectCount);
                         labelSelect.innerHTML = element.module_label;
+                        labelSelect.className = 'importantLabel';
                         let optionNameString = element.option_names;
                         let optionArray = optionNameString.split('||');
                         optionArray.forEach(element => {
@@ -111,6 +116,8 @@ export default function appendFormView()
                         fieldsetCheckbox.setAttribute('id', 'checkbox'+checkboxCount);
                         let labelCheckbox = document.createElement('legend');
                         labelCheckbox.innerHTML = element.module_label;
+                        labelCheckbox.className = 'importantLabel';
+                        fieldsetCheckbox.appendChild(labelCheckbox);
                         let checkboxArray = element.option_names.split('||')
                         checkboxArray.forEach(element => {
                             let optionDiv = document.createElement('DIV');
@@ -126,8 +133,7 @@ export default function appendFormView()
                             optionDiv.appendChild(label);
                             fieldsetCheckbox.appendChild(optionDiv);
                         });
-                        previewFormDiv.appendChild(fieldsetCheckbox);
-                        fieldsetCheckbox.appendChild(labelCheckbox);
+                        previewFormDiv.appendChild(fieldsetCheckbox);                       
 
                         checkboxCount++;
                         break;
@@ -140,6 +146,8 @@ export default function appendFormView()
                         fieldsetRadio.setAttribute('id', 'radio'+radioCount);
                         let labelRadio = document.createElement('legend');
                         labelRadio.innerHTML = element.module_label;
+                        labelRadio.className = 'importantLabel';
+                        fieldsetRadio.appendChild(labelRadio);
                         let radioArray = element.option_names.split('||')
                         radioArray.forEach(element => {
                             let optionDiv = document.createElement('DIV');
@@ -155,8 +163,7 @@ export default function appendFormView()
                             optionDiv.appendChild(label);
                             fieldsetRadio.appendChild(optionDiv);
                         });
-                        previewFormDiv.appendChild(fieldsetRadio);
-                        fieldsetRadio.appendChild(labelRadio);
+                        previewFormDiv.appendChild(fieldsetRadio);                       
 
                         radioCount++;
                         break;
@@ -169,7 +176,9 @@ export default function appendFormView()
         {
             let genererPDF = document.createElement('BUTTON');
                 genererPDF.innerHTML = 'Générer le PDF';
-                previewFormDiv.appendChild(genererPDF);
+            previewFormDiv.appendChild(genererPDF);
+            
+            pdfGen();  
         }
         
     })
@@ -179,14 +188,17 @@ export default function appendFormView()
     let alterImgButton = document.getElementById('fileChange');
     let alterImgDisplay = document.getElementById('alterIMGchanger');
 
-    alterImgButton.addEventListener('change', (e) => {
-        console.log('youpla')
-        let file = e.target.files[0];
+    if (alterImgButton != null){
+        alterImgButton.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+    
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                alterImgDisplay.setAttribute('src', e.target.result);
+            }
+        })
+    }
+    
 
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            alterImgDisplay.setAttribute('src', e.target.result);
-        }
-    })
 }               

@@ -6,7 +6,6 @@ import signUp from './signUp.js';
 import f404 from './404.js';
 import home from './home.js';
 import appendFormView from './articleDisplay.js';
-import pdfGen from './pdfGen.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
@@ -82,8 +81,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
     
     if (lastSegment == 'articledetail')
-    {
-        appendFormView();
+    {        
+        appendFormView();      
     }
 
     //Script pour le sign up

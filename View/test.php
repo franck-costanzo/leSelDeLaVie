@@ -1,4 +1,5 @@
 <main>
+    <h1>Le titre de ouf quoi !</h1>
     <form action="#" method="POST" enctype="multipart/form-data">
         <label for="supaTXT" id="supaTXTlabel" class="importantLabel">Le label du texte : </label>
         <input type="text" name="supaTXT" id="supaTXT" value="text value">
