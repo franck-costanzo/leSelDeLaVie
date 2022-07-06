@@ -1,5 +1,4 @@
-<?php 
-include 'Controller\_PHP_modules\fpdf.php';
+<?php
 
 if(isset($_POST['genPdf']))
 {
@@ -8,7 +7,7 @@ if(isset($_POST['genPdf']))
     foreach ($_FILES as $file){
         $pdf->AddPage();
         //recupération du nom de produit et détermination de l'endroit ou stocker l'image uploadée
-        $targetPath = 'Controller/_PHP_modules/tempImg';
+        $targetPath = 'View/tempImg';
         $filename = $file["name"];
         $targetFile = $targetPath.$filename;
 
