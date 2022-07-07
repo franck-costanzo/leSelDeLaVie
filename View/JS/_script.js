@@ -8,12 +8,45 @@ import home from './home.js';
 import appendFormView from './articleDisplay.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
-
+ 
     //création d'une variable qui correspond à media query mode desktop
     var media_query = 'screen and (min-width: 968px)';
 
     //création d'un booléen qui utilise la variable media_query pour vérifier qu'on est en mode desktop
     var matched = window.matchMedia(media_query).matches;
+
+    if (!matched){
+        //----gestion bouton Nav
+        let navBar = document.querySelector('header');
+        navBar.style.overflowY = "hidden";
+        let navBarHeight = navBar.offsetHeight;
+        let button = document.createElement('button');
+        button.style.position = 'absolute';
+        button.style.top = navBarHeight;
+        button.style.right = '0';
+        button.style.zIndex = '99';
+        button.style.backgroundColor = 'var(--main-color-1)';
+        button.style.height = '50px';
+        button.style.width = '40px';
+        button.style.color = 'white';
+        button.style.border = 'none';
+        button.style.borderBottomLeftRadius = '20px';
+        button.innerHTML = 'Menu';
+        button.addEventListener('click', () => {
+            if(navBar.style.overflowY == "hidden")
+            {
+                navBar.style.overflowY = 'unset';
+                button.innerHTML =  "X";
+            }
+            else
+            {
+                navBar.style.overflowY = 'hidden';
+                button.innerHTML =  "Menu";
+            }
+            
+        })
+        navBar.after(button);
+    }
 
     //----- Implémentation du carousel
 
