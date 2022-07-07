@@ -95,4 +95,15 @@ abstract class Formulaire extends Model
         return $return;
     }
 
+    public static function deleteFormById($id)
+    {
+        $params = array($id);
+
+        $sql = 'DELETE FROM forms WHERE id_form = ?';
+
+        $register = self::requestExecute($sql, $params);
+
+        return $register;
+    }
+
 }

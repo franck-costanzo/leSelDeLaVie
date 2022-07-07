@@ -1,20 +1,8 @@
-<?php
-    $message='';
-    if(isset($_POST['signIn']))
-    {
-        $message= UserController::signInAction(
-            htmlentities($_POST['email'],ENT_QUOTES,"ISO-8859-1"),
-            htmlentities($_POST['password'],ENT_QUOTES,"ISO-8859-1")
-        );
-    }
-?>
 <main>
 
     <form  method="post" >
 
         <h2>Connexion</h2>
-
-        <p><?php echo $message ;?></p>
 
         <label for="email" class="placeholder">adresse email</label>
         <input id="email" class="input" type="email" placeholder=" " name="email" value=''required />

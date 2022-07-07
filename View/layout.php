@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="View/CSS/main.css">
 </head>
 <body>
-
     <header>
         <?php require_once ('View/header.php') ?>
     </header>

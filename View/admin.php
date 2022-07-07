@@ -7,6 +7,23 @@
         $articlesArray = Article::getAllArticles();
     ?>
 
+    <section class='adminSection'>
+        <h2>Formulaires</h2>
+        <div class='formulaireDiv'>
+            <form method="POST">
+                <label for="id_form">Choisir le formulaire :</label>
+                <select name="id_form" id="id_form">
+                    <option value="---------------" disabled selected></option>
+                    <?php $forms = Formulaire::getAllForms()?>
+                    <?php foreach ($forms as $form) : ?>
+                        <option value="<?= $form['id_form'] ?>"><?= $form['name_form'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="submit" name="deleteForm" value="Supprimer">                
+            </form>             
+        </div>        
+    </section>
+
     <section class='carouselSection'>
         <h2>Objets mis en valeur sur la page d'accueil</h2>
         <div>

@@ -6,13 +6,12 @@ class User extends Model
     public function __construct() {}
 
 
-    static public function checkUser($email)
+    public static function checkUser($email)
     {
-            $sql = "SELECT * FROM `users` WHERE users.email=:email";
-            $test=self::getBdd()->prepare($sql);
-            $test->execute(array(':email'=>$email));
-            $test2=$test->rowCount();
-            return $test2;      
+            $params = array($email);
+            $sql = "SELECT * FROM users WHERE email = ?";
+            $userChck = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+            return $userChck;     
     }
 
     
@@ -34,7 +33,7 @@ class User extends Model
 
     //---------connexion--------------------------------
 
-    public function userConnexion($email)
+    public static function userConnexion($email)
     {
         $sqlinsert = "SELECT id_user, firstname, lastname, adress, zip_code, password, email, id_right FROM users WHERE email=:email ";
         $signIn =self::getBdd()->prepare($sqlinsert);
@@ -48,49 +47,26 @@ class User extends Model
 
     //------------Profil--------------------------------------------------------
 
-    public function loginUpdate($login)
+    public static function passwordUpdate($password, $id)
     {
-        $update=$this->db->prepare("UPDATE `user` SET login=:login WHERE id= :id");
-        $update->execute(array(
-            ':login'=>$login,
-            ':id'=>$_SESSION['user']['id']
-        ));
+        $params = array($password, $id);
+        $sql = "UPDATE users SET password = ? WHERE id_user = ?";
+        self::requestExecute($sql, $params);
     }
 
-    public function passwordUpdate($password)
+    public static function updateUser($firstname, $lastname, $email, $address, $zipCode, $idUser)
     {
-        $update=$this->db->prepare("UPDATE `user` SET password=:password WHERE id= :id");
-        $update->execute(array(
-            ':password'=>$password,
-            ':id'=>$_SESSION['user']['id']
-        ));
+        $params = array($firstname, $lastname, $email, $address, $zipCode, $idUser);
+        $sql = 'UPDATE `users` 
+                SET firstname = ?,
+                    lastname = ?,
+                    email = ?,
+                    adress = ?,
+                    zip_code = ?
+                WHERE id_user  = ?';
+        self::requestExecute($sql, $params);
     }
 
-    public function emailUpdate($email)
-    {
-        $update=$this->db->prepare("UPDATE `user` SET email=:email WHERE id= :id");
-        $update->execute(array(
-            ':email'=>$email,
-            ':id'=>$_SESSION['user']['id']
-        ));
-    }
-
-    public function firstNamedUpdate($firstName)
-    {
-        $update=$this->db->prepare("UPDATE `user` SET prenom=:firstname WHERE id= :id");
-        $update->execute(array(
-            ':firstname'=>$firstName,
-            ':id'=>$_SESSION['user']['id']
-        ));
-    }
-
-    public function lastNamedUpdate($lastName){
-        $update=$this->db->prepare("UPDATE `user` SET nom=:lastname WHERE `id`= :id");
-        $update->execute(array(
-            ':lastname'=>$lastName,
-            ':id'=>$_SESSION['users']['id']
-        ));
-    }
     //--------------------------select all--------------------------------------
     public static function userDisplay()
     {

@@ -79,5 +79,3 @@
     <?php endif ?>
 
 </main>
-
-<pre><?= var_dump($_FILES);?></pre>

@@ -101,7 +101,8 @@ CREATE TABLE IF NOT EXISTS modules (
     option_names VARCHAR(255),
     id_form INT NOT NULL,
     CONSTRAINT FK_forms_id_form_modules 
-    FOREIGN KEY (id_form) REFERENCES forms (id_form),
+    FOREIGN KEY (id_form) REFERENCES forms (id_form)
+    ON DELETE CASCADE,
     PRIMARY KEY (id_module)) ENGINE=InnoDB;
 
 INSERT INTO `modules` (`id_module`, `module_type`,`module_order`, `module_label`, 

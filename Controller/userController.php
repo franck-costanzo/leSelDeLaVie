@@ -1,143 +1,148 @@
 <?php
 
-class UserController {
+if(isset($_POST['sign_up']))
+{
+    $errors = [];
 
-    //-------------------------logique metier inscription-----------------------------------------------
+    
+    // receive all input values from the form
+    $prenom = htmlentities($_POST['firstName']);
+    $nom = htmlentities($_POST['lastName']);
+    $password_1 = htmlentities($_POST['password']);
+    $password_2 = htmlentities($_POST['confpassword']);
+    $email = htmlentities($_POST['email']);
+    $address = htmlentities($_POST['adress']);
+    $zipCode = htmlentities($_POST['zip_code']);
 
-    static public function signUpAction($email,$password,$firstname,$lastName,$zipCode,$adress,$confpassword)
+    // form validation
+    // by adding (array_push()) corresponding error unto $errors array
+    if (empty($prenom)) { array_push($errors, "Firstname is required"); }
+    if (empty($nom)) { array_push($errors, "Lastname is required"); }
+    if (empty($password_1)) { array_push($errors, "Password is required"); }
+    if (empty($email)) { array_push($errors, "Email is required"); }
+    if (!preg_match('/^[a-z0-9._-]+[@]+[a-zA-Z0-9._-]+[.]+[a-z]{2,3}$/', $email)) { array_push($errors, "Email format is wrong"); }
+    if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
+    if (!preg_match('/^[a-zA-Z0-9]{8,}$/', $password_1)) { array_push($errors, "Password format is wrong");}
+    if (empty($address)) { array_push($errors, "Address is required"); }
+    if (empty($zipCode)) { array_push($errors, "Code postal is required"); }
+    if (!preg_match('/^[0-9]{5}$/', $zipCode)) { array_push($errors, "ZipCode format is wrong");}
+
+    //check if user exists
+    $chkExists = User::checkUser($email);
+    if ( count($chkExists) != 0 ) {array_push($errors, "User already exists"); }
+
+    // Finally, register user if there are no errors in the form
+    if ( count($errors) == 0) 
     {
-        if (empty($email) || empty($password) || empty($firstname) 
-            || empty($lastName) || empty($zipCode) || empty($adress)|| empty($confpassword)) 
-        {
-            return ;
-        } 
-        else 
-        {
-            $a = new User;
-            $b = $a->checkUser($email);
-            if ($b > 0) 
-            {
-                return;
-            } 
-            else 
-            {
-                $uppercase = preg_match('@[A-Z]@', $password);
-                $lowercase = preg_match('@[a-z]@', $password);
-                $number    = preg_match('@[0-9]@', $password);
-
-                if (!$uppercase || !$lowercase || !$number || strlen($password) < 6) 
-                {
-                    return ;
-                } 
-                else 
-                {
-                    if ($password == $confpassword) 
-                    {
-                        $newpassword = password_hash($password, PASSWORD_BCRYPT);
-                        User::setUser($firstname, $lastName,$email, $newpassword,$adress,$zipCode);
-                        // header('Location:connexion.php');
-                    } 
-                    else 
-                    {
-                        return;
-                    }
-                }
-            }
-        }
+        User::setUser($prenom, $nom, $email, password_hash($password_1, PASSWORD_DEFAULT), $address,$zipCode);
+        header('Location: connexion');
     }
+
+}
 
 
     //-------------------------logique metier connexion----------------------------------------------
-    static public function signInAction($email,$password)
-    {
-        $test= new User;
-        $test2=$test->checkUser($email);
-        if ($test2 < 0) 
+if (isset($_POST['signIn'])) 
+{ 
+    $errors = [];
+
+    // receive all input values from the form
+    $password = htmlentities($_POST['password']);
+    $email = htmlentities($_POST['email']);
+
+    // form validation:
+    // by adding (array_push()) corresponding error unto $errors array
+    if(empty($_POST['email'])){ array_push($errors,'please insert your email'); }
+    if(empty($_POST['password'])){ array_push($errors,'please insert your password'); }
+
+    // check the database to make sure 
+    // a user does already exist with the same login and password
+    $checkExists = User::checkUser($email);
+    var_dump($checkExists);
+    if ( !$checkExists ) { array_push($errors, "Wrong login/password combination"); }    
+
+    if (count($errors) == 0) 
+    {    
+        $signIn = User::userConnexion($email);
+        if ( password_verify($password, $signIn['password']))
         {
-            return;
-        } 
-        else 
-        {           
-            $signIn = $test->userConnexion($email);
-            var_dump($signIn);
-            var_dump(password_verify(htmlspecialchars($password, ENT_QUOTES, "ISO-8859-1"), $signIn['password']));
-            if (password_verify(htmlspecialchars($password, ENT_QUOTES, "ISO-8859-1"), $signIn['password'])) 
-            {
-                $_SESSION['users'] = $signIn; 
-                header('Location:home');
-            }
-            else
-            {
-                return;
-            }
+            session_start();
+            $_SESSION['users'] = $signIn; 
+            header('Location:home');       
         }
-    }
-
-    //-------------------------logique metier profil---------------------------------------------- 
-    public function userUpdate()
-    {
-
-        if (empty($_POST['email'])) {
-            $_POST['email'] = $_SESSION['users']['email'];
-        }
-        if (empty($_POST['firstName'])) {
-            $_POST['firstName'] = $_SESSION['users']['firstname'];
-        }
-        if (empty($_POST['lastName'])) {
-            $_POST['lastName'] = $_SESSION['users']['lastName'];
-        }
-        if (empty($_POST['adress'])) {
-            $_POST['adress'] = $_SESSION['users']['adress'];
-        }
-        if (empty($_POST['zip_code'])) {
-            $_POST['zip_code'] = $_SESSION['users']['zip_code'];
-        }
-        if (empty($_POST['password'])) {
-            $_POST['password'] = $_SESSION['users']['password'];
-        }
-        if (empty($_POST['password2'])) {
-            $_POST['password2'] = '';
+        else
+        {
+            array_push($errors, "Wrong login/password combination");
         }
         
-
-        $b=new User;
-        $b->checkUser(htmlspecialchars($_POST['login'], ENT_QUOTES, "ISO-8859-1"));
-        if ($b>1) {
-            return ;
-        } 
-            $test3=new User;
-            $test3->loginUpdate(htmlspecialchars($_POST['login'], ENT_QUOTES, "ISO-8859-1"));        
-            $_SESSION['users']['login']=$_POST['login'];
-
-
-        $password = htmlspecialchars($_POST['password'], ENT_QUOTES, "ISO-8859-1");
-        $password2 = htmlspecialchars($_POST['password2'], ENT_QUOTES, "ISO-8859-1");
-        $uppercase = preg_match('@[A-Z]@', $password);
-        $lowercase = preg_match('@[a-z]@', $password);
-        $number    = preg_match('@[0-9]@', $password);
-
-            if(!$uppercase || !$lowercase || !$number || strlen($password) < 6) {
-            return;
-        }
-            if (strlen($_POST['password']) >= 6) {
-                if ($password == $password2) {
-                    $password = password_hash($password, PASSWORD_BCRYPT);
-                    $updatepassword = new User();
-                    $updatepassword->passwordUpdate($password);
-                }
-            }
-        header('Location:Profil.php');
-
-
     }
 
-}   
-
-if(isset($_POST['sign_up'])){
-    UserController::signUpAction($_POST['email'],$_POST['password'],$_POST['firstName'],$_POST['lastName'],$_POST['zip_code'],$_POST['adress'],$_POST['confpassword']);
 }
-if (isset($_POST['signIn'])) { 
-    UserController::signInAction($_POST['email'],$_POST['password']);
+
+    //-------------------------logique metier profil---------------------------------------------- 
+if (isset($_POST['UserUpdate']))
+{
+    $errors = [];
+
+    // receive all input values from the form
+    $prenom = htmlentities($_POST['firstName']);
+    $nom = htmlentities($_POST['lastName']);
+    $password = htmlentities($_POST['password']);
+    $email = htmlentities($_POST['email']);
+    $address = htmlentities($_POST['adress']);
+    $zipCode = htmlentities($_POST['zip_code']);
+    
+    // form validation
+    // by adding (array_push()) corresponding error unto $errors array
+    if (empty($prenom)) { array_push($errors, "Firstname is required"); }
+    if (empty($nom)) { array_push($errors, "Lastname is required"); }
+    if (empty($password)) { array_push($errors, "Password is required"); }
+    if (empty($email)) { array_push($errors, "Email is required"); }
+    if (!preg_match('/^[a-z0-9._-]+[@]+[a-zA-Z0-9._-]+[.]+[a-z]{2,3}$/', $email)) { array_push($errors, "Email format is wrong"); }
+    if (!preg_match('/^[a-zA-Z0-9]{8,}$/', $password)) { array_push($errors, "Password format is wrong");}
+    if (empty($address)) { array_push($errors, "Address is required"); }
+    if (empty($zipCode)) { array_push($errors, "Code postal is required"); }
+    if (!preg_match('/^[0-9]{5}$/', $zipCode)) { array_push($errors, "ZipCode format is wrong");}
+    $signIn = User::userConnexion($email);
+    if ( !password_verify($password , $signIn['password'])) { array_push($errors, "oldpassword is wrong");} 
+
+    if (count($errors) == 0) 
+    {
+        session_start();
+        session_destroy();
+        session_start();
+        $_SESSION['users'] = $signIn;
+        User::updateUser($prenom, $nom, $email, $address, $zipCode, $_POST['id_user']);
+        header('Location: profil');
+    }
+
+
+}
+
+//----- password update
+if (isset($_POST['passwordChange']))
+{
+    $errors = [];
+
+    $oldpassword = htmlentities($_POST['oldpassword']);
+    $password_1 = htmlentities($_POST['password']);
+    $password_2 = htmlentities($_POST['confpassword']);
+
+
+    if (empty($password_1)) { array_push($errors, "Password is required"); }
+    if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
+    if (!preg_match('/^[a-zA-Z0-9]{8,}$/', $password_1)) { array_push($errors, "Password format is wrong");}
+    $signIn = User::userConnexion($_POST['email']);
+    if ( !password_verify($oldpassword , $signIn['password'])) { array_push($errors, "oldpassword is wrong");}
+
+
+    var_dump($errors);
+    if (count($errors) == 0) 
+    {
+        User::passwordUpdate(password_hash($password_1, PASSWORD_DEFAULT), $_POST['id_user']);
+        header('Location: home');
+    }
+    
 }
 
 /*-------------------------------

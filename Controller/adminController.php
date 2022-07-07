@@ -33,6 +33,7 @@
         Article::updateArticleIMG($targetFile, $_POST['id_article']);        
     }
 
+    //-----------------------  CATEGORIES
     if (isset($_POST['deleteCat'])) {
         Categorie::deleteCategory($_POST['deleteCatOption']);
     }
@@ -46,6 +47,17 @@
         Categorie::createCategory($_POST['nomCategorie']);
     }
 
+
+    //-----------------------  FORMULAIRES
+    if(isset($_POST['deleteForm']))
+    {
+        Formulaire::deleteFormById($_POST['id_form']);
+    }
+
+
+
+
+    //-----------------------  CAROUSEL
     if(isset($_POST["objet0"]))
     {
         Carousel::updateToCarousel($_POST['idArticle'],1);
