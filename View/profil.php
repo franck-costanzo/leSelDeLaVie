@@ -23,10 +23,12 @@
     <input id="password" class="input" type="password" value="" name="password" required />
 
     <input name='UserUpdate' type="submit" class='submit' value='Modifier'>
+
 </form>
 
 <form action="" method='POST'>
-<label for="oldpassword" class="value">Ancien mot de passe</label>
+
+    <label for="oldpassword" class="value">Ancien mot de passe</label>
     <input id="oldpassword" class="input" type="password" value="" name="oldpassword" required />
 
     <label for="password" class="value">Mot de passe</label>
@@ -37,5 +39,7 @@
 
     <input type="hidden" name="id_user" value=<?= $_SESSION['users']['id_user']?>>
     <input type="hidden" value="<?php echo $_SESSION['users']['email'] ?>" name="email"/>
+    
     <input type="submit" value="Changer le Mot de passer" name="passwordChange">
+
 </form>
