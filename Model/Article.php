@@ -47,6 +47,18 @@ Class Article extends Model
         return $register;
     }
 
+    public static function createArticleNoImg($name_article, $description, $id_category, $id_form = NULL)
+    {
+        $params = array($name_article, $description, $id_category, $id_form);
+
+        $sql = 'INSERT INTO articles (name_article, description_article, id_category, id_state, id_form)
+                VALUES (?, ?, ?, 1, ?)';
+
+        $register = self::requestExecute($sql, $params);
+
+        return $register;
+    }
+
     public static function getArticlesPagination($first, $perPage)
     {
 

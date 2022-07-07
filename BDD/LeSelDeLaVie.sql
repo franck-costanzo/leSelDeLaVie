@@ -143,8 +143,8 @@ CREATE TABLE IF NOT EXISTS articles (
 INSERT INTO `articles` (`id_article`, `name_article`, `image_url`, `description_article`, `date_created`, `id_category`, `id_state`, `id_form`) VALUES
 (1, 'Bienvenue à tous !', 'View/ArticleImg/Bienvenue.jpg', 
 "Les étudiants de LaPlateforme_ en partenariat avec l'association Le Sel de la Vie sont heureux de vous présenter leur travail. 
-Nous avons œuvré afin  de doter cette belle association d'un site mettant en avant ces actions ainsi que son histoire. 
-Ce site-outil est mis à disposition de ses adhérents et des participants de l\'association. 
+Nous avons œuvré afin  de doter cette belle association d'un site mettant en avant ses actions ainsi que son histoire. 
+Ce site-outil est mis à disposition de ses adhérents et des participants de l'association. 
 Merci à vous pour cette belle opportunité de partenariat et d'apprentissage !", '2022-07-06 16:05:00', 3, 2, NULL);
 -- ------------------------------------
 --        table users_articles        --

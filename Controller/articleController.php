@@ -17,6 +17,7 @@ if (isset($_POST['reg_article']))
     
     $file = $_FILES['image_url'];
 
+    var_dump($file);
     //recupération du nom de produit et détermination de l'endroit ou stocker l'image uploadée
     $targetPath = 'View/ArticleImg/';
     $filename = substr(str_replace(" ",'',$_POST['name_article']),0,10);
@@ -25,7 +26,14 @@ if (isset($_POST['reg_article']))
     //transfert de l'image vers l'endroit
     move_uploaded_file($_FILES['image_url']['tmp_name'], $targetFile);
 
-    Article::createArticle($name_article, $targetFile, $description_article, $id_category, $id_form);
+    if ($_FILES['image_url']['name'] != "")
+    {
+        Article::createArticle($name_article, $targetFile, $description_article, $id_category, $id_form);
+    }
+    else
+    {
+        Article::createArticleNoImg($name_article, $description_article, $id_category, $id_form);
+    }
 
 }
 
