@@ -180,3 +180,9 @@ CREATE TABLE IF NOT EXISTS carousel_articles(
     FOREIGN KEY (id_article) REFERENCES articles (id_article),
     PRIMARY KEY (id_carousel_article)
     ) ENGINE=InnoDB;
+
+INSERT INTO `carousel_articles` (`id_carousel_article`, `id_article`) VALUES
+(0, 1),
+(1, 1),
+(2, 1),
+(3, 1);
