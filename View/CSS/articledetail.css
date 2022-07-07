@@ -113,7 +113,8 @@ main > .previewfileDiv > .previewfileInput {
     display: none;
 }
 
-#formArticle > button {
+#formArticle > input[type="submit"] {
+    width: 50%;
     margin: 3% 5%;
     padding: 15px 15px;
     background-color: var(--main-color-2);

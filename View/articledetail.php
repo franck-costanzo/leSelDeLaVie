@@ -12,7 +12,7 @@
     </div>
      
  
-    <div id='formArticle'></div>
+    <Form method="POST" id='formArticle' enctype="multipart/form-data"></Form>
 
     
     <?php if (isset($_SESSION["users"]) && $_SESSION["users"]["id_right"] >= 2) : ?>
@@ -78,6 +78,6 @@
         </form>
     <?php endif ?>
 
-</main> 
+</main>
 
-<pre></pre>
+<pre><?= var_dump($_FILES);?></pre>

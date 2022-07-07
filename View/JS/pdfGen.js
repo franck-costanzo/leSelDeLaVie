@@ -1,8 +1,8 @@
 export default function pdfGen(){
 
     //---- Constante pour ciblage d'élément à utiliser
-    const genpdf = document.querySelector('button');
-    const titre = document.querySelector('H1');
+    const genpdf = document.querySelector('input[type="submit"]');
+    const titre = document.querySelector('legend');
     const docHeight = 277;
     let doc;
     

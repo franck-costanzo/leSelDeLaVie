@@ -95,12 +95,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (document.title == "404" && matched)
     {
         f404();
-    }
-
-    if (lastSegment == 'test')
-    {
-        pdfGen();
-    }
-    
+    }    
         
 });

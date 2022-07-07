@@ -40,7 +40,7 @@ export default function appendFormView()
                         textCount++;
                         break;
 
-                    case 'textArea':
+                    case 'textarea':
                         let inputTextarea = document.createElement('textarea');
                         inputTextarea.setAttribute('name', 'textarea[]');
                         inputTextarea.setAttribute('rows','5');
@@ -60,7 +60,7 @@ export default function appendFormView()
                         inputMainDiv.setAttribute('id', 'fileInputCreationArticle')
                         let inputFile = document.createElement('INPUT');
                         inputFile.setAttribute('type', 'file');
-                        inputFile.setAttribute('name', 'file[]');
+                        inputFile.setAttribute('name', 'file'+fileCount);
                         inputFile.setAttribute('id', 'file'+fileCount);
                         inputFile.setAttribute('class', 'fileInputs');
                         let labelFile = document.createElement('LABEL');
@@ -174,8 +174,10 @@ export default function appendFormView()
 
         if (previewFormDiv.hasChildNodes())
         {
-            let genererPDF = document.createElement('BUTTON');
-                genererPDF.innerHTML = 'Générer le PDF';
+            let genererPDF = document.createElement('input');
+                genererPDF.type = 'submit';
+                genererPDF.name = 'genPdf';
+                genererPDF.value = 'Générer le PDF';
             previewFormDiv.appendChild(genererPDF);
             
             pdfGen();  
