@@ -125,7 +125,7 @@ INSERT INTO `modules` (`id_module`, `module_type`,`module_order`, `module_label`
 CREATE TABLE IF NOT EXISTS articles (
     id_article INT AUTO_INCREMENT NOT NULL, 
     name_article VARCHAR(255),
-    image_url VARCHAR(255),
+    image_url VARCHAR(255) DEFAULT 'View/ArticleImg/Bienvenue.jpg',
     description_article TEXT,
     date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_category INT NOT NULL,
