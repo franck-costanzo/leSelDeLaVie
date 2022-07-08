@@ -77,6 +77,18 @@ class User extends Model
         return $return;
     }
 
+    public static function getAllUsersPagination($first,$perPage)
+    {
+        $sqlinsert = "SELECT id_user,lastname,firstname,email,password,adress,zip_code,right_name
+                        FROM users
+                        INNER JOIN `rights` ON users.id_right=rights.id_right; 
+                        ORDER BY users.lastname
+                        DESC LIMIT $first,$perPage";
+        $infos = self::requestExecute($sqlinsert);
+        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
+        return $return;
+    }
+
     //-------------------------id_rigth-----------------------------------------
     public static function rightDisplay()
     {

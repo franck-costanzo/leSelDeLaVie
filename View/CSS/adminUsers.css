@@ -1,0 +1,209 @@
+.adminSection {
+    margin-top: 3%;
+}
+
+section:nth-child(3) > form{
+    margin: 3% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formRight {
+    width: 100%;
+}
+
+#formRight > select, 
+#formRight > input {
+    margin: 0% 1%;
+    padding: 2%;
+    min-width: 100px;
+}
+
+section:nth-child(3) > form > input{
+    padding: 15px 15px;
+    margin: 0% 1%;
+}
+
+section > h2 {
+    text-align: center;
+}
+
+section > table {
+    margin: 3% auto;
+    width: 75%;
+    text-align: center;
+}
+
+section > table > thead > tr {
+    background-color: var(--main-color-1);
+    color: white;    
+}
+
+section > table > thead > tr > th {
+    padding: 5px 5px;
+}
+
+section > table > tbody > tr > td {
+    padding: 10px 5px;
+}
+
+section > table > tbody > tr > td:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section > table > tbody > tr > td > a {
+    margin-left: 5%;
+    padding: 15px 15px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+}
+
+form > select, form > input {
+    padding:  1%;
+    width: 50%;
+}
+
+form > input[type=submit] {
+    padding: 15px 15px;
+    background-color: var(--main-color-2);
+    color: white;
+    border: none;
+    max-width: 150px;
+}
+
+.carouselSection > h2  {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.carouselSection > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carouselSection > div > form {
+    margin: 2% 0;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carouselSection > div > form > * {
+    margin: 0 1%;
+}
+
+.carouselSection > div > form > select {
+    width: 25%;
+    padding: 1%;
+}
+
+#divCateg {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#divCateg > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 2% 0;
+}
+
+#divCateg > form > input[type="text"],
+#divCateg > form > select {
+    min-height: 40px;
+}
+.formulaireDiv {
+    margin-bottom: 8%;
+}
+.formulaireDiv > form {
+    margin: 1% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main > a > img {
+    width: 10%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-item  {
+    margin: 0 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--main-color-2);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.page-item-numbers {
+    margin: 0 5%;
+    color: var(--main-color-1);
+    font-weight: bold;
+}
+
+/* ------------- */
+/*     DESKTOP   */
+/* ------------- */
+
+@media screen and (min-width: 968px){
+
+    section > table > tbody > tr > td:last-child {
+        flex-direction: row;
+    }
+
+    #formRight {
+        width: 80%;
+        display: flex;
+    }
+
+    #divCateg {
+        flex-direction: row;
+    }
+
+    #divCateg > form {
+        width: 40%;
+        flex-direction: row;
+        margin: 4% 2%;
+    }
+
+    #divCateg > form > * {
+        margin: 0 1%;
+    }
+
+    #id_form {
+        margin: 0 2%;
+        width :25%;
+    }
+
+    .formulaireDiv > form {
+        margin-top: 2%;
+        flex-direction: row;
+    }
+}

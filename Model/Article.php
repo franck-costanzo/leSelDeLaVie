@@ -120,17 +120,17 @@ Class Article extends Model
         return self::requestExecute($sql,$params);
     }
     
-    public static function getArticles()
+    public static function getArticles($first, $perPage)
     {
-        $sqlinsert = "SELECT articles.*, 
-        states.name_state, categories.name_category
-            FROM articles
-            INNER JOIN categories ON articles.id_category = categories.id_category
-            INNER JOIN states ON articles.id_state = states.id_state        
-            WHERE articles.id_state = 1";
-        $infos = self::requestExecute($sqlinsert);
-        $return = $infos->fetchAll(PDO::FETCH_ASSOC);
-        return $return;
+        $sqlinsert = "SELECT articles.*, states.name_state, categories.name_category
+                    FROM articles
+                    INNER JOIN categories ON articles.id_category = categories.id_category
+                    INNER JOIN states ON articles.id_state = states.id_state        
+                    WHERE articles.id_state = 1
+                    ORDER BY articles.date_created
+                    DESC LIMIT $first,$perPage";
+
+        return self::requestExecute($sqlinsert)->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

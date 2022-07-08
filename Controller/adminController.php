@@ -39,7 +39,7 @@
     }
 
     if (isset($_POST['update'])) {
-        Admin::RightUpdate($_POST['updateRight'], $_POST['id']);
+        User::updateRight($_POST['updateRight'], $_POST['id']);
     }
 
     if(isset($_POST['createCategorie']))
