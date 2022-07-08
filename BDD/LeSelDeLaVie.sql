@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS rights (
     id_right INT AUTO_INCREMENT NOT NULL, 
     right_name VARCHAR(255), 
     PRIMARY KEY (id_right)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `rights` (`id_right`, `right_name`) VALUES (1, 'utilisateur');
 INSERT INTO `rights` (`id_right`, `right_name`) VALUES (2, 'moderateur');
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
     CONSTRAINT FK_users_id_droit_droits 
     FOREIGN KEY (id_right) REFERENCES rights (id_right),
     PRIMARY KEY (id_user)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ------------------------------------
 --          table files             --
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS files (
     id_user INT NOT NULL,
     CONSTRAINT FK_files_id_user_users
     FOREIGN KEY (id_user) REFERENCES users (id_user),
-    PRIMARY KEY (id_file)) ENGINE=InnoDB;
+    PRIMARY KEY (id_file)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- ------------------------------------
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS files (
 CREATE TABLE IF NOT EXISTS categories (
     id_category INT AUTO_INCREMENT NOT NULL, 
     name_category VARCHAR(255), 
-    PRIMARY KEY (id_category)) ENGINE=InnoDB;
+    PRIMARY KEY (id_category)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `categories` (`id_category`, `name_category`) VALUES (1, 'scolaire');
 INSERT INTO `categories` (`id_category`, `name_category`) VALUES (2, 'sortie');
@@ -72,7 +72,7 @@ INSERT INTO `categories` (`id_category`, `name_category`) VALUES (6, 'divertisse
 CREATE TABLE IF NOT EXISTS states (
     id_state INT AUTO_INCREMENT NOT NULL, 
     name_state VARCHAR(255), 
-    PRIMARY KEY (id_state)) ENGINE=InnoDB;
+    PRIMARY KEY (id_state)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `states` (`id_state`, `name_state`) VALUES (1, 'en cours de validation');
 INSERT INTO `states` (`id_state`, `name_state`) VALUES (2, 'valide');
@@ -84,7 +84,7 @@ INSERT INTO `states` (`id_state`, `name_state`) VALUES (2, 'valide');
 CREATE TABLE IF NOT EXISTS forms (
     id_form INT AUTO_INCREMENT NOT NULL, 
     name_form VARCHAR(255), 
-    PRIMARY KEY (id_form)) ENGINE=InnoDB;
+    PRIMARY KEY (id_form)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `forms` (`id_form`, `name_form`) VALUES (1, 'Soutien Scolaire');
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS modules (
     CONSTRAINT FK_forms_id_form_modules 
     FOREIGN KEY (id_form) REFERENCES forms (id_form)
     ON DELETE CASCADE,
-    PRIMARY KEY (id_module)) ENGINE=InnoDB;
+    PRIMARY KEY (id_module)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `modules` (`id_module`, `module_type`,`module_order`, `module_label`, 
                          `option_count`, `option_names`,  `id_form`) VALUES
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS articles (
     FOREIGN KEY (id_state) REFERENCES states (id_state),
     CONSTRAINT FK_articles_id_form_forms 
     FOREIGN KEY (id_form) REFERENCES forms (id_form),
-    PRIMARY KEY (id_article)) ENGINE=InnoDB;
+    PRIMARY KEY (id_article)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `articles` (`id_article`, `name_article`, `image_url`, `description_article`, `date_created`, `id_category`, `id_state`, `id_form`) VALUES
 (1, 'Bienvenue à tous !', 'View/ArticleImg/Bienvenue.jpg', 
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS users_articles (
     FOREIGN KEY (id_user) REFERENCES users (id_user),
     CONSTRAINT FK_users_articles_id_article_articles 
     FOREIGN KEY (id_article) REFERENCES articles (id_article),
-    PRIMARY KEY (id_users_articles)) ENGINE=InnoDB;
+    PRIMARY KEY (id_users_articles)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- ------------------------------------
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS recuperation (
     id INT AUTO_INCREMENT NOT NULL,
     mail VARCHAR(255) NOT NULL,
     code int(11) NOT NULL,
-    PRIMARY KEY (id)) ENGINE=InnoDB;
+    PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ------------------------------------
 --           table carousel          --
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS carousel_articles(
     CONSTRAINT FK_carousel_articles_id_article_articles
     FOREIGN KEY (id_article) REFERENCES articles (id_article),
     PRIMARY KEY (id_carousel_article)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `carousel_articles` (`id_carousel_article`, `id_article`) VALUES
 (0, 1),

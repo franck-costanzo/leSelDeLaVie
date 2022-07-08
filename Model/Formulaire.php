@@ -81,7 +81,7 @@ abstract class Formulaire extends Model
     {
         $sql = 'SELECT forms.name_form, modules.* FROM `forms`
                 INNER JOIN modules ON forms.id_form = modules.id_form
-                ORDER BY modules.module_order;';
+                ORDER BY modules.module_order';
         
         return (self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC));
     }
