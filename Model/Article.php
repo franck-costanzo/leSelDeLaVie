@@ -73,10 +73,9 @@ Class Article extends Model
     {
         $params = array($id_category);
 
-        $sql = 'SELECT * FROM articles WHERE id_category = ? AND id_state=? ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
-        $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+        $sql = 'SELECT * FROM articles WHERE id_category = ? AND id_state=2 ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
 
-        return $articles;
+        return self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function deleteArticle($id_article)
