@@ -16,7 +16,7 @@ abstract class Model {
 
         try
         {
-            self::$bdd = new PDO( "mysql:host=$servername;dbname=$db", $username, $password,
+            self::$bdd = new PDO( "mysql:host=$servername;dbname=$db;charset=utf8mb4", $username, $password,
                             array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION) );
             return self::$bdd;
         }
@@ -46,21 +46,6 @@ abstract class Model {
     {
         $id = self::$bdd->lastInsertId();
         return $id;
-    }
-
-    protected static function requestExecute2($sql, $params = null) 
-    {
-        if ($params == null) 
-        {
-            $result = self::getBdd()->query($sql);    // exécution directe
-        }
-        else 
-        {
-            $result = self::getBdd()->prepare($sql);  // requête préparée
-            $result->execute($params);
-            $result2=$result->fetch(PDO::FETCH_ASSOC);
-        }
-        return $result2;
     }
 
 }
