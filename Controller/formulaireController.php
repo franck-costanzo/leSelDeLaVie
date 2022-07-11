@@ -65,17 +65,11 @@ if (isset($_POST['reg_form']))
             }
         }
 
-        moduleCreation($_POST['text'], 'text', $idForm);
-
-        moduleCreation($_POST['textarea'], 'textarea', $idForm);
-
-        moduleCreation($_POST['file'], 'file', $idForm);
-
-        moduleCreation($_POST['select'], 'select', $idForm);
-
-        moduleCreation($_POST['checkbox'], 'checkbox', $idForm);
-
-        moduleCreation($_POST['radio'], 'radio', $idForm);
-
+        if(isset($_POST['text'])) { moduleCreation($_POST['text'], 'text', $idForm); }
+        if(isset($_POST['textarea'])) { moduleCreation($_POST['textarea'], 'textarea', $idForm); } 
+        if(isset($_POST['file'])) { moduleCreation($_POST['file'], 'file', $idForm); }  
+        if(isset($_POST['select'])) { moduleCreation($_POST['select'], 'select', $idForm); }  
+        if(isset($_POST['checkbox'])) { moduleCreation($_POST['checkbox'], 'checkbox', $idForm); } 
+        if(isset($_POST['radio'])) { moduleCreation($_POST['radio'], 'radio', $idForm); }    
     }
 }

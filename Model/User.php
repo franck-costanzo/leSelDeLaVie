@@ -70,7 +70,7 @@ class User extends Model
     //--------------------------select all--------------------------------------
     public static function userDisplay()
     {
-        $sqlinsert = "SELECT id_user,lastname,firstname,email,password,adress,zip_code,right_name
+        $sqlinsert = "SELECT id_user, lastname, firstname, email, password, adress, zip_code, right_name
         FROM `users`INNER JOIN `rights` ON users.id_right=rights.id_right; ";
         $infos = self::requestExecute($sqlinsert);
         $return = $infos->fetchAll(PDO::FETCH_ASSOC);
