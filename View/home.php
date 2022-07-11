@@ -44,7 +44,9 @@
                 $premier = ($currentPage * $parPage) - $parPage;
             ?>
                 <?php $allArticlesByCategory = 
-                Article::getAllArticlesByCategoryPagination( $_GET['id_category'], $premier, $parPage ); ?>
+                        Article::getAllArticlesByCategoryPagination( $_GET['id_category'], $premier, $parPage ); 
+                        $nbArticlesPerCat = count($allArticlesByCategory) 
+                ?>
                 <?php foreach($allArticlesByCategory as $article): ?>
                     <div class="article">
                         <h3><?= $article['name_article'] ?></h3>
@@ -59,6 +61,7 @@
                         </form>
                     </div>
                 <?php endforeach; ?>
+                <?php if ( $nbArticlesPerCat >  8 ) : ?>
                 <nav>
                     <ul class="pagination">
                         <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
@@ -80,6 +83,7 @@
                         </li>
                     </ul>
                 </nav>
+                <?php endif; ?>
             <?php else: ?>
             <?php 
                 //récupération des articles
@@ -116,6 +120,7 @@
                     </form>
                 </div>
             <?php endforeach; ?>
+            <?php if ( $nbArticles > 8 ) : ?>
             <nav>
                 <ul class="pagination">
                     <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
@@ -137,6 +142,7 @@
                     </li>
                 </ul>
             </nav>
+            <?php endif ; ?>
             <?php endif; ?>
         </div>        
     </div>
