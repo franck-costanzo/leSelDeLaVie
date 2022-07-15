@@ -44,7 +44,7 @@
         <div>
         <?php for($i=0; $i<4; $i++) : ?>
             <?php $article = Carousel::getArticleById($i);?>
-                <label for="<?="form".$i ?>"> Article à la position <?= 1+$i?></label>
+                <label for="<?="form".$i ?>"> Article à la position <?= $i+1?></label>
                 <form method="POST" id=<?="form".$i ?>>
                     <select name="idArticle" id="id_article">
                     <?php foreach($articlesArray as $produit) : ?>

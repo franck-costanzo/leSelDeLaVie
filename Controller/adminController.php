@@ -60,20 +60,20 @@
     //-----------------------  CAROUSEL
     if(isset($_POST["objet0"]))
     {
-        Carousel::updateToCarousel($_POST['idArticle'],1);
+        Carousel::updateToCarousel($_POST['idArticle'],0);
     }
 
     if(isset($_POST["objet1"]))
     {
-        Carousel::updateToCarousel($_POST['idArticle'],2);
+        Carousel::updateToCarousel($_POST['idArticle'],1);
     }
 
     if(isset($_POST["objet2"]))
     {
-        Carousel::updateToCarousel($_POST['idArticle'],3);
+        Carousel::updateToCarousel($_POST['idArticle'],2);
     }
 
     if(isset($_POST["objet3"]))
     {
-        Carousel::updateToCarousel($_POST['idArticle'],4);
+        Carousel::updateToCarousel($_POST['idArticle'],3);
     }

@@ -25,23 +25,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
         button.style.top = navBarHeight;
         button.style.right = '0';
         button.style.zIndex = '99';
-        button.style.backgroundColor = 'var(--main-color-1)';
+        button.style.backgroundColor = 'transparent';
         button.style.height = '50px';
         button.style.width = '40px';
         button.style.color = 'white';
         button.style.border = 'none';
         button.style.borderBottomLeftRadius = '20px';
-        button.innerHTML = 'Menu';
+        let buttonImg = document.createElement('img');
+        buttonImg.src = "View/Media/burger.svg";
+        button.appendChild(buttonImg)
         button.addEventListener('click', () => {
             if(navBar.style.overflowY == "hidden")
             {
                 navBar.style.overflowY = 'unset';
-                button.innerHTML =  "X";
+                buttonImg.src =  "View/Media/crossW.svg";
             }
             else
             {
                 navBar.style.overflowY = 'hidden';
-                button.innerHTML =  "Menu";
+                buttonImg.src = "View/Media/burger.svg";
             }
             
         })

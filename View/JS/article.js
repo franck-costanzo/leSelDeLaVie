@@ -82,7 +82,7 @@ export default function article() {
                                 textCount++;
                                 break;
 
-                            case 'textArea':
+                            case 'textarea':
                                 let inputTextarea = document.createElement('textarea');
                                 inputTextarea.setAttribute('name', 'textarea[]');
                                 inputTextarea.setAttribute('rows','5');
