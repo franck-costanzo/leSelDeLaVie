@@ -242,6 +242,10 @@ main > hr {
     #detailArticle {
         flex-direction: row;
     }
+
+    #detailArticle > img {
+        max-width: 50%;
+    }
     
     #detailArticle > fieldset
     {
