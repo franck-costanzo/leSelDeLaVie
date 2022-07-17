@@ -57,9 +57,9 @@ Class Article extends Model
         return $articles;
     }
 
-    public static function getAllArticlesByCategoryPagination($id_category, $first, $perPage)
+    public static function getAllArticlesByCategoryPagination($id_category,$state, $first, $perPage)
     {
-        $params = array($id_category);
+        $params = array($id_category,$state);
 
         $sql = 'SELECT * FROM articles WHERE id_category = ? AND id_state=? ORDER BY date_created DESC LIMIT '.$first.','.$perPage;
         $articles = self::requestExecute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
