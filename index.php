@@ -22,6 +22,11 @@
         $view = New Renderer("home");
         $view->display(); 
     }
+    else if( isset($_GET['url']) )
+    {
+        $view = New Renderer($_GET['url']);
+        $view->display();
+    }
     else if (isset($_GET['url']) && ($_GET['url'] == "names" ))
     {
         echo json_encode(Formulaire::getAllFormsNames());
@@ -37,11 +42,6 @@
     else if (isset($_GET['url']) && ($_GET['url'] == "getAllCategories"))
     {
         echo json_encode(Categorie::getAllCategories());
-    }
-    else if( isset($_GET['url']) )
-    {
-        $view = New Renderer($_GET['url']);
-        $view->display();
     }
     else
     {
