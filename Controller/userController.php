@@ -1,9 +1,13 @@
 <?php
 
+function emptyVerif ($variable, $array)
+{
+    if (empty($variable)) { array_push($array, "There was an error !"); }
+}
+
 if(isset($_POST['sign_up']))
 {
     $errors = [];
-
     
     // receive all input values from the form
     $prenom = htmlentities($_POST['firstName']);
@@ -20,11 +24,11 @@ if(isset($_POST['sign_up']))
     if (empty($nom)) { array_push($errors, "Lastname is required"); }
     if (empty($password_1)) { array_push($errors, "Password is required"); }
     if (empty($email)) { array_push($errors, "Email is required"); }
-    if (!preg_match('/^[a-z0-9._-]+[@]+[a-zA-Z0-9._-]+[.]+[a-z]{2,3}$/', $email)) { array_push($errors, "Email format is wrong"); }
-    if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
-    if (!preg_match('/^[a-zA-Z0-9]{8,}$/', $password_1)) { array_push($errors, "Password format is wrong");}
     if (empty($address)) { array_push($errors, "Address is required"); }
     if (empty($zipCode)) { array_push($errors, "Code postal is required"); }
+    if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
+    if (!preg_match('/^[a-z0-9._-]+[@]+[a-zA-Z0-9._-]+[.]+[a-z]{2,3}$/', $email)) { array_push($errors, "Email format is wrong"); }
+    if (!preg_match('/^[a-zA-Z0-9]{8,}$/', $password_1)) { array_push($errors, "Password format is wrong");}
     if (!preg_match('/^[0-9]{5}$/', $zipCode)) { array_push($errors, "ZipCode format is wrong");}
 
     //check if user exists
