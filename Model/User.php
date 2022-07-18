@@ -132,4 +132,11 @@ class User extends Model
         }
     }
 
+    static function getAllAdmin()
+    {
+        $sql = "SELECT users.id_right FROM users";
+
+        return self::requestExecute($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

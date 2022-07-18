@@ -39,7 +39,21 @@
     }
 
     if (isset($_POST['update'])) {
-        User::updateRight($_POST['updateRight'], $_POST['id']);
+        $userAdminRights = User::getAllAdmin();
+        $count = 0;        
+
+        foreach( $userAdminRights as $rights)
+        {
+            if($rights['id_right'] == 1337)
+            {
+                $count++;
+            }
+        }
+
+        if (!($_POST['updateRight'] != 1337 && $count <= 1))
+        {
+            User::updateRight($_POST['updateRight'], $_POST['id']);
+        }        
     }
 
     if(isset($_POST['createCategorie']))
