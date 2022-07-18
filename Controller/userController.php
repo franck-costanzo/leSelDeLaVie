@@ -1,10 +1,5 @@
 <?php
 
-function emptyVerif ($variable, $array)
-{
-    if (empty($variable)) { array_push($array, "There was an error !"); }
-}
-
 if(isset($_POST['sign_up']))
 {
     $errors = [];
