@@ -20,14 +20,16 @@ class User extends Model
         $sqlinsert = "INSERT INTO users (firstname,lastname,email,password,adress,zip_code)
         VALUES(:firstname,:lastname,:email,:password,:adress,:zip_code)";
 
-        self::requestExecute($sqlinsert,$params=array(
+        $params=array(
             ':firstname' => $firstName,
             ':lastname' => $lastName,
             ':email' => $email,
             ':password' => $password,
             ':adress' => $adress,
             ':zip_code' => $zipCode
-        ));
+        );
+        
+        self::requestExecute($sqlinsert,$params);
     }
 
 
@@ -35,7 +37,9 @@ class User extends Model
 
     public static function userConnexion($email)
     {
-        $sqlinsert = "SELECT id_user, firstname, lastname, adress, zip_code, password, email, id_right FROM users WHERE email=:email ";
+        $sqlinsert = "SELECT    id_user, firstname, lastname, adress, 
+                                zip_code, password, email, id_right 
+                        FROM users WHERE email=:email ";
         $signIn =self::getBdd()->prepare($sqlinsert);
         $signIn->execute(array(
             ':email' => $email,

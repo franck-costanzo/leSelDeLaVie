@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         //réduction de l'url pour récupérer la rotue exacte
         const lastSegment = url.split("/").pop();
-        console.log(lastSegment);
         
         //affichage du carousel si on est sur home ou sur activités ou sur home mais version ' '
         if (lastSegment == 'home' || lastSegment == 'activites' 
