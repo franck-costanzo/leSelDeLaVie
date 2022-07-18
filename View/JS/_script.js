@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         button.style.right = '0';
         button.style.zIndex = '99';
         button.style.backgroundColor = 'transparent';
-        button.style.height = '50px';
-        button.style.width = '40px';
+        button.style.height = '40px';
+        button.style.width = '30px';
         button.style.color = 'white';
         button.style.border = 'none';
-        button.style.borderBottomLeftRadius = '20px';
+        button.style.marginRight = '5px';
         let buttonImg = document.createElement('img');
         buttonImg.src = "View/Media/burger.svg";
         button.appendChild(buttonImg)
