@@ -1,6 +1,10 @@
 export default function home()
 {
     let select = document.getElementById('CategorySelect');
+    let option1 = document.createElement('option');
+    option1.value = 0;
+    option1.innerHTML = "Toutes les catégories"
+    select.appendChild(option1);
 
     fetch('/leSelDeLaVie/getAllCategories')
     .then(response =>{
@@ -17,7 +21,15 @@ export default function home()
 
         select.addEventListener('change', (e) => {
             console.log(e.target.value);
-            document.location.href = "./?id_category="+e.target.value;
+            if(e.target.value == 0)
+            {
+                document.location.href = "./";
+            }
+            else
+            {
+                document.location.href = "./?id_category="+e.target.value;
+            }
+            
         })
     })
 }
