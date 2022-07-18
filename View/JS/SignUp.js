@@ -18,7 +18,7 @@ export default function signUp() {
     
         if (regexLowerCase.test(password.value) == true) {
             // on mondifie le style avec la commande style.color
-            p[0].style.color = 'aqua'
+            p[0].style.color = 'green'
     
         } else {
     
@@ -29,7 +29,7 @@ export default function signUp() {
         if (regexUpperCase.test(password.value) == true) {
     
             // on mondifie le style avec la commande style.color
-            p[1].style.color = 'aqua'
+            p[1].style.color = 'green'
     
         } else {
     
@@ -40,7 +40,7 @@ export default function signUp() {
         if (passwordMinLength.test(password.value) == true) {
             console.log(passwordMinLength.test(password.value))
             // on mondifie le style avec la commande style.color
-            p[2].style.color = 'aqua'
+            p[2].style.color = 'green'
     
         } else {
             p[2].style.color = 'grey'
@@ -48,7 +48,7 @@ export default function signUp() {
     
         if (regexNumber.test(password.value) == true) {
     
-            p[3].style.color = 'aqua'
+            p[3].style.color = 'green'
     
         } else {
     
